@@ -1,43 +1,31 @@
 
-import SearchComponent from "../../components/search/SearchComponent";
+import Search from "../../components/search/Search";
 import theme from "../../themes";
-import { Box, Fab, Grid, Tooltip, Typography } from "@mui/material";
+import { Box, Fab, Grid, LinearProgress, Tooltip, Typography } from "@mui/material";
 import BooksCard from "../../components/BooksCard";
 import MainLayout from "../layout/MainLayout";
 import AddIcon from '@mui/icons-material/Add';
 import { useContext, useEffect, useState } from "react";
 import CreateBook from "./books-edit/CreateBook";
-import { AxiosError } from "axios";
 import { AuthContext } from "../../providers/AuthProvider";
-import { getBooksRequestList } from "../../api/BooksAPI";
-
-export interface IBook {
-  id?: number;
-  isbn: string;
-  title: string;
-  cover: string;
-  author: string;
-  published: number;
-  pages: number;
-}
-export interface BookRequest {
-  book: IBook,
-  status: boolean
-}
+import { getBooks, searchBooks } from "../../api/BooksAPI";
+import { Book, BookWithStatus } from "../../types/common";
 
 export default function BooksContainer() {
 
-  const [books, setBooks] = useState<BookRequest[]>([]);
+  const [booksWithStatus, setBooksWithStatus] = useState<BookWithStatus[]>([]);
+  const [searchedBooks, setSearchedBooks] = useState<Omit<Book, "id" | "pages">[]>([]);
+
   const [loader, setLoader] = useState<boolean>(false);
   const { logout } = useContext(AuthContext);
 
   const getList = async () => {
     try {
       setLoader(true);
-      const resp = await getBooksRequestList();
+      const resp = await getBooks();
       console.log('ress---- ', resp);
-      // setBooks(resp.requests);
-    } catch (e: unknown | AxiosError) {
+      setBooksWithStatus(resp.data);
+    } catch (e) {
       // if ((e as AxiosError)?.response?.status === 401) {
       //   logout();
       // }
@@ -55,13 +43,27 @@ export default function BooksContainer() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  console.log("books", books)
+  console.log("books", booksWithStatus)
+
+  const onSearch = async ({ title }: Pick<Book, "title">) => {
+    try {
+      const res = await searchBooks(title)
+      setSearchedBooks(res.data)
+    } catch (error) {
+      console.log('Error', error)
+    }
+  }
 
   return (
     <MainLayout >
 
+      {loader &&
+        <Box sx={{ width: '100%' }} mb={1}>
+          <LinearProgress />
+        </Box>
+      }
       {/* search */}
-      <SearchComponent />
+      <Search onSubmit={onSearch} />
 
       {/* TITLE */}
       <Box mb={2}>

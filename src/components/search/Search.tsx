@@ -2,9 +2,11 @@ import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import { Box } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
+import { useFormik } from "formik";
+import { Book } from '../../types/common';
 
 
-const Search = styled('div')(({ theme }) => ({
+const SearchStyle = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   // backgroundColor: alpha(theme.palette.common.black, 0.15),
@@ -47,18 +49,33 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchComponent() {
+type SearchFormType = Pick<Book, 'title'>
+
+type Props = {
+  onSubmit: (values: SearchFormType) => Promise<void>
+}
+
+export default function Search({ onSubmit }: Props) {
+  const formik = useFormik<SearchFormType>({
+    initialValues: {
+      title: '',
+    },
+    onSubmit: async (values: SearchFormType) => {
+      await onSubmit(values);
+    }
+  });
   return (
-    <Box sx={{ mb: 4 }}>
-      <Search>
+    <Box component='form' onSubmit={formik.handleSubmit} sx={{ mb: 4 }}>
+      <SearchStyle>
         <SearchIconWrapper>
           <SearchIcon />
         </SearchIconWrapper>
         <StyledInputBase
           placeholder="Search…"
+          value={formik.values.title}
           inputProps={{ 'aria-label': 'search' }}
         />
-      </Search>
+      </SearchStyle>
     </Box>
   )
 }

@@ -3,6 +3,9 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import theme from '../../../themes';
 import { Button, FormControl, TextField } from '@mui/material';
+import { useFormik } from 'formik';
+import { createBook } from '../../../api/BooksAPI';
+import { Book } from '../../../types/common';
 
 const style = {
   position: 'absolute',
@@ -16,6 +19,10 @@ const style = {
   borderRadius: "6px"
 };
 
+export interface BookPayload extends Partial<Book> {
+  isbn: string;
+}
+
 type Props = {
   handleOpen: () => void;
   handleClose: () => void;
@@ -23,6 +30,19 @@ type Props = {
 }
 
 export default function CreateBook({ handleClose, open }: Props) {
+
+  const formik = useFormik<BookPayload>({
+    initialValues: {
+      isbn: '',
+    },
+    onSubmit: async (values) => {
+      await createBook({
+        ...values,
+        title: "JOHN DEV"
+      });
+    }
+  });
+
   return (
     <div>
       <Modal
@@ -31,15 +51,23 @@ export default function CreateBook({ handleClose, open }: Props) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box component="form" onSubmit={formik.handleSubmit} sx={style}>
           <Typography id="modal-modal-title" variant="h4" sx={{ mb: 6, fontWeight: 500, color: theme.palette.text.primary }} component="h2">
             Create a Book
           </Typography>
           <FormControl sx={{ width: "100%" }}>
             <Box mb={2}>
-              <TextField sx={{ width: "100%" }} id="outlined-basic" label="Title" variant="outlined" />
+              <TextField
+                sx={{ width: "100%" }}
+                id="isbn"
+                label="isbn"
+                name='isbn'
+                variant="outlined"
+                value={formik.values.isbn}
+                onChange={formik.handleChange}
+              />
             </Box>
-            <Box mb={2}>
+            {/* <Box mb={2}>
               <TextField sx={{ width: "100%" }} id="outlined-basic" label="Cover link" variant="outlined" />
             </Box>
             <Box mb={2}>
@@ -47,7 +75,7 @@ export default function CreateBook({ handleClose, open }: Props) {
             </Box>
             <Box >
               <TextField type='number' sx={{ width: "100%" }} id="outlined-basic" label="Pages" variant="outlined" />
-            </Box>
+            </Box> */}
 
             <Button
               type="submit"

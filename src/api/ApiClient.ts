@@ -1,7 +1,6 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
 import Cookies from "js-cookie";
-import Cache from "../utils/cacheUtils";
-import { Md5 } from "ts-md5";
+import crypto from "crypto-js";
 
 const clientConfig: AxiosRequestConfig = {
   timeout: 40000,
@@ -11,14 +10,7 @@ clientConfig.baseURL = "https://no23.lavina.tech";
 
 const httpAxios: AxiosInstance = axios.create(clientConfig);
 
-export function get<T>(
-  url: string,
-  params?: unknown,
-  hasCache = true
-): Promise<T> {
-  if (hasCache && Cache.has(url)) {
-    return Promise.resolve(Cache.get(url) as T);
-  }
+export function get<T>(url: string, params?: unknown): Promise<T> {
   return httpAxios.get(url, { params });
 }
 
@@ -30,21 +22,24 @@ export function put<T>(url: string, data?: unknown): Promise<T> {
   return httpAxios.put(url, data);
 }
 
-axios.interceptors.request.use(
-  function (config) {
-    const key = Cookies.get("key");
-    const Secret = Cookies.get("Secret");
-    const sign = Md5.hashStr(
-      `${config.method}${config.url}${config.data}${Secret}`
-    );
+httpAxios.interceptors.request.use(
+  (config) => {
+    if (config.url !== "/signup") {
+      const key = Cookies.get("key");
+      const secret = Cookies.get("Secret");
+      if (key && secret) {
+        const txt = `${String(config.method).toUpperCase()}${
+          config.url
+        }${JSON.stringify(config.data || "")}${secret}`;
 
-    const lol = `${config.method}${config.url}${config.data}${Secret}`;
-    console.log("lol", lol);
+        const val = crypto.MD5(txt);
 
-    console.log("Request before -- ", key, config);
-    if (key) {
-      config.headers["Key"] = key;
-      config.headers["Sign"] = sign;
+        const sign = val;
+        console.log("lol", txt);
+
+        config.headers["Key"] = key;
+        config.headers["Sign"] = sign;
+      }
     }
     return config;
   },
@@ -62,8 +57,9 @@ httpAxios.interceptors.response.use(
   },
   (error: AxiosError) => {
     if (error?.response?.status == 401) {
-      Cookies.remove("token");
-      window.location.replace("/");
+      // Cookies.remove("key");
+      // Cookies.remove("Secret");
+      // window.location.replace("/");
     }
     return Promise.reject(error);
   }

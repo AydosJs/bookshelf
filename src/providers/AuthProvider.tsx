@@ -1,13 +1,13 @@
 import React, { createContext, useState } from 'react';
 import * as authApi from '../api/authApi';
 import { useNavigate } from 'react-router-dom';
-import { AuthPayload, TokenResponse } from '../api/authApi';
 import Cookies from 'js-cookie';
+import { User } from '../types/common';
 
 export interface AuthContextType {
   isLoggedIn?: boolean;
   loader: boolean;
-  register: (payload: AuthPayload) => void;
+  register: (payload: User) => void;
   logout: () => void;
 }
 
@@ -25,7 +25,7 @@ export default function AuthProvider({ children }: Props) {
 
   const navigate = useNavigate();
 
-  const setAsLoggedIn = (resp: TokenResponse) => {
+  const setAsLoggedIn = (resp: User) => {
     setLoggedIn(true);
     Cookies.set('key', resp.key);
     Cookies.set('Secret', resp.secret);
@@ -36,7 +36,7 @@ export default function AuthProvider({ children }: Props) {
     setLoggedIn(false);
   };
 
-  const register = (payload: AuthPayload) => {
+  const register = (payload: User) => {
     setLoader(true);
     return authApi
       .register(payload)

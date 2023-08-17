@@ -1,15 +1,15 @@
 import { Box, Button, TextField, Typography } from "@mui/material"
 import { Link } from "react-router-dom"
 import { useFormik } from 'formik';
-import { AuthPayload } from "../../api/authApi";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import { User } from "../../types/common";
 
 
 export default function RegisterContainer() {
   const { register } = useContext(AuthContext);
 
-  const formik = useFormik<AuthPayload>({
+  const formik = useFormik<Omit<User, 'id'>>({
     initialValues: {
       name: '',
       email: '',
