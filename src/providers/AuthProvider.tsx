@@ -18,17 +18,17 @@ type Props = {
 export const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 export default function AuthProvider({ children }: Props) {
-  const isLoggedINCookie = Cookies.get('isLoggedIn') || "no"
+  const isLoggedINCookie = Cookies.get('key') || false
 
-  const [isLoggedIn, setLoggedIn] = useState<boolean>(isLoggedINCookie === "yes" ? true : false);
+  const [isLoggedIn, setLoggedIn] = useState<boolean>(isLoggedINCookie ? true : false);
   const [loader, setLoader] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
   const setAsLoggedIn = (resp: TokenResponse) => {
-    console.log("resp", resp)
     setLoggedIn(true);
-    Cookies.set('isLoggedIn', "yes");
+    Cookies.set('key', resp.key);
+    Cookies.set('Secret', resp.secret);
     navigate('/');
     return resp;
   };
@@ -48,7 +48,8 @@ export default function AuthProvider({ children }: Props) {
   };
 
   const logout = () => {
-    Cookies.remove('isLoggedIn');
+    Cookies.remove('key');
+    Cookies.remove('Secret');
     setLoggedIn(false);
     navigate('/register');
   };

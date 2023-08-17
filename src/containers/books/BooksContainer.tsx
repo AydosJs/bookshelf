@@ -5,15 +5,57 @@ import { Box, Fab, Grid, Tooltip, Typography } from "@mui/material";
 import BooksCard from "../../components/BooksCard";
 import MainLayout from "../layout/MainLayout";
 import AddIcon from '@mui/icons-material/Add';
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CreateBook from "./books-edit/CreateBook";
+import { AxiosError } from "axios";
+import { AuthContext } from "../../providers/AuthProvider";
+import { getBooksRequestList } from "../../api/BooksAPI";
 
+export interface IBook {
+  id?: number;
+  isbn: string;
+  title: string;
+  cover: string;
+  author: string;
+  published: number;
+  pages: number;
+}
+export interface BookRequest {
+  book: IBook,
+  status: boolean
+}
 
 export default function BooksContainer() {
+
+  const [books, setBooks] = useState<BookRequest[]>([]);
+  const [loader, setLoader] = useState<boolean>(false);
+  const { logout } = useContext(AuthContext);
+
+  const getList = async () => {
+    try {
+      setLoader(true);
+      const resp = await getBooksRequestList();
+      console.log('ress---- ', resp);
+      // setBooks(resp.requests);
+    } catch (e: unknown | AxiosError) {
+      // if ((e as AxiosError)?.response?.status === 401) {
+      //   logout();
+      // }
+    } finally {
+      setLoader(false);
+    }
+  }
+
+  useEffect(() => {
+    getList()
+  }, []);
+
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  console.log("books", books)
 
   return (
     <MainLayout >

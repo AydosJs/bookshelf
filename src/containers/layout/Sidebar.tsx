@@ -4,9 +4,14 @@ import AutoStoriesRoundedIcon from '@mui/icons-material/AutoStoriesRounded';
 import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
 import { Link } from "react-router-dom";
 import theme from "../../themes";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 const drawerWidth = 240;
 
 export default function Sidebar() {
+
+  const { logout } = useContext(AuthContext);
+
   return (
     <Drawer
       sx={{
@@ -61,7 +66,9 @@ export default function Sidebar() {
         <Box>
           <Divider />
           <List sx={{ px: 2 }} >
-            <Link to={'/register'} style={{ textDecoration: "none", color: theme.palette.text.primary }}>
+            <Link
+              onClick={logout}
+              to={'/register'} style={{ textDecoration: "none", color: theme.palette.text.primary }}>
               <ListItem disablePadding>
                 <ListItemButton sx={{ borderRadius: '8px', margin: '4px 0' }}>
                   <ListItemIcon sx={{ minWidth: '38px' }} >

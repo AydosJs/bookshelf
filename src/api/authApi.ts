@@ -6,7 +6,8 @@ export interface AuthPayload {
   secret: string;
 }
 export type TokenResponse = {
-  token: string;
+  key: string;
+  secret: string;
 };
 
 export function register(data: AuthPayload) {
