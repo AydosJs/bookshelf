@@ -1,6 +1,7 @@
 import { Box, Typography, Grid, styled } from "@mui/material";
-import theme from "../../themes";
+import theme from "../themes";
 import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
+import BookStatus from "./BookStatus";
 
 const Item = styled(Grid)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -68,8 +69,8 @@ export default function BooksCard() {
               </Typography>
             </Box>
 
-            <Box mb={2}>
-
+            <Box >
+              <BookStatus />
             </Box>
 
           </Box>
