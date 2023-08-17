@@ -1,7 +1,26 @@
 import { Box, Button, TextField, Typography } from "@mui/material"
 import { Link } from "react-router-dom"
+import { useFormik } from 'formik';
+import { AuthPayload } from "../../api/authApi";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
+
 
 export default function RegisterContainer() {
+  const { register } = useContext(AuthContext);
+
+  const formik = useFormik<AuthPayload>({
+    initialValues: {
+      name: '',
+      email: '',
+      key: '',
+      secret: '',
+    },
+    onSubmit: async (values) => {
+      await register(values);
+    }
+  });
+
   return (
     <Box sx={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
       <Box
@@ -23,7 +42,7 @@ export default function RegisterContainer() {
           </Typography>
         </Box>
 
-        <Box component="form" sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
+        <Box component="form" onSubmit={formik.handleSubmit} sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
 
           <TextField
             required
@@ -31,7 +50,8 @@ export default function RegisterContainer() {
             id="name"
             label="Name"
             name="name"
-            autoFocus
+            onChange={formik.handleChange}
+            value={formik.values.name}
           />
 
           <Box mt={2}>
@@ -42,23 +62,34 @@ export default function RegisterContainer() {
               label="Email Address"
               name="email"
               autoComplete="email"
-              autoFocus
+              onChange={formik.handleChange}
+              value={formik.values.email}
             />
           </Box>
 
           <Box mt={2}>
-
             <TextField
               required
               fullWidth
               name="key"
-              label="Password"
-              type="password"
+              label="Key"
               id="key"
-              autoComplete="current-password"
+              onChange={formik.handleChange}
+              value={formik.values.key}
             />
           </Box>
 
+          <Box mt={2}>
+            <TextField
+              required
+              fullWidth
+              name="secret"
+              label="Secret"
+              id="secret"
+              onChange={formik.handleChange}
+              value={formik.values.secret}
+            />
+          </Box>
 
           <Button
             type="submit"

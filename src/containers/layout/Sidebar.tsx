@@ -2,6 +2,8 @@ import { Drawer, Box, Divider, List, ListItem, ListItemButton, ListItemIcon, Lis
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import AutoStoriesRoundedIcon from '@mui/icons-material/AutoStoriesRounded';
 import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
+import { Link } from "react-router-dom";
+import theme from "../../themes";
 const drawerWidth = 240;
 
 export default function Sidebar() {
@@ -59,14 +61,18 @@ export default function Sidebar() {
         <Box>
           <Divider />
           <List sx={{ px: 2 }} >
-            <ListItem disablePadding>
-              <ListItemButton sx={{ borderRadius: '8px', margin: '4px 0' }}>
-                <ListItemIcon sx={{ minWidth: '38px' }} >
-                  <LogoutRoundedIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText primary={<Typography variant="body1" sx={{ fontWeight: 'medium' }}>Logout</Typography>} />
-              </ListItemButton>
-            </ListItem>
+            <Link to={'/register'} style={{ textDecoration: "none", color: theme.palette.text.primary }}>
+              <ListItem disablePadding>
+                <ListItemButton sx={{ borderRadius: '8px', margin: '4px 0' }}>
+                  <ListItemIcon sx={{ minWidth: '38px' }} >
+                    <LogoutRoundedIcon color="primary" />
+                  </ListItemIcon>
+                  <ListItemText primary={<Typography variant="body1" sx={{ fontWeight: 'medium' }}>
+                    Logout
+                  </Typography>} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
           </List>
         </Box>
 

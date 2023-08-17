@@ -1,8 +1,10 @@
 import { Route, Routes } from "react-router-dom"
-import LoginContainer from "./containers/auth/LoginContainer"
 import './App.css'
-import RegisterContainer from "./containers/auth/RegisterContainer"
 import BooksContainer from "./containers/books/BooksContainer"
+import LoginContainer from "./containers/auth/LoginContainer"
+import RegisterContainer from "./containers/auth/RegisterContainer"
+import ProtectedRoute from "./providers/ProtectedRoute"
+import AuthRoute from "./providers/AoutRoute"
 
 
 function App() {
@@ -10,12 +12,12 @@ function App() {
   return (
     <Routes>
 
-      <Route >
+      <Route element={<AuthRoute />}>
         <Route path="/login" element={<LoginContainer />} />
         <Route path="/register" element={<RegisterContainer />} />
       </Route>
 
-      <Route >
+      <Route element={<ProtectedRoute />}>
         <Route path="/" element={<BooksContainer />} />
       </Route>
 
