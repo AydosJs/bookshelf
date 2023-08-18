@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { searchBooks } from "../../api/BooksAPI";
 import Search from "../../components/search/Search";
 import { Book } from "../../types/common";
@@ -11,22 +11,17 @@ export default function SearchBooks() {
   const [searchedBooks, setSearchedBooks] = useState<Omit<Book, "id" | "pages">[]>([]);
   const [loader, setLoader] = useState<boolean>(false);
 
-  const onSearch = useMemo(() => {
-    return async ({ title }: Pick<Book, "title">) => {
-      try {
-        console.log('called')
-        setLoader(true);
-        const res = await searchBooks(title)
-        console.log('searchedBooks', res)
-        setSearchedBooks(res)
-      } catch (error) {
-        console.log('Error', error)
-      }
-      setLoader(false);
+  const onSearch = async ({ title }: Pick<Book, "title">) => {
+    try {
+      setLoader(true);
+      const res = await searchBooks(title)
+      console.log('searchedBooks', res)
+      setSearchedBooks(res)
+    } catch (error) {
+      console.log('Error', error)
     }
-  }, [searchedBooks])
-
-  console.log("searchedBooks", searchedBooks)
+    setLoader(false);
+  }
 
   return (
     <MainLayout >
