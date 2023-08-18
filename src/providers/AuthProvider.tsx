@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { User } from '../types/common';
 import toast, { Renderable, Toast, ValueFunction } from 'react-hot-toast';
-import { AxiosError } from 'axios';
 
 export interface AuthContextType {
   isLoggedIn?: boolean;

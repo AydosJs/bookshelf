@@ -25,7 +25,6 @@ export default function BooksContainer() {
     try {
       setLoader(true);
       const resp = await getBooks();
-      console.log('ress---- ', resp);
       setBooksWithStatus(resp);
     } catch (e) {
       if ((e as AxiosError)?.response?.status === 401) {

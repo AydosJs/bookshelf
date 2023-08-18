@@ -57,7 +57,7 @@ httpAxios.interceptors.request.use(
 // Add a response interceptor
 httpAxios.interceptors.response.use(
   (response) => {
-    console.log("[axios interceptor][1] - resp : ", response?.data?.data);
+    // console.log("[axios interceptor][1] - resp : ", response?.data?.data);
     return response?.data?.data;
   },
   (error: AxiosError) => {
