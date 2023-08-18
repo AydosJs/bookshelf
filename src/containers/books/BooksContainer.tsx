@@ -49,6 +49,7 @@ export default function BooksContainer() {
   const onSearch = async ({ title }: Pick<Book, "title">) => {
     try {
       const res = await searchBooks(title)
+      console.log('searchedBooks', searchedBooks)
       setSearchedBooks(res.data)
     } catch (error) {
       console.log('Error', error)
