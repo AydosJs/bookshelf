@@ -10,6 +10,7 @@ import { useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
 import toast from 'react-hot-toast';
 import * as Yup from 'yup'
+import { AxiosError } from 'axios';
 
 const style = {
   position: 'absolute',
@@ -53,15 +54,15 @@ export default function CreateBook({ handleClose, open, updateList }: Props) {
     onSubmit: async (values) => {
       try {
         setLoader(true);
-        await createBook({
-          ...values,
-          title: "JOHN DEV"
-        });
-      } catch (error) {
-        console.log("error", error)
+        const res = await createBook(values);
+        console.log("resssssss", res)
+        toast.success('Book successfully CREATED')
+      } catch (err) {
+        if (err instanceof AxiosError) {
+          toast.error(err.response?.data.message)
+        }
       } finally {
         setLoader(false);
-        toast.success('Book successfully CREATED')
         updateList()
       }
 

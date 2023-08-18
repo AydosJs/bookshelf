@@ -6,7 +6,7 @@ import BooksCard from "../../components/book/BooksCard";
 import MainLayout from "../layout/MainLayout";
 import AddIcon from '@mui/icons-material/Add';
 import { useContext, useEffect, useState } from "react";
-import CreateBook from "./books-edit/CreateBook";
+import CreateBook from "./books-save/CreateBook";
 import { AuthContext } from "../../providers/AuthProvider";
 import { deleteBook, getBooks, searchBooks } from "../../api/BooksAPI";
 import { Book, BookWithStatus } from "../../types/common";
@@ -59,11 +59,11 @@ export default function BooksContainer() {
   const handleDelete = async (id: number) => {
     try {
       await deleteBook(id)
+      toast.success('Book successfully DELETED')
     } catch (error) {
       console.log("Book delete error", error)
     } finally {
       getList()
-      toast.success('Book successfully DELETED')
     }
   }
 

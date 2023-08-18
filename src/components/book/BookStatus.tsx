@@ -16,16 +16,18 @@ export default function BookStatus({ book }: Props) {
   const [bookStatus, setBookStatus] = React.useState(book.status ? String(book.status) : "0");
 
   const handleChange = async (event: SelectChangeEvent) => {
-    setBookStatus(event.target.value);
-    try {
-      await editBook(book.book.id, {
-        ...book,
-        status: Number(event.target.value)
-      })
-    } catch (error) {
-      console.log("Error", error)
-    } finally {
-      toast.success('Status successfully EDITED')
+    if (event.target.value !== bookStatus) {
+      setBookStatus(event.target.value);
+      try {
+        await editBook(book.book.id, {
+          ...book,
+          status: Number(event.target.value)
+        })
+      } catch (error) {
+        console.log("Error", error)
+      } finally {
+        toast.success('Status successfully EDITED')
+      }
     }
   };
 

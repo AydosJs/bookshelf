@@ -3,7 +3,8 @@ import * as authApi from '../api/authApi';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { User } from '../types/common';
-import toast from 'react-hot-toast';
+import toast, { Renderable, Toast, ValueFunction } from 'react-hot-toast';
+import { AxiosError } from 'axios';
 
 export interface AuthContextType {
   isLoggedIn?: boolean;
@@ -32,10 +33,12 @@ export default function AuthProvider({ children }: Props) {
     Cookies.set('key', resp.key);
     Cookies.set('Secret', resp.secret);
     navigate('/');
+    toast.success('Registers successfully')
     return resp;
   };
-  const setCatchLogin = () => {
+  const setCatchLogin = (error: { response: { data: { message: Renderable | ValueFunction<Renderable, Toast>; }; }; }) => {
     setLoggedIn(false);
+    toast.error(error.response?.data.message)
   };
 
   const register = (payload: User) => {
@@ -46,7 +49,6 @@ export default function AuthProvider({ children }: Props) {
       .catch(setCatchLogin)
       .finally(() => {
         setLoader(false);
-        toast.success('Registers successfully')
       });
   };
 
@@ -55,6 +57,7 @@ export default function AuthProvider({ children }: Props) {
     Cookies.remove('Secret');
     setLoggedIn(false);
     navigate('/register');
+    toast.success('Successfully logged out')
   };
 
   const value = { loader, isLoggedIn, register, logout };
