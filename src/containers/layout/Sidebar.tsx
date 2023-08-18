@@ -5,14 +5,14 @@ import { Link, useLocation } from "react-router-dom";
 import theme from "../../themes";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import ContentPasteSearchRoundedIcon from '@mui/icons-material/ContentPasteSearchRounded';
+
 const drawerWidth = 240;
 
 export default function Sidebar() {
 
   const { logout } = useContext(AuthContext);
   const { pathname } = useLocation()
-
-  const pathChecker = pathname === "/"
 
   return (
     <Drawer
@@ -48,11 +48,22 @@ export default function Sidebar() {
             <Link
               to={'/'} style={{ textDecoration: "none", color: theme.palette.text.primary }}>
               <ListItem disablePadding>
-                <ListItemButton sx={{ borderRadius: '8px', margin: '4px 0', backgroundColor: pathChecker ? theme.palette.grey[100] : '', }}>
+                <ListItemButton sx={{ borderRadius: '8px', margin: '4px 0', backgroundColor: pathname === "/" ? theme.palette.grey[100] : '', }}>
                   <ListItemIcon sx={{ minWidth: '38px' }} >
                     <AutoStoriesRoundedIcon color="primary" />
                   </ListItemIcon>
-                  <ListItemText color="primary" primary={<Typography variant="body1" sx={{ fontWeight: 'medium' }}>Books</Typography>} />
+                  <ListItemText color="primary" primary={<Typography variant="body1" sx={{ fontWeight: 'medium' }}>My Books</Typography>} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+            <Link
+              to={'/search-books'} style={{ textDecoration: "none", color: theme.palette.text.primary }}>
+              <ListItem disablePadding>
+                <ListItemButton sx={{ borderRadius: '8px', margin: '4px 0', backgroundColor: pathname === "/search-books" ? theme.palette.grey[100] : '', }}>
+                  <ListItemIcon sx={{ minWidth: '38px' }} >
+                    <ContentPasteSearchRoundedIcon color="primary" />
+                  </ListItemIcon>
+                  <ListItemText color="primary" primary={<Typography variant="body1" sx={{ fontWeight: 'medium' }}>Search Books</Typography>} />
                 </ListItemButton>
               </ListItem>
             </Link>

@@ -7,7 +7,7 @@ export function getBooks() {
 }
 
 export function searchBooks(title: string) {
-  return get<APIResponse<Omit<Book, "id" | "pages">[]>>(`/books/${title}`);
+  return get<Omit<Book, "id" | "pages">[]>(`/books/${title}`);
 }
 
 export function createBook(body: BookPayload) {

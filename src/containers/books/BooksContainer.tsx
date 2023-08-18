@@ -1,5 +1,4 @@
 
-import Search from "../../components/search/Search";
 import theme from "../../themes";
 import { Box, Fab, Grid, LinearProgress, Tooltip, Typography } from "@mui/material";
 import BooksCard from "../../components/book/BooksCard";
@@ -8,15 +7,14 @@ import AddIcon from '@mui/icons-material/Add';
 import { useContext, useEffect, useState } from "react";
 import CreateBook from "./books-save/CreateBook";
 import { AuthContext } from "../../providers/AuthProvider";
-import { deleteBook, getBooks, searchBooks } from "../../api/BooksAPI";
-import { Book, BookWithStatus } from "../../types/common";
+import { deleteBook, getBooks } from "../../api/BooksAPI";
+import { BookWithStatus } from "../../types/common";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 
 export default function BooksContainer() {
 
   const [booksWithStatus, setBooksWithStatus] = useState<BookWithStatus[]>([]);
-  const [searchedBooks, setSearchedBooks] = useState<Omit<Book, "id" | "pages">[]>([]);
 
   const [loader, setLoader] = useState<boolean>(false);
   const { logout } = useContext(AuthContext);
@@ -46,15 +44,6 @@ export default function BooksContainer() {
     setOpen(false)
   };
 
-  const onSearch = async ({ title }: Pick<Book, "title">) => {
-    try {
-      const res = await searchBooks(title)
-      console.log('searchedBooks', searchedBooks)
-      setSearchedBooks(res.data)
-    } catch (error) {
-      console.log('Error', error)
-    }
-  }
 
   const handleDelete = async (id: number) => {
     try {
@@ -75,8 +64,6 @@ export default function BooksContainer() {
           <LinearProgress />
         </Box>
       }
-      {/* search */}
-      <Search onSubmit={onSearch} />
 
       {/* TITLE */}
       <Box mb={2}>

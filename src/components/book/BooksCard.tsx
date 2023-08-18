@@ -17,14 +17,17 @@ const Item = styled(Grid)(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
   flexWrap: "nowrap",
+  maxHeight: '330px',
 
-  maxHeight: '330px'
+  '&:hover': {
+    boxShadow: `rgba(149, 157, 165, 0.2) 0px 8px 24px`
+  },
 
 }));
 
 const ImageBox = styled(Box)(({ theme }) => ({
   minHeight: "282px",
-  // border: `1px solid ${theme.palette.grey[300]}`,
+  border: `1px solid ${theme.palette.grey[300]}`,
   borderRadius: theme.shape.borderRadius,
   backgroundColor: theme.palette.grey[300],
   backgroundSize: "cover",
@@ -41,7 +44,7 @@ type Props = {
 export default function BooksCard({ item, deleteBook }: Props) {
   return (
     <Grid item xs={6} sm={12} md={6} >
-      <Item container >
+      <Item container sx={{ cursor: "pointer" }}>
         <Grid item xs>
           <ImageBox sx={{
             backgroundImage: `url(${item?.book.cover !== '' ? item?.book.cover : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBKEGmmEQ4WlpXIfdqhhaFbJER2pXMLOFU3A&usqp=CAU'})`

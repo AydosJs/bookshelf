@@ -4,8 +4,9 @@ import RegisterContainer from "./containers/auth/RegisterContainer"
 import ProtectedRoute from "./providers/ProtectedRoute"
 import AuthRoute from "./providers/AoutRoute"
 import { Toaster } from 'react-hot-toast';
-import './App.css'
 import NothingPage from "./containers/layout/NothingPage"
+import SearchBooks from "./containers/books/SearchBooks"
+import './App.css'
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
 
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<BooksContainer />} />
+          <Route path="/search-books" element={<SearchBooks />} />
         </Route>
 
         <Route
