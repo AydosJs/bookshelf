@@ -10,6 +10,7 @@ import CreateBook from "./books-edit/CreateBook";
 import { AuthContext } from "../../providers/AuthProvider";
 import { getBooks, searchBooks } from "../../api/BooksAPI";
 import { Book, BookWithStatus } from "../../types/common";
+import { AxiosError } from "axios";
 
 export default function BooksContainer() {
 
@@ -24,11 +25,11 @@ export default function BooksContainer() {
       setLoader(true);
       const resp = await getBooks();
       console.log('ress---- ', resp);
-      setBooksWithStatus(resp.data);
+      setBooksWithStatus(resp);
     } catch (e) {
-      // if ((e as AxiosError)?.response?.status === 401) {
-      //   logout();
-      // }
+      if ((e as AxiosError)?.response?.status === 401) {
+        logout();
+      }
     } finally {
       setLoader(false);
     }
@@ -74,8 +75,8 @@ export default function BooksContainer() {
 
       {/* book cards */}
       <Grid container spacing={4}>
-        {Array.from(Array(6)).map((_, index) => (
-          <BooksCard key={index} />
+        {(booksWithStatus.length !== 0 && !loader) && booksWithStatus.map((item: BookWithStatus) => (
+          <BooksCard item={item} key={item.book.id} />
         ))}
       </Grid>
 

@@ -7,7 +7,7 @@ type Props = {
 };
 export default function ProtectedRoute({ children }: Props) {
   const { isLoggedIn } = useContext(AuthContext);
-  console.log('isLogged IN ', isLoggedIn);
+  // console.log('isLogged IN ', isLoggedIn);
   if (!isLoggedIn) {
     return <Navigate to={'/register'} replace />;
   }

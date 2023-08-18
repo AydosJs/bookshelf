@@ -73,6 +73,9 @@ export default function Search({ onSubmit }: Props) {
         <StyledInputBase
           placeholder="Search…"
           value={formik.values.title}
+          onChange={formik.handleChange}
+          name='title'
+          id='title'
           inputProps={{ 'aria-label': 'search' }}
         />
       </SearchStyle>

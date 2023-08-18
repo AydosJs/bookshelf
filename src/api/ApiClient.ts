@@ -22,18 +22,21 @@ export function put<T>(url: string, data?: unknown): Promise<T> {
   return httpAxios.put(url, data);
 }
 
+export function patch<T>(url: string, data?: unknown): Promise<T> {
+  return httpAxios.patch(url, data);
+}
+
 httpAxios.interceptors.request.use(
   (config) => {
     if (config.url !== "/signup") {
       const key = Cookies.get("key");
       const secret = Cookies.get("Secret");
       if (key && secret) {
-        const txt = `${String(config.method).toUpperCase()}${
-          config.url
-        }${JSON.stringify(config.data || "")}${secret}`;
+        const txt = `${String(config.method).toUpperCase()}${config.url}${
+          config.data ? JSON.stringify(config.data) : ""
+        }${secret}`;
 
         const val = crypto.MD5(txt);
-
         const sign = val;
         console.log("lol", txt);
 
@@ -57,9 +60,9 @@ httpAxios.interceptors.response.use(
   },
   (error: AxiosError) => {
     if (error?.response?.status == 401) {
-      // Cookies.remove("key");
-      // Cookies.remove("Secret");
-      // window.location.replace("/");
+      Cookies.remove("key");
+      Cookies.remove("Secret");
+      window.location.replace("/");
     }
     return Promise.reject(error);
   }

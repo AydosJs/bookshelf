@@ -1,6 +1,7 @@
 import { Box, Typography, Grid, styled } from "@mui/material";
 import theme from "../themes";
 import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
+import { BookWithStatus } from "../types/common";
 import BookStatus from "./BookStatus";
 
 const Item = styled(Grid)(({ theme }) => ({
@@ -26,20 +27,23 @@ const ImageBox = styled(Box)(({ theme }) => ({
   opacity: "20%"
 }))
 
+type Props = {
+  item: BookWithStatus
+}
 
-export default function BooksCard() {
+export default function BooksCard({ item }: Props) {
   return (
     <Grid item xs={6} sm={12} md={6} >
       <Item container >
-        <Grid xs>
+        <Grid item xs>
           <ImageBox >
           </ImageBox>
         </Grid>
-        <Grid xs sx={{ ml: '24px' }}>
+        <Grid item xs sx={{ ml: '24px' }}>
           <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
             <Box mb={2}>
               <Typography color={theme.palette.text.primary} paragraph variant="h6" sx={{ width: '100%', textAlign: 'left', padding: "0px", margin: "0px" }}>
-                The happy lemon, free new book this week
+                {item.book.title}
               </Typography>
             </Box>
             <Box mb={2} sx={{ display: "flex", flexDirection: "row", flexWrap: "nowrap" }}>
@@ -69,9 +73,7 @@ export default function BooksCard() {
               </Typography>
             </Box>
 
-            <Box >
-              <BookStatus />
-            </Box>
+            <BookStatus book={item} />
 
           </Box>
         </Grid>

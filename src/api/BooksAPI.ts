@@ -1,15 +1,9 @@
-import { get, post } from "./ApiClient";
-import { BookRequest } from "../containers/books/BooksContainer";
+import { get, patch, post } from "./ApiClient";
 import { BookPayload } from "../containers/books/books-edit/CreateBook";
 import { APIResponse, Book, BookWithStatus } from "../types/common";
 
-export type RequestsResponse = {
-  requests: BookRequest[];
-  success: boolean;
-};
-
 export function getBooks() {
-  return get<APIResponse<BookWithStatus[]>>("/books");
+  return get<BookWithStatus[]>("/books");
 }
 
 export function searchBooks(title: string) {
@@ -18,4 +12,8 @@ export function searchBooks(title: string) {
 
 export function createBook(body: BookPayload) {
   return post<APIResponse<BookWithStatus>>("/books", body);
+}
+
+export function editBook(id: number, body: BookWithStatus) {
+  return patch<BookWithStatus>(`/books/${id}`, body);
 }

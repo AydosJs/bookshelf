@@ -4,14 +4,26 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { Box, Typography } from '@mui/material';
 import theme from '../themes';
+import { editBook } from '../api/BooksAPI';
+import { BookWithStatus } from '../types/common';
 
-export default function BookStatus() {
+type Props = {
+  book: BookWithStatus
+}
 
-  const [age, setAge] = React.useState('10');
+export default function BookStatus({ book }: Props) {
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
+  const [bookStatus, setBookStatus] = React.useState(book.status ? String(book.status) : "0");
+
+  const handleChange = async (event: SelectChangeEvent) => {
+    setBookStatus(event.target.value);
+    await editBook(book.book.id, {
+      ...book,
+      status: Number(event.target.value)
+    })
   };
+
+
   return (
     <FormControl sx={{ width: "100%" }}>
       <Box sx={{ display: "flex", flexWrap: "nowrap", flexDirection: "row", alignItems: "center", justifyContent: "start" }}>
@@ -19,14 +31,14 @@ export default function BookStatus() {
           Status:
         </Typography>
         <Select
-          value={age}
+          value={String(bookStatus)}
           size='small'
           onChange={handleChange}
           variant="outlined"
         >
-          <MenuItem value={10}>New</MenuItem>
-          <MenuItem value={20}>Reading</MenuItem>
-          <MenuItem value={30}>Finished</MenuItem>
+          <MenuItem value={0}>New</MenuItem>
+          <MenuItem value={1}>Reading</MenuItem>
+          <MenuItem value={2}>Finished</MenuItem>
         </Select>
       </Box>
     </FormControl>

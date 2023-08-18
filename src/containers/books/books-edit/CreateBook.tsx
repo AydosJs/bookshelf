@@ -40,6 +40,9 @@ export default function CreateBook({ handleClose, open }: Props) {
         ...values,
         title: "JOHN DEV"
       });
+
+      handleClose()
+      formik.resetForm()
     }
   });
 
