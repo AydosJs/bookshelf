@@ -23,10 +23,9 @@ export default function BookStatus({ book }: Props) {
           ...book,
           status: Number(event.target.value)
         })
+        toast.success('Status successfully EDITED')
       } catch (error) {
         console.log("Error", error)
-      } finally {
-        toast.success('Status successfully EDITED')
       }
     }
   };

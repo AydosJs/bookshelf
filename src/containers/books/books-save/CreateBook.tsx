@@ -54,8 +54,7 @@ export default function CreateBook({ handleClose, open, updateList }: Props) {
     onSubmit: async (values) => {
       try {
         setLoader(true);
-        const res = await createBook(values);
-        console.log("resssssss", res)
+        await createBook(values);
         toast.success('Book successfully CREATED')
       } catch (err) {
         if (err instanceof AxiosError) {

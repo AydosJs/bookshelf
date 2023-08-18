@@ -15,7 +15,6 @@ export default function SearchBooks() {
     try {
       setLoader(true);
       const res = await searchBooks(title)
-      console.log('searchedBooks', res)
       setSearchedBooks(res)
     } catch (error) {
       console.log('Error', error)
