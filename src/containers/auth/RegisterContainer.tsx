@@ -109,7 +109,6 @@ export default function RegisterContainer() {
             </Button>
 
           </Box>
-
         </Box>
       </Box >
     </Container>

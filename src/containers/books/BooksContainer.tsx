@@ -73,6 +73,13 @@ export default function BooksContainer() {
         </Typography>
       </Box>
 
+
+      {(booksWithStatus?.length == 0 || !booksWithStatus) && (
+        <Box sx={{ width: "100%", height: "calc(100vh - 230px)", display: "flex", justifyContent: "center", alignItems: 'center' }}>
+          <Typography variant="body1" sx={{ color: theme.palette.text.primary, fontWeight: 500 }}> NO BOOKS CREATED YET!</Typography>
+        </Box>
+      )}
+
       {/* book cards */}
       <Grid container spacing={4}>
         {(booksWithStatus && !loader) && booksWithStatus.map((item: BookWithStatus) => (
