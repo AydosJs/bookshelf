@@ -43,14 +43,17 @@ export default function Sidebar() {
 
           {/* menues */}
           <List sx={{ px: 2 }}>
-            <ListItem disablePadding>
-              <ListItemButton sx={{ borderRadius: '8px', margin: '4px 0' }}>
-                <ListItemIcon sx={{ minWidth: '38px' }} >
-                  <AutoStoriesRoundedIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText primary={<Typography variant="body1" sx={{ fontWeight: 'medium' }}>Books</Typography>} />
-              </ListItemButton>
-            </ListItem>
+            <Link
+              to={'/'} style={{ textDecoration: "none", color: theme.palette.text.primary }}>
+              <ListItem disablePadding>
+                <ListItemButton sx={{ borderRadius: '8px', margin: '4px 0' }}>
+                  <ListItemIcon sx={{ minWidth: '38px' }} >
+                    <AutoStoriesRoundedIcon color="primary" />
+                  </ListItemIcon>
+                  <ListItemText primary={<Typography variant="body1" sx={{ fontWeight: 'medium' }}>Books</Typography>} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
             <ListItem disablePadding>
               <ListItemButton sx={{ borderRadius: '8px', margin: '4px 0' }}>
                 <ListItemIcon sx={{ minWidth: '38px' }} >
@@ -66,20 +69,16 @@ export default function Sidebar() {
         <Box>
           <Divider />
           <List sx={{ px: 2 }} >
-            <Link
-              onClick={logout}
-              to={'/register'} style={{ textDecoration: "none", color: theme.palette.text.primary }}>
-              <ListItem disablePadding>
-                <ListItemButton sx={{ borderRadius: '8px', margin: '4px 0' }}>
-                  <ListItemIcon sx={{ minWidth: '38px' }} >
-                    <LogoutRoundedIcon color="primary" />
-                  </ListItemIcon>
-                  <ListItemText primary={<Typography variant="body1" sx={{ fontWeight: 'medium' }}>
-                    Logout
-                  </Typography>} />
-                </ListItemButton>
-              </ListItem>
-            </Link>
+            <ListItem onClick={logout} disablePadding>
+              <ListItemButton sx={{ borderRadius: '8px', margin: '4px 0' }}>
+                <ListItemIcon sx={{ minWidth: '38px' }} >
+                  <LogoutRoundedIcon color="primary" />
+                </ListItemIcon>
+                <ListItemText primary={<Typography variant="body1" sx={{ fontWeight: 'medium' }}>
+                  Logout
+                </Typography>} />
+              </ListItemButton>
+            </ListItem>
           </List>
         </Box>
 

@@ -14,6 +14,10 @@ export function get<T>(url: string, params?: unknown): Promise<T> {
   return httpAxios.get(url, { params });
 }
 
+export function DELETE<T>(url: string, params?: unknown): Promise<T> {
+  return httpAxios.delete(url, { params });
+}
+
 export function post<T>(url: string, data?: unknown): Promise<T> {
   return httpAxios.post(url, data);
 }

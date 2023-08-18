@@ -8,9 +8,10 @@ import AddIcon from '@mui/icons-material/Add';
 import { useContext, useEffect, useState } from "react";
 import CreateBook from "./books-edit/CreateBook";
 import { AuthContext } from "../../providers/AuthProvider";
-import { getBooks, searchBooks } from "../../api/BooksAPI";
+import { deleteBook, getBooks, searchBooks } from "../../api/BooksAPI";
 import { Book, BookWithStatus } from "../../types/common";
 import { AxiosError } from "axios";
+import toast from "react-hot-toast";
 
 export default function BooksContainer() {
 
@@ -42,9 +43,9 @@ export default function BooksContainer() {
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  console.log("books", booksWithStatus)
+  const handleClose = () => {
+    setOpen(false)
+  };
 
   const onSearch = async ({ title }: Pick<Book, "title">) => {
     try {
@@ -52,6 +53,17 @@ export default function BooksContainer() {
       setSearchedBooks(res.data)
     } catch (error) {
       console.log('Error', error)
+    }
+  }
+
+  const handleDelete = async (id: number) => {
+    try {
+      await deleteBook(id)
+    } catch (error) {
+      console.log("Book delete error", error)
+    } finally {
+      getList()
+      toast.success('Book successfully DELETED')
     }
   }
 
@@ -75,8 +87,11 @@ export default function BooksContainer() {
 
       {/* book cards */}
       <Grid container spacing={4}>
-        {(booksWithStatus.length !== 0 && !loader) && booksWithStatus.map((item: BookWithStatus) => (
-          <BooksCard item={item} key={item.book.id} />
+        {(booksWithStatus && !loader) && booksWithStatus.map((item: BookWithStatus) => (
+          <BooksCard
+            deleteBook={() => handleDelete(item.book.id)}
+            item={item}
+            key={item.book.id} />
         ))}
       </Grid>
 
@@ -89,7 +104,7 @@ export default function BooksContainer() {
       </Tooltip>
 
       {/* BOOK CREATE MODAL  */}
-      <CreateBook open={open} handleClose={() => handleClose()} handleOpen={() => handleOpen()} />
+      <CreateBook updateList={() => getList()} open={open} handleClose={() => handleClose()} handleOpen={() => handleOpen()} />
 
     </MainLayout >
   )

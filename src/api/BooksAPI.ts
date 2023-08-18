@@ -1,4 +1,4 @@
-import { get, patch, post } from "./ApiClient";
+import { DELETE, get, patch, post } from "./ApiClient";
 import { BookPayload } from "../containers/books/books-edit/CreateBook";
 import { APIResponse, Book, BookWithStatus } from "../types/common";
 
@@ -16,4 +16,8 @@ export function createBook(body: BookPayload) {
 
 export function editBook(id: number, body: BookWithStatus) {
   return patch<BookWithStatus>(`/books/${id}`, body);
+}
+
+export function deleteBook(id: number) {
+  return DELETE<BookWithStatus>(`/books/${id}`);
 }

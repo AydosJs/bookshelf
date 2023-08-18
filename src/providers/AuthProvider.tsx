@@ -3,6 +3,7 @@ import * as authApi from '../api/authApi';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { User } from '../types/common';
+import toast from 'react-hot-toast';
 
 export interface AuthContextType {
   isLoggedIn?: boolean;
@@ -45,6 +46,7 @@ export default function AuthProvider({ children }: Props) {
       .catch(setCatchLogin)
       .finally(() => {
         setLoader(false);
+        toast.success('Registers successfully')
       });
   };
 

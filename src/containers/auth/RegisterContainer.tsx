@@ -1,9 +1,9 @@
 import { Box, Button, TextField, Typography } from "@mui/material"
-import { Link } from "react-router-dom"
 import { useFormik } from 'formik';
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { User } from "../../types/common";
+import * as Yup from 'yup'
 
 
 export default function RegisterContainer() {
@@ -16,6 +16,12 @@ export default function RegisterContainer() {
       key: '',
       secret: '',
     },
+    validationSchema: Yup.object({
+      name: Yup.string().required('Required'),
+      email: Yup.string().required('Required'),
+      key: Yup.string().required('Required'),
+      secret: Yup.string().required('Required')
+    }),
     onSubmit: async (values) => {
       await register(values);
     }
@@ -38,25 +44,25 @@ export default function RegisterContainer() {
             Create an account
           </Typography>
           <Typography component="p" variant="body1" color="textSecondary">
-            If you already have an account: <Typography component={Link} color='blue' to={'/login'}>Login</Typography>
+            Welcome to BookShelf
+            {/* If you already have an account: <Typography component={Link} color='blue' to={'/login'}>Login</Typography> */}
           </Typography>
         </Box>
 
         <Box component="form" onSubmit={formik.handleSubmit} sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
 
           <TextField
-            required
             fullWidth
             id="name"
             label="Name"
             name="name"
             onChange={formik.handleChange}
             value={formik.values.name}
+            error={Boolean(formik.touched.name && formik.errors.name)}
           />
 
           <Box mt={2}>
             <TextField
-              required
               fullWidth
               id="email"
               label="Email Address"
@@ -64,30 +70,31 @@ export default function RegisterContainer() {
               autoComplete="email"
               onChange={formik.handleChange}
               value={formik.values.email}
+              error={Boolean(formik.touched.email && formik.errors.email)}
             />
           </Box>
 
           <Box mt={2}>
             <TextField
-              required
               fullWidth
               name="key"
               label="Key"
               id="key"
               onChange={formik.handleChange}
               value={formik.values.key}
+              error={Boolean(formik.touched.key && formik.errors.key)}
             />
           </Box>
 
           <Box mt={2}>
             <TextField
-              required
               fullWidth
               name="secret"
               label="Secret"
               id="secret"
               onChange={formik.handleChange}
               value={formik.values.secret}
+              error={Boolean(formik.touched.secret && formik.errors.secret)}
             />
           </Box>
 
@@ -102,7 +109,6 @@ export default function RegisterContainer() {
           </Button>
 
         </Box>
-
 
       </Box>
     </Box >
