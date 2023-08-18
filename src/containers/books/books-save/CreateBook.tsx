@@ -41,12 +41,7 @@ export default function CreateBook({ handleClose, open, updateList }: Props) {
 
   const formik = useFormik<BookPayload>({
     initialValues: {
-      isbn: "",
-      title: "",
-      cover: "",
-      author: "",
-      published: 0,
-      pages: 0,
+      isbn: ""
     },
     validationSchema: Yup.object({
       isbn: Yup.string().required('Required'),
@@ -96,73 +91,6 @@ export default function CreateBook({ handleClose, open, updateList }: Props) {
                 error={Boolean(formik.touched.isbn && formik.errors.isbn)}
               />
             </Box>
-            <Box mb={2}>
-              <TextField
-                sx={{ width: "100%" }}
-                id="title"
-                label="title"
-                name='title'
-                variant="outlined"
-                value={formik.values.title}
-                onChange={formik.handleChange}
-                error={Boolean(formik.touched.title && formik.errors.title)}
-              />
-            </Box>
-            <Box mb={2}>
-              <TextField
-                sx={{ width: "100%" }}
-                id="cover"
-                label="cover"
-                name='cover'
-                variant="outlined"
-                value={formik.values.cover}
-                onChange={formik.handleChange}
-                error={Boolean(formik.touched.cover && formik.errors.cover)}
-              />
-            </Box>
-
-            <Box mb={2}>
-              <TextField
-                sx={{ width: "100%" }}
-                id="author"
-                label="author"
-                name='author'
-                variant="outlined"
-                value={formik.values.author}
-                onChange={formik.handleChange}
-                error={Boolean(formik.touched.author && formik.errors.author)}
-              />
-            </Box>
-
-            <Box mb={2}>
-              <TextField
-                type='number'
-                sx={{ width: "100%" }}
-                id="published"
-                label="published"
-                name='published'
-                variant="outlined"
-                value={formik.values.published}
-                onChange={formik.handleChange}
-                error={Boolean(formik.touched.published && formik.errors.published)}
-              />
-            </Box>
-
-
-            <Box mb={2}>
-              <TextField
-                type='number'
-                sx={{ width: "100%" }}
-                id="pages"
-                label="pages"
-                name='pages'
-                variant="outlined"
-                value={formik.values.pages}
-                onChange={formik.handleChange}
-                error={Boolean(formik.touched.pages && formik.errors.pages)}
-              />
-            </Box>
-
 
             <LoadingButton
               loading={loader}

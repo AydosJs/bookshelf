@@ -1,6 +1,7 @@
-import { Box, Typography, Grid, styled } from "@mui/material";
+import { Box, Typography, Grid, styled, Button } from "@mui/material";
 import theme from "../../themes";
 import { Book } from "../../types/common";
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
 
 const Item = styled(Grid)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -34,9 +35,10 @@ const ImageBox = styled(Box)(({ theme }) => ({
 
 type Props = {
   item: Omit<Book, "id" | "pages">;
+  addBook: () => void
 }
 
-export default function SearchedBooksCard({ item }: Props) {
+export default function SearchedBooksCard({ item, addBook }: Props) {
   return (
     <Grid item xs={6} sm={12} md={6} >
       <Item container sx={{ cursor: "pointer" }}>
@@ -47,25 +49,31 @@ export default function SearchedBooksCard({ item }: Props) {
           </ImageBox>
         </Grid>
         <Grid item xs sx={{ ml: '24px' }}>
-          <Box mb={2}>
-            <Typography color={theme.palette.text.primary} variant="h6" sx={{ width: '100%', textAlign: 'left', padding: "0px", margin: "0px", WebkitBoxOrient: 'vertical', display: "-webkit-box", overflow: "hidden", WebkitLineClamp: "2" }}>
-              {item?.title}
-            </Typography>
-          </Box>
-          <Box mb={2}>
-            <Typography color={theme.palette.text.primary} variant="body1" sx={{ width: '100%', textAlign: 'left', WebkitBoxOrient: 'vertical', display: "-webkit-box", overflow: "hidden", WebkitLineClamp: "2" }}>
-              <span style={{ fontWeight: 500, display: "inline-block" }}>Author:&nbsp;</span> {item?.title}
-            </Typography>
-          </Box>
-          <Box mb={2}>
-            <Typography color={theme.palette.text.primary} variant="body1" sx={{ width: '100%', textAlign: 'left' }}>
-              <span style={{ fontWeight: 500, display: "inline-block" }}>Isbn:&nbsp;</span> {item?.isbn}
-            </Typography>
-          </Box>
-          <Box mb={2}>
-            <Typography color={theme.palette.text.primary} variant="body1" sx={{ width: '100%', textAlign: 'left' }}>
-              <span style={{ fontWeight: 500, display: "inline-block" }}>Published:&nbsp;</span> {item?.published}
-            </Typography>
+          <Box sx={{ maxWidth: 263, display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%", width: "100%" }}>
+
+            <Box >
+              <Box mb={2}>
+                <Typography color={theme.palette.text.primary} variant="h6" sx={{ width: '100%', textAlign: 'left', padding: "0px", margin: "0px", WebkitBoxOrient: 'vertical', display: "-webkit-box", overflow: "hidden", WebkitLineClamp: "2" }}>
+                  {item?.title}
+                </Typography>
+              </Box>
+              <Typography color={theme.palette.text.primary} variant="body1" sx={{ width: '100%', textAlign: 'left', WebkitBoxOrient: 'vertical', display: "-webkit-box", overflow: "hidden", WebkitLineClamp: "2" }}>
+                <span style={{ fontWeight: 500, display: "inline-block" }}>Author:&nbsp;</span> {item?.title}
+              </Typography>
+              <Typography color={theme.palette.text.primary} variant="body1" sx={{ width: '100%', textAlign: 'left' }}>
+                <span style={{ fontWeight: 500, display: "inline-block" }}>Published:&nbsp;</span> {item?.published}
+              </Typography>
+              <Typography color={theme.palette.text.primary} variant="body1" sx={{ width: '100%', textAlign: 'left' }}>
+                <span style={{ fontWeight: 500, display: "inline-block" }}>Isbn:&nbsp;</span> {item?.isbn}
+              </Typography>
+            </Box>
+
+            <Box >
+              <Button onClick={addBook} sx={{ width: "100%", height: "100%" }} variant="outlined" startIcon={<AddRoundedIcon />}>
+                ADD TO MY BOOKS
+              </Button>
+            </Box>
+
           </Box>
 
         </Grid>

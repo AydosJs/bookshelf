@@ -65,8 +65,9 @@ export default function BooksContainer() {
         </Box>
       }
 
+
       {/* TITLE */}
-      <Box mb={2}>
+      <Box mb={4} mt={2}>
         <Typography color={theme.palette.text.primary} sx={{ fontWeight: 500 }} variant="h4">
           Books
         </Typography>

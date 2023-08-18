@@ -27,7 +27,6 @@ export default function AuthProvider({ children }: Props) {
   const navigate = useNavigate();
 
   const setAsLoggedIn = (resp: User) => {
-    console.log("resp", resp)
     setLoggedIn(true);
     Cookies.set('key', resp.key);
     Cookies.set('Secret', resp.secret);
