@@ -1,8 +1,7 @@
 import { Drawer, Box, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material";
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import AutoStoriesRoundedIcon from '@mui/icons-material/AutoStoriesRounded';
-import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import theme from "../../themes";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -11,6 +10,9 @@ const drawerWidth = 240;
 export default function Sidebar() {
 
   const { logout } = useContext(AuthContext);
+  const { pathname } = useLocation()
+
+  const pathChecker = pathname === "/"
 
   return (
     <Drawer
@@ -46,22 +48,14 @@ export default function Sidebar() {
             <Link
               to={'/'} style={{ textDecoration: "none", color: theme.palette.text.primary }}>
               <ListItem disablePadding>
-                <ListItemButton sx={{ borderRadius: '8px', margin: '4px 0' }}>
+                <ListItemButton sx={{ borderRadius: '8px', margin: '4px 0', backgroundColor: pathChecker ? theme.palette.grey[100] : '', }}>
                   <ListItemIcon sx={{ minWidth: '38px' }} >
                     <AutoStoriesRoundedIcon color="primary" />
                   </ListItemIcon>
-                  <ListItemText primary={<Typography variant="body1" sx={{ fontWeight: 'medium' }}>Books</Typography>} />
+                  <ListItemText color="primary" primary={<Typography variant="body1" sx={{ fontWeight: 'medium' }}>Books</Typography>} />
                 </ListItemButton>
               </ListItem>
             </Link>
-            <ListItem disablePadding>
-              <ListItemButton sx={{ borderRadius: '8px', margin: '4px 0' }}>
-                <ListItemIcon sx={{ minWidth: '38px' }} >
-                  <GradeRoundedIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText primary={<Typography variant="body1" sx={{ fontWeight: 'medium' }}>Favorites</Typography>} />
-              </ListItemButton>
-            </ListItem>
           </List>
         </Box>
 

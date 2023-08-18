@@ -5,6 +5,7 @@ import ProtectedRoute from "./providers/ProtectedRoute"
 import AuthRoute from "./providers/AoutRoute"
 import { Toaster } from 'react-hot-toast';
 import './App.css'
+import NothingPage from "./containers/layout/NothingPage"
 
 
 function App() {
@@ -12,7 +13,6 @@ function App() {
   return (
     <>
       <Routes>
-
         <Route element={<AuthRoute />}>
           <Route path="/register" element={<RegisterContainer />} />
         </Route>
@@ -23,14 +23,11 @@ function App() {
 
         <Route
           path="*"
-          element={
-            <main >
-              <p>There is nothing here!</p>
-            </main>
-          }
+          element={<NothingPage />}
         />
-
       </Routes>
+
+      {/* lightweight notifications */}
       <div id="taost-wrapper">
         <Toaster position="top-center" />
       </div>

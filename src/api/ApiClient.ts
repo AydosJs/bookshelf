@@ -36,13 +36,11 @@ httpAxios.interceptors.request.use(
       const key = Cookies.get("key");
       const secret = Cookies.get("Secret");
       if (key && secret) {
-        const txt = `${String(config.method).toUpperCase()}${config.url}${
-          config.data ? JSON.stringify(config.data) : ""
-        }${secret}`;
-
-        const val = crypto.MD5(txt);
-        const sign = val;
-        console.log("lol", txt);
+        const sign = crypto.MD5(
+          `${String(config.method).toUpperCase()}${config.url}${
+            config.data ? JSON.stringify(config.data) : ""
+          }${secret}`
+        );
 
         config.headers["Key"] = key;
         config.headers["Sign"] = sign;

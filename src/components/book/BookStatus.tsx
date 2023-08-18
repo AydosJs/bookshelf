@@ -3,8 +3,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { InputLabel } from '@mui/material';
-import { editBook } from '../api/BooksAPI';
-import { BookWithStatus } from '../types/common';
+import { editBook } from '../../api/BooksAPI';
+import { BookWithStatus } from '../../types/common';
 import toast from 'react-hot-toast';
 
 type Props = {
@@ -25,7 +25,7 @@ export default function BookStatus({ book }: Props) {
     } catch (error) {
       console.log("Error", error)
     } finally {
-      toast.success('Status successfully edited')
+      toast.success('Status successfully EDITED')
     }
   };
 

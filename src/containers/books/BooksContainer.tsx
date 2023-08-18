@@ -2,7 +2,7 @@
 import Search from "../../components/search/Search";
 import theme from "../../themes";
 import { Box, Fab, Grid, LinearProgress, Tooltip, Typography } from "@mui/material";
-import BooksCard from "../../components/BooksCard";
+import BooksCard from "../../components/book/BooksCard";
 import MainLayout from "../layout/MainLayout";
 import AddIcon from '@mui/icons-material/Add';
 import { useContext, useEffect, useState } from "react";
