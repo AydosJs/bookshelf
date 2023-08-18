@@ -1,6 +1,5 @@
 import { Box, Button, Typography, Grid, styled } from "@mui/material";
 import theme from "../../themes";
-// import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
 import { BookWithStatus } from "../../types/common";
 import BookStatus from "./BookStatus";
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -20,7 +19,7 @@ const Item = styled(Grid)(({ theme }) => ({
   maxHeight: '330px',
 
   '&:hover': {
-    boxShadow: `rgba(149, 157, 165, 0.2) 0px 8px 24px`
+    boxShadow: `rgba(149, 157, 165, 0.2) 0px 8px 24px`,
   },
 
 }));
@@ -33,7 +32,6 @@ const ImageBox = styled(Box)(({ theme }) => ({
   backgroundSize: "cover",
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
-  // opacity: "20%"
 }))
 
 type Props = {
@@ -55,37 +53,23 @@ export default function BooksCard({ item, deleteBook }: Props) {
           <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%", width: "100%" }}>
             <Box>
               <Box mb={2}>
-                <Typography color={theme.palette.text.primary} variant="h6" sx={{ width: '100%', textAlign: 'left', padding: "0px", margin: "0px", '-webkit-box-orient': 'vertical', display: "-webkit-box", overflow: "hidden", '-webkit-line-clamp': "2" }}>
+                <Typography color={theme.palette.text.primary} variant="h6" sx={{ width: '100%', textAlign: 'left', padding: "0px", margin: "0px", WebkitBoxOrient: 'vertical', display: "-webkit-box", overflow: "hidden", WebkitLineClamp: "2" }}>
                   {item.book.title}
                 </Typography>
               </Box>
-              {/* <Box mb={2} sx={{ display: "flex", flexDirection: "row", flexWrap: "nowrap" }}>
-              <span>
-                <GradeRoundedIcon sx={{ color: '#FFDB42' }} />
-              </span>
-              <span>
-                <GradeRoundedIcon sx={{ color: '#FFDB42' }} />
-              </span>
-              <span>
-                <GradeRoundedIcon sx={{ color: '#FFDB42' }} />
-              </span>
-              <span>
-                <GradeRoundedIcon sx={{ color: '#FFDB42' }} />
-              </span>
-              <span>
-                <GradeRoundedIcon sx={{ color: '#FFDB42' }} />
-              </span>
-            </Box> */}
 
               <Box >
-                <Typography color={theme.palette.text.primary} variant="body1" sx={{ width: '100%', textAlign: 'left', '-webkit-box-orient': 'vertical', display: "-webkit-box", overflow: "hidden", '-webkit-line-clamp': "2" }}>
-                  <Box sx={{ fontWeight: 500, display: "inline-block" }}> Author:</Box> {item.book.title}
+                <Typography color={theme.palette.text.primary} variant="body1" sx={{ width: '100%', textAlign: 'left', WebkitBoxOrient: 'vertical', display: "-webkit-box", overflow: "hidden", WebkitLineClamp: "2" }}>
+                  <span style={{ fontWeight: 500, display: "inline-block" }}>Author:&nbsp;</span> {item.book.title}
                 </Typography>
                 <Typography color={theme.palette.text.primary} variant="body1" sx={{ width: '100%', textAlign: 'left' }}>
-                  <Box sx={{ fontWeight: 500, display: "inline-block" }}> Published:</Box> {item.book.published}
+                  <span style={{ fontWeight: 500, display: "inline-block" }}> Published:&nbsp;</span> {item.book.published}
                   <br />
-                  <Box sx={{ fontWeight: 500, display: "inline-block" }}>Pages: </Box>
+                  <span style={{ fontWeight: 500, display: "inline-block" }}>Pages:&nbsp;</span>
                   {item.book.pages}
+                  <br />
+                  <span style={{ fontWeight: 500, display: "inline-block" }}>Isbn:&nbsp;</span>
+                  {item.book.isbn}
                 </Typography>
               </Box>
 

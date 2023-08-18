@@ -5,15 +5,10 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useFormik } from "formik";
 import { Book } from '../../types/common';
 
-
 const SearchStyle = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
-  // backgroundColor: alpha(theme.palette.common.black, 0.15),
   border: `1px solid ${theme.palette.grey[300]}`,
-  '&:hover': {
-    // backgroundColor: alpha(theme.palette.common.black, 0.25),
-  },
   marginLeft: 0,
   width: '100%',
   [theme.breakpoints.up('sm')]: {
@@ -36,16 +31,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   width: "100%",
   '& .MuiInputBase-input': {
     padding: theme.spacing(2, 2, 2, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(5)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
-    // [theme.breakpoints.up('sm')]: {
-    //   width: '12ch',
-    //   '&:focus': {
-    //     width: '20ch',
-    //   },
-    // },
   },
 }));
 
@@ -56,6 +44,7 @@ type Props = {
 }
 
 export default function Search({ onSubmit }: Props) {
+
   const formik = useFormik<SearchFormType>({
     initialValues: {
       title: '',
@@ -64,6 +53,7 @@ export default function Search({ onSubmit }: Props) {
       await onSubmit(values);
     }
   });
+
   return (
     <Box component='form' onSubmit={formik.handleSubmit} sx={{ mb: 4 }}>
       <SearchStyle>

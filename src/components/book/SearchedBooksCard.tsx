@@ -16,7 +16,7 @@ const Item = styled(Grid)(({ theme }) => ({
   maxHeight: '330px',
 
   '&:hover': {
-    boxShadow: `rgba(149, 157, 165, 0.2) 0px 8px 24px`
+    boxShadow: `rgba(149, 157, 165, 0.2) 0px 8px 24px`,
   },
 
 }));
@@ -48,18 +48,23 @@ export default function SearchedBooksCard({ item }: Props) {
         </Grid>
         <Grid item xs sx={{ ml: '24px' }}>
           <Box mb={2}>
-            <Typography color={theme.palette.text.primary} variant="h6" sx={{ width: '100%', textAlign: 'left', padding: "0px", margin: "0px", '-webkit-box-orient': 'vertical', display: "-webkit-box", overflow: "hidden", '-webkit-line-clamp': "2" }}>
+            <Typography color={theme.palette.text.primary} variant="h6" sx={{ width: '100%', textAlign: 'left', padding: "0px", margin: "0px", WebkitBoxOrient: 'vertical', display: "-webkit-box", overflow: "hidden", WebkitLineClamp: "2" }}>
               {item?.title}
             </Typography>
           </Box>
           <Box mb={2}>
-            <Typography color={theme.palette.text.primary} variant="body1" sx={{ width: '100%', textAlign: 'left', '-webkit-box-orient': 'vertical', display: "-webkit-box", overflow: "hidden", '-webkit-line-clamp': "2" }}>
-              <Box sx={{ fontWeight: 500, display: "inline-block" }}> Author:</Box> {item?.title}
+            <Typography color={theme.palette.text.primary} variant="body1" sx={{ width: '100%', textAlign: 'left', WebkitBoxOrient: 'vertical', display: "-webkit-box", overflow: "hidden", WebkitLineClamp: "2" }}>
+              <span style={{ fontWeight: 500, display: "inline-block" }}>Author:&nbsp;</span> {item?.title}
             </Typography>
           </Box>
           <Box mb={2}>
             <Typography color={theme.palette.text.primary} variant="body1" sx={{ width: '100%', textAlign: 'left' }}>
-              <Box sx={{ fontWeight: 500, display: "inline-block" }}> Published:</Box> {item?.published}
+              <span style={{ fontWeight: 500, display: "inline-block" }}>Isbn:&nbsp;</span> {item?.isbn}
+            </Typography>
+          </Box>
+          <Box mb={2}>
+            <Typography color={theme.palette.text.primary} variant="body1" sx={{ width: '100%', textAlign: 'left' }}>
+              <span style={{ fontWeight: 500, display: "inline-block" }}>Published:&nbsp;</span> {item?.published}
             </Typography>
           </Box>
 
