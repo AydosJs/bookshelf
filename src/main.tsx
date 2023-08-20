@@ -5,15 +5,19 @@ import { BrowserRouter } from 'react-router-dom'
 import ThemeProvider from '@mui/styles/ThemeProvider'
 import mainTheme from './themes'
 import AuthProvider from './providers/AuthProvider.tsx'
+import { store } from './store/store.ts'
+import { Provider } from 'react-redux'
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider theme={mainTheme}>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
+        <Provider store={store}>
+          <AuthProvider>
+            <App />
+          </AuthProvider>
+        </Provider>
       </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>,
