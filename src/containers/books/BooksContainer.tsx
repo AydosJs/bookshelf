@@ -66,7 +66,7 @@ export default function BooksContainer() {
     <MainLayout >
 
       {loader &&
-        <Box sx={{ width: '100%' }} mb={1}>
+        <Box sx={{ width: '100%', position: 'fixed', top: 0, left: 0, zIndex: 9999999 }} mb={1}>
           <LinearProgress />
         </Box>
       }
@@ -81,7 +81,7 @@ export default function BooksContainer() {
 
 
       {(books?.length == 0 || !books) && (
-        <Box sx={{ width: "100%", height: "calc(100vh - 230px)", display: "flex", justifyContent: "center", alignItems: 'center' }}>
+        <Box sx={{ width: "100%", minHeight: "calc(100vh - 195px)", display: "flex", justifyContent: "center", alignItems: 'center' }}>
           <Typography variant="body1" sx={{ color: theme.palette.text.primary, fontWeight: 500 }}> NO BOOKS CREATED YET!</Typography>
         </Box>
       )}
