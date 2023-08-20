@@ -17,7 +17,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 480,
+  width: { xs: '80%', sm: 480 },
   bgcolor: 'background.paper',
   boxShadow: 24,
   p: 4,
@@ -66,7 +66,7 @@ export default function CreateBook({ handleClose, open, updateList }: Props) {
   });
 
   return (
-    <div>
+    <Box>
       <Modal
         open={open}
         onClose={handleClose}
@@ -106,6 +106,6 @@ export default function CreateBook({ handleClose, open, updateList }: Props) {
           </FormControl>
         </Box>
       </Modal>
-    </div>
+    </Box>
   )
 }
