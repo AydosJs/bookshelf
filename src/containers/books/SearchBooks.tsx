@@ -8,17 +8,22 @@ import { Box, Grid, LinearProgress, Typography } from "@mui/material";
 import toast from "react-hot-toast";
 import { AxiosError } from "axios";
 import theme from "../../themes";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "../../store/hooks";
+import { searchedBooksList, searchBookSelector } from "../../store/book/searchSlice";
+
 
 export default function SearchBooks() {
 
-  const [searchedBooks, setSearchedBooks] = useState<Omit<Book, "id" | "pages">[]>([]);
   const [loader, setLoader] = useState<boolean>(false);
+  const dispatch = useDispatch()
+  const searchedBooks = useAppSelector(searchBookSelector)
 
   const onSearch = async ({ title }: Pick<Book, "title">) => {
     try {
       setLoader(true);
       const res = await searchBooks(title)
-      setSearchedBooks(res)
+      dispatch(searchedBooksList(res))
     } catch (error) {
       console.log('Error', error)
     }
@@ -54,16 +59,17 @@ export default function SearchBooks() {
       {/* search */}
       <Search onSubmit={onSearch} />
 
+      {/* NO BOOKS YET TYPOGRAPHY */}
       {searchedBooks?.length == 0 && (
         <Box sx={{ width: "100%", height: "calc(100vh - 230px)", display: "flex", justifyContent: "center", alignItems: 'center' }}>
           <Typography variant="body1" sx={{ color: theme.palette.text.primary, fontWeight: 500 }}> NO BOOK FOUND!</Typography>
         </Box>
       )}
 
-      <Grid container spacing={4}>
+      {/* MAPPING THE ARRAY */}
+      <Grid container spacing={4} id="scrollableDiv">
         {(searchBooks !== null) && searchedBooks.map((item: Omit<Book, "id" | "pages">) => <SearchedBooksCard addBook={() => addBook(item?.isbn)} item={item} key={item?.isbn} />)}
       </Grid>
-
     </MainLayout>
   )
 } 

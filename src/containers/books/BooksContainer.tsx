@@ -11,19 +11,25 @@ import { deleteBook, getBooks } from "../../api/BooksAPI";
 import { BookWithStatus } from "../../types/common";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "../../store/hooks";
+import { addBooksToShelf, bookSelector } from "../../store/book/bookSlice";
 
 export default function BooksContainer() {
 
-  const [booksWithStatus, setBooksWithStatus] = useState<BookWithStatus[]>([]);
+  // const [booksWithStatus, setBooksWithStatus] = useState<BookWithStatus[]>([]);
 
   const [loader, setLoader] = useState<boolean>(false);
   const { logout } = useContext(AuthContext);
+  const dispatch = useDispatch()
+  const books = useAppSelector(bookSelector)
 
   const getList = async () => {
     try {
       setLoader(true);
       const resp = await getBooks();
-      setBooksWithStatus(resp);
+      dispatch(addBooksToShelf(resp))
+      // setBooksWithStatus(resp);
     } catch (e) {
       if ((e as AxiosError)?.response?.status === 401) {
         logout();
@@ -74,7 +80,7 @@ export default function BooksContainer() {
       </Box>
 
 
-      {(booksWithStatus?.length == 0 || !booksWithStatus) && (
+      {(books?.length == 0 || !books) && (
         <Box sx={{ width: "100%", height: "calc(100vh - 230px)", display: "flex", justifyContent: "center", alignItems: 'center' }}>
           <Typography variant="body1" sx={{ color: theme.palette.text.primary, fontWeight: 500 }}> NO BOOKS CREATED YET!</Typography>
         </Box>
@@ -82,7 +88,7 @@ export default function BooksContainer() {
 
       {/* book cards */}
       <Grid container spacing={4}>
-        {(booksWithStatus && !loader) && booksWithStatus.map((item: BookWithStatus) => (
+        {(books && !loader) && books.map((item: BookWithStatus) => (
           <BooksCard
             deleteBook={() => handleDelete(item.book.id)}
             item={item}

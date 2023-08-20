@@ -8,12 +8,17 @@ export const searchSlice = createSlice({
   name: "searchBooks",
   initialState,
   reducers: {
-    addBooks: (state, action: PayloadAction<Omit<Book, "id" | "pages">>) => {
-      state.push(action.payload);
+    searchedBooksList: (
+      state,
+      action: PayloadAction<Omit<Book, "id" | "pages">[]>
+    ) => {
+      state.splice(0, state.length);
+      state.push(...action.payload);
+      console.log(state);
     },
   },
 });
 
-export const { addBooks } = searchSlice.actions;
+export const { searchedBooksList } = searchSlice.actions;
 export const searchBookSelector = (state: RootState) => state.searchBooks;
 export default searchSlice.reducer;

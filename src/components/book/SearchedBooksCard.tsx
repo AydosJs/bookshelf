@@ -2,6 +2,8 @@ import { Box, Typography, Grid, styled, Button } from "@mui/material";
 import theme from "../../themes";
 import { Book } from "../../types/common";
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import { useAppSelector } from "../../store/hooks";
+import { bookSelector } from "../../store/book/bookSlice";
 
 const Item = styled(Grid)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -38,7 +40,11 @@ type Props = {
   addBook: () => void
 }
 
+
 export default function SearchedBooksCard({ item, addBook }: Props) {
+  const bookshelf = useAppSelector(bookSelector)
+  const ifBookInTheShelf = bookshelf.findIndex(shelfedBooks => shelfedBooks?.book.isbn === item?.isbn)
+
   return (
     <Grid item xs={6} sm={12} md={6} >
       <Item container sx={{ cursor: "pointer" }}>
@@ -68,8 +74,9 @@ export default function SearchedBooksCard({ item, addBook }: Props) {
               </Typography>
             </Box>
 
+
             <Box >
-              <Button onClick={addBook} sx={{ width: "100%", height: "100%" }} variant="outlined" startIcon={<AddRoundedIcon />}>
+              <Button disabled={ifBookInTheShelf !== -1} onClick={addBook} sx={{ width: "100%", height: "100%" }} variant="outlined" startIcon={<AddRoundedIcon />}>
                 ADD TO MY BOOKS
               </Button>
             </Box>
