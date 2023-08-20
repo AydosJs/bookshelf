@@ -70,6 +70,7 @@ export default function SearchBooks() {
       <Grid container spacing={4} id="scrollableDiv">
         {(searchBooks !== null) && searchedBooks.map((item: Omit<Book, "id" | "pages">) => <SearchedBooksCard addBook={() => addBook(item?.isbn)} item={item} key={item?.isbn} />)}
       </Grid>
+
     </MainLayout>
   )
 } 

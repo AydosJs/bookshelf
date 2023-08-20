@@ -10,7 +10,7 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
 
         <Box
           component="main"
-          sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
+          sx={{ flexGrow: 1, bgcolor: 'background.default', p: 2 }}
         >
           {children}
         </Box>
