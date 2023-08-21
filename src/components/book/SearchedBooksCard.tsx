@@ -3,10 +3,10 @@ import theme from "../../themes";
 import { Book } from "../../types/common";
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import { useAppSelector } from "../../store/hooks";
-import { bookSelector } from "../../store/book/bookSlice";
 import Person2RoundedIcon from '@mui/icons-material/Person2Rounded';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import QrCodeIcon from '@mui/icons-material/QrCode';
+import { getMyBooks } from "../../store/book/bookSlice";
 
 const Item = styled(Grid)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -50,7 +50,7 @@ const listItemIconStyle = {
 }
 
 export default function SearchedBooksCard({ item, addBook }: Props) {
-  const bookshelf = useAppSelector(bookSelector)
+  const bookshelf = useAppSelector(getMyBooks)
   const ifBookInTheShelf = bookshelf.findIndex(shelfedBooks => shelfedBooks?.book.isbn === item?.isbn)
 
   return (

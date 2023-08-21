@@ -1,20 +1,48 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { BookWithStatus } from "../../types/common";
+import { Book, BookWithStatus } from "../../types/common";
 import { RootState } from "../store";
 
-const initialState: BookWithStatus[] = [];
+type BookState = {
+  myBooks: BookWithStatus[];
+  searchedBooks: Omit<Book, "id" | "pages">[];
+};
+
+const initialState: BookState = {
+  myBooks: [],
+  searchedBooks: [],
+};
 
 export const bookSlice = createSlice({
   name: "book",
   initialState,
   reducers: {
-    addBooksToShelf: (state, action: PayloadAction<BookWithStatus[]>) => {
-      state.splice(0, state.length);
-      state.push(...action.payload);
+    addBooksToMyBooks: (state, action: PayloadAction<BookWithStatus[]>) => {
+      state.myBooks = action.payload;
+    },
+    checkShelf: (state, action: PayloadAction<Book>) => {
+      if (
+        state.myBooks?.findIndex(
+          (item) => item?.book?.id === action?.payload?.id
+        ) === -1
+      ) {
+        state.myBooks.push({
+          book: action?.payload,
+          status: 0,
+        });
+      }
+    },
+    searchedBooksList: (
+      state,
+      action: PayloadAction<Omit<Book, "id" | "pages">[]>
+    ) => {
+      state.searchedBooks = action.payload;
+      console.log(state);
     },
   },
 });
 
-export const { addBooksToShelf } = bookSlice.actions;
-export const bookSelector = (state: RootState) => state.books;
+export const { addBooksToMyBooks, searchedBooksList, checkShelf } =
+  bookSlice.actions;
+export const getMyBooks = (state: RootState) => state.books.myBooks;
+export const getSearchedBooks = (state: RootState) => state.books.searchedBooks;
 export default bookSlice.reducer;

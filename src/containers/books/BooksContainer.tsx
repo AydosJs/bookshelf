@@ -13,7 +13,7 @@ import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../store/hooks";
-import { addBooksToShelf, bookSelector } from "../../store/book/bookSlice";
+import { addBooksToMyBooks, getMyBooks } from "../../store/book/bookSlice";
 
 export default function BooksContainer() {
 
@@ -22,13 +22,13 @@ export default function BooksContainer() {
   const [loader, setLoader] = useState<boolean>(false);
   const { logout } = useContext(AuthContext);
   const dispatch = useDispatch()
-  const books = useAppSelector(bookSelector)
+  const books = useAppSelector(getMyBooks)
 
   const getList = async () => {
     try {
       setLoader(true);
       const resp = await getBooks();
-      dispatch(addBooksToShelf(resp))
+      dispatch(addBooksToMyBooks(resp))
       // setBooksWithStatus(resp);
     } catch (e) {
       if ((e as AxiosError)?.response?.status === 401) {

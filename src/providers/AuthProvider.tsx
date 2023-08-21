@@ -55,7 +55,6 @@ export default function AuthProvider({ children }: Props) {
     Cookies.remove('Secret');
     setLoggedIn(false);
     navigate('/register');
-    toast.success('Successfully logged out')
   };
 
   const value = { loader, isLoggedIn, register, logout };
