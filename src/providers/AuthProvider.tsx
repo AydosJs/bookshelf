@@ -21,7 +21,7 @@ export const AuthContext = createContext<AuthContextType>({} as AuthContextType)
 export default function AuthProvider({ children }: Props) {
   const isLoggedINCookie = Cookies.get('key') || false
 
-  const [isLoggedIn, setLoggedIn] = useState<boolean>(isLoggedINCookie ? true : false);
+  const [isLoggedIn, setLoggedIn] = useState<boolean>(Boolean(isLoggedINCookie));
   const [loader, setLoader] = useState<boolean>(false);
 
   const navigate = useNavigate();

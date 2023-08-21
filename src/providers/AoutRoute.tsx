@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { AuthContext } from './AuthProvider';
-import RegisterProvider from './RegisterProvider';
+// import RegisterProvider from './RegisterProvider';
 
 type Props = {
   children?: React.ReactNode;
@@ -12,5 +12,5 @@ export default function AuthRoute({ children }: Props) {
   if (isLoggedIn) {
     return <Navigate to={'/'} />;
   }
-  return <RegisterProvider>{children ? children : <Outlet />}</RegisterProvider>;
+  return <>{children ? children : <Outlet />}</>;
 }
