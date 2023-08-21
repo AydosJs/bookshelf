@@ -17,7 +17,7 @@ export default function Sidebar() {
   return (
     <Drawer
       sx={{
-        display: { sm: 'block' },
+        display: { xs: 'none', sm: 'block' },
         width: drawerWidth,
         flexShrink: 0,
         '& .MuiDrawer-paper': {

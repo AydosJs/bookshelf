@@ -5,7 +5,7 @@ import theme from "../../themes";
 export default function MainLayout({ children }: React.PropsWithChildren) {
   return (
     <Container maxWidth="xl">
-      <Box sx={{ display: 'flex', mt: { xs: 8, sm: 0 } }}>
+      <Box sx={{ display: 'flex', mt: { xs: 0, sm: 0 } }}>
         <CssBaseline />
         <Sidebar />
         <Box sx={{ width: "100%" }}>
