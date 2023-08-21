@@ -81,13 +81,13 @@ export default function BooksContainer() {
 
 
       {(books?.length == 0 || !books) && (
-        <Box sx={{ width: "100%", minHeight: "calc(100vh - 195px)", display: "flex", justifyContent: "center", alignItems: 'center' }}>
+        <Box sx={{ width: "100%", height: "calc(100vh - 195px)", display: "flex", justifyContent: "center", alignItems: 'center' }}>
           <Typography variant="body1" sx={{ color: theme.palette.text.primary, fontWeight: 500 }}> NO BOOKS CREATED YET!</Typography>
         </Box>
       )}
 
       {/* book cards */}
-      <Grid container spacing={4}>
+      <Grid container spacing={4} sx={{ height: "calc(100vh - 195px)" }}>
         {(books && !loader) && books.map((item: BookWithStatus) => (
           <BooksCard
             deleteBook={() => handleDelete(item.book.id)}

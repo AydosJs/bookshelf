@@ -78,15 +78,17 @@ export default function SearchBooks() {
       )}
 
       {/* MAPPING THE ARRAY */}
-      <Grid container spacing={4} id="scrollableDiv">
+      <Grid container spacing={4}>
         {searchedBooks?.slice(0, endOffset).map((item: Omit<Book, "id" | "pages">) =>
           <SearchedBooksCard addBook={() => addBook(item?.isbn)} item={item} key={item?.isbn} />
         )}
 
         {/* MORE BUTTON */}
-        {searchedBooks.length !== 0 && (
+        {(searchedBooks.length !== 0) && (
           <Grid item xs={12}>
-            <Button sx={{ width: "100%", paddingY: 2 }} size="large" variant="contained" onClick={fetchMore} >MORE</Button>
+            <Button disabled={endOffset >= searchedBooks?.length} sx={{ width: "100%", paddingY: 2 }} size="large" variant="contained" onClick={fetchMore} >
+              {endOffset >= searchedBooks?.length ? 'YOU ARE ALL SET' : 'MORE'}
+            </Button>
           </Grid>
         )}
 
