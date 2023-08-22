@@ -19,5 +19,5 @@ export function editBook(id: number, body: BookWithStatus) {
 }
 
 export function deleteBook(id: number) {
-  return DELETE<BookWithStatus>(`/books/${id}`);
+  return DELETE<BookWithStatus[]>(`/books/${id}`);
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createBook, searchBooks } from "../../api/BooksAPI";
+import { createBook, getBooks, searchBooks } from "../../api/BooksAPI";
 import Search from "../../components/search/Search";
 import { Book } from "../../types/common";
 import MainLayout from "../layout/MainLayout";
@@ -10,7 +10,7 @@ import { AxiosError } from "axios";
 import theme from "../../themes";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../store/hooks";
-import { checkShelf, getSearchedBooks, searchedBooksList } from "../../store/book/bookSlice";
+import { addBooksToMyBooks, checkShelf, getSearchedBooks, searchedBooksList } from "../../store/book/bookSlice";
 
 const LIMIT = 10
 
@@ -20,11 +20,14 @@ export default function SearchBooks() {
   const [loader, setLoader] = useState<boolean>(false);
   const dispatch = useDispatch()
   const searchedBooks = useAppSelector(getSearchedBooks)
+  const [addingBooks, setAddingBooks] = useState<Omit<Book, "id" | "pages"> | null>(null)
 
   const onSearch = async ({ title }: Pick<Book, "title">) => {
     try {
       setLoader(true);
       const res = await searchBooks(title)
+      const resShelfBooks = await getBooks()
+      dispatch(addBooksToMyBooks(resShelfBooks))
       dispatch(searchedBooksList(res))
       setEndOffset(LIMIT)
     } catch (error) {
@@ -70,7 +73,7 @@ export default function SearchBooks() {
 
       {/* NO BOOKS YET TYPOGRAPHY */}
       {searchedBooks?.length == 0 && (
-        <Box sx={{ width: "100%", height: "calc(100vh - 195px)", display: "flex", justifyContent: "center", alignItems: 'center' }}>
+        <Box sx={{ width: "100%", minHeight: "calc(100vh - 195px)", display: "flex", justifyContent: "center", alignItems: 'center' }}>
           <Typography variant="body1" sx={{ color: theme.palette.text.primary, fontWeight: 500 }}>
             NO BOOK FOUND!
           </Typography>
@@ -79,8 +82,14 @@ export default function SearchBooks() {
 
       {/* MAPPING THE ARRAY */}
       <Grid container spacing={4}>
+
         {searchedBooks?.slice(0, endOffset).map((item: Omit<Book, "id" | "pages">) =>
-          <SearchedBooksCard addBook={() => addBook(item?.isbn)} item={item} key={item?.isbn} />
+          <SearchedBooksCard
+            loader={(loader && addingBooks?.isbn === item?.isbn)}
+            addBook={() => {
+              addBook(item?.isbn),
+                setAddingBooks(item)
+            }} item={item} key={item?.isbn} />
         )}
 
         {/* MORE BUTTON */}

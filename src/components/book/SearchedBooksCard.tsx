@@ -1,4 +1,4 @@
-import { Box, Typography, Grid, styled, Button, Divider, List, ListItem, ListItemText, ListItemIcon } from "@mui/material";
+import { Box, Typography, Grid, styled, Divider, List, ListItem, ListItemText, ListItemIcon } from "@mui/material";
 import theme from "../../themes";
 import { Book } from "../../types/common";
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
@@ -7,6 +7,7 @@ import Person2RoundedIcon from '@mui/icons-material/Person2Rounded';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import QrCodeIcon from '@mui/icons-material/QrCode';
 import { getMyBooks } from "../../store/book/bookSlice";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const Item = styled(Grid)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -21,7 +22,7 @@ const Item = styled(Grid)(({ theme }) => ({
   flexWrap: "nowrap",
 
   '&:hover': {
-    boxShadow: `rgba(149, 157, 165, 0.2) 0px 8px 24px`,
+    boxShadow: `rgba(0, 0, 0, 0.45) 0px 25px 20px -20px`,
   },
 
 }));
@@ -40,19 +41,18 @@ const listItemStyle = {
   paddingX: 0
 }
 
-type Props = {
-  item: Omit<Book, "id" | "pages">;
-  addBook: () => void
-}
-
 const listItemIconStyle = {
   minWidth: 32
 }
 
-export default function SearchedBooksCard({ item, addBook }: Props) {
+type Props = {
+  item: Omit<Book, "id" | "pages">;
+  addBook: () => void;
+  loader: boolean
+}
+export default function SearchedBooksCard({ item, addBook, loader }: Props) {
   const bookshelf = useAppSelector(getMyBooks)
-  const ifBookInTheShelf = bookshelf ? bookshelf.findIndex(shelfedBooks => shelfedBooks?.book.isbn === item?.isbn) : false
-
+  const ifBookInTheShelf = (bookshelf !== null && bookshelf?.length !== 0) ? bookshelf?.some(shelfedBook => shelfedBook?.book?.isbn === item?.isbn) : false
   return (
     <Grid item xs={12} sm={12} md={6} >
       <Item container sx={{ padding: 0, margin: 0, cursor: "pointer", flexDirection: { xs: "column", sm: "row" }, maxWidth: 590 }}>
@@ -107,15 +107,22 @@ export default function SearchedBooksCard({ item, addBook }: Props) {
               </ListItem>
             </List>
 
-
-            <Box mt={{ xs: 4 }}>
-              <Button disabled={ifBookInTheShelf !== -1} onClick={addBook} sx={{ width: "100%", height: "100%" }} variant="outlined" startIcon={<AddRoundedIcon />}>
-                ADD TO BOOKSHELF
-              </Button>
+            <Box mt={2} p={0}>
+              <LoadingButton
+                disabled={ifBookInTheShelf}
+                color="primary"
+                onClick={addBook}
+                loading={loader}
+                loadingPosition="start"
+                startIcon={<AddRoundedIcon />}
+                variant="outlined"
+                sx={{ width: "100%" }}
+              >
+                <span>ADD TO BOOKSHELF</span>
+              </LoadingButton>
             </Box>
 
           </Box >
-
         </Grid >
       </Item >
     </Grid >

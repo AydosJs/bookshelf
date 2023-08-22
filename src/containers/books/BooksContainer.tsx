@@ -1,6 +1,6 @@
 
 import theme from "../../themes";
-import { Box, Fab, Grid, LinearProgress, Tooltip, Typography } from "@mui/material";
+import { Box, Button, Fab, Grid, LinearProgress, Tooltip, Typography } from "@mui/material";
 import BooksCard from "../../components/book/BooksCard";
 import MainLayout from "../layout/MainLayout";
 import AddIcon from '@mui/icons-material/Add';
@@ -13,16 +13,24 @@ import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../store/hooks";
-import { addBooksToMyBooks, getMyBooks } from "../../store/book/bookSlice";
+import { addBooksToMyBooks, getMyBooks, removeBookFromShelf } from "../../store/book/bookSlice";
+const LIMIT = 10
 
 export default function BooksContainer() {
 
   // const [booksWithStatus, setBooksWithStatus] = useState<BookWithStatus[]>([]);
-
+  const [endOffset, setEndOffset] = useState(LIMIT)
   const [loader, setLoader] = useState<boolean>(false);
   const { logout } = useContext(AuthContext);
   const dispatch = useDispatch()
   const books = useAppSelector(getMyBooks)
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false)
+  };
+
 
   const getList = async () => {
     try {
@@ -39,28 +47,29 @@ export default function BooksContainer() {
     }
   }
 
+
+  const handleDelete = async (id: number) => {
+    try {
+      setLoader(true);
+      const res = await deleteBook(id)
+      dispatch(removeBookFromShelf(res))
+      toast.success('Book successfully DELETED')
+    } catch (error) {
+      console.log("Book delete error", error)
+    } finally {
+      setLoader(false);
+    }
+  }
+
+  const fetchMore = () => {
+    setEndOffset(endOffset + LIMIT)
+  }
+
   useEffect(() => {
     getList()
   }, []);
 
 
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => {
-    setOpen(false)
-  };
-
-
-  const handleDelete = async (id: number) => {
-    try {
-      await deleteBook(id)
-      toast.success('Book successfully DELETED')
-    } catch (error) {
-      console.log("Book delete error", error)
-    } finally {
-      getList()
-    }
-  }
 
   return (
     <MainLayout >
@@ -87,13 +96,23 @@ export default function BooksContainer() {
       )}
 
       {/* book cards */}
-      <Grid container spacing={4} sx={{ height: "calc(100vh - 195px)" }}>
-        {(books && !loader) && books.map((item: BookWithStatus) => (
+      <Grid container spacing={4} sx={{ minHeight: "calc(100vh - 195px)" }}>
+        {books?.slice(0, endOffset).map((item: BookWithStatus) => (
           <BooksCard
             deleteBook={() => handleDelete(item.book.id)}
             item={item}
             key={item.book.id} />
         ))}
+
+        {/* MORE BUTTON */}
+        {(books?.length !== 0 && books?.length >= endOffset) && (
+          <Grid item xs={12}>
+            <Button disabled={endOffset >= books?.length} sx={{ width: "100%", paddingY: 2 }} size="large" variant="contained" onClick={fetchMore} >
+              {endOffset >= books?.length ? 'YOU ARE ALL SET' : 'MORE'}
+            </Button>
+          </Grid>
+        )}
+
       </Grid>
 
       <Tooltip title="Create a book">

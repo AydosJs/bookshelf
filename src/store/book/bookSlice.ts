@@ -19,6 +19,9 @@ export const bookSlice = createSlice({
     addBooksToMyBooks: (state, action: PayloadAction<BookWithStatus[]>) => {
       state.myBooks = action.payload;
     },
+    removeBookFromShelf: (state, action: PayloadAction<BookWithStatus[]>) => {
+      state.myBooks = action.payload;
+    },
     checkShelf: (state, action: PayloadAction<Book>) => {
       if (
         state.myBooks?.findIndex(
@@ -41,8 +44,12 @@ export const bookSlice = createSlice({
   },
 });
 
-export const { addBooksToMyBooks, searchedBooksList, checkShelf } =
-  bookSlice.actions;
+export const {
+  addBooksToMyBooks,
+  searchedBooksList,
+  checkShelf,
+  removeBookFromShelf,
+} = bookSlice.actions;
 export const getMyBooks = (state: RootState) => state.books.myBooks;
 export const getSearchedBooks = (state: RootState) => state.books.searchedBooks;
 export default bookSlice.reducer;

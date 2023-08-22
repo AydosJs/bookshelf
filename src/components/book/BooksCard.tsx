@@ -25,7 +25,7 @@ const insideGridStlye = {
   overflow: "hidden",
   cursor: 'pointer',
   '&:hover': {
-    boxShadow: `rgba(149, 157, 165, 0.2) 0px 8px 24px`,
+    boxShadow: `rgba(0, 0, 0, 0.45) 0px 25px 20px -20px`,
   },
 }
 
