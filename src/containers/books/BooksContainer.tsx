@@ -1,4 +1,3 @@
-
 import theme from "../../themes";
 import { Box, Button, Fab, Grid, LinearProgress, Tooltip, Typography } from "@mui/material";
 import BooksCard from "../../components/book/BooksCard";
@@ -13,12 +12,12 @@ import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../store/hooks";
-import { addBooksToMyBooks, getMyBooks, removeBookFromShelf } from "../../store/book/bookSlice";
+import { setMyBooks, getMyBooks } from "../../store/book/bookSlice";
+import { slice } from "lodash";
 const LIMIT = 10
 
 export default function BooksContainer() {
 
-  // const [booksWithStatus, setBooksWithStatus] = useState<BookWithStatus[]>([]);
   const [endOffset, setEndOffset] = useState(LIMIT)
   const [loader, setLoader] = useState<boolean>(false);
   const { logout } = useContext(AuthContext);
@@ -31,13 +30,11 @@ export default function BooksContainer() {
     setOpen(false)
   };
 
-
   const getList = async () => {
     try {
       setLoader(true);
       const resp = await getBooks();
-      dispatch(addBooksToMyBooks(resp))
-      // setBooksWithStatus(resp);
+      dispatch(setMyBooks(resp))
     } catch (e) {
       if ((e as AxiosError)?.response?.status === 401) {
         logout();
@@ -51,9 +48,11 @@ export default function BooksContainer() {
   const handleDelete = async (id: number) => {
     try {
       setLoader(true);
-      const res = await deleteBook(id)
-      dispatch(removeBookFromShelf(res))
-      toast.success('Book successfully DELETED')
+      if (confirm('Are you sure that you want to DELETE this book!')) {
+        const res = await deleteBook(id)
+        dispatch(setMyBooks(res))
+        toast.success('Book successfully DELETED')
+      }
     } catch (error) {
       console.log("Book delete error", error)
     } finally {
@@ -90,14 +89,19 @@ export default function BooksContainer() {
 
 
       {(books?.length == 0 || !books) && (
-        <Box sx={{ width: "100%", height: "calc(100vh - 195px)", display: "flex", justifyContent: "center", alignItems: 'center' }}>
+        <Box sx={{
+          width: "100%", display: "flex", position: "absolute",
+          top: "50%",
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          justifyContent: "center", alignItems: 'center'
+        }}>
           <Typography variant="body1" sx={{ color: theme.palette.text.primary, fontWeight: 500 }}> NO BOOKS CREATED YET!</Typography>
         </Box>
       )}
-
       {/* book cards */}
-      <Grid container spacing={4} sx={{ minHeight: "calc(100vh - 195px)" }}>
-        {books?.slice(0, endOffset).map((item: BookWithStatus) => (
+      <Grid container spacing={4}>
+        {slice(books, 0, endOffset).map((item: BookWithStatus) => (
           <BooksCard
             deleteBook={() => handleDelete(item.book.id)}
             item={item}

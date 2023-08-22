@@ -1,6 +1,6 @@
 import { Box, Typography, Grid, styled, Divider, List, ListItem, ListItemText, ListItemIcon } from "@mui/material";
 import theme from "../../themes";
-import { Book } from "../../types/common";
+import { Book, BookWithStatus } from "../../types/common";
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import { useAppSelector } from "../../store/hooks";
 import Person2RoundedIcon from '@mui/icons-material/Person2Rounded';
@@ -8,6 +8,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import QrCodeIcon from '@mui/icons-material/QrCode';
 import { getMyBooks } from "../../store/book/bookSlice";
 import LoadingButton from "@mui/lab/LoadingButton";
+import { some } from 'lodash';
 
 const Item = styled(Grid)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -52,7 +53,10 @@ type Props = {
 }
 export default function SearchedBooksCard({ item, addBook, loader }: Props) {
   const bookshelf = useAppSelector(getMyBooks)
-  const ifBookInTheShelf = (bookshelf !== null && bookshelf?.length !== 0) ? bookshelf?.some(shelfedBook => shelfedBook?.book?.isbn === item?.isbn) : false
+  const hasBook = some(bookshelf as BookWithStatus[], (book: BookWithStatus) => book?.book?.isbn === item?.isbn);
+  console.log('hasBook', hasBook)
+  console.log('bokshelf', bookshelf)
+
   return (
     <Grid item xs={12} sm={12} md={6} >
       <Item container sx={{ padding: 0, margin: 0, cursor: "pointer", flexDirection: { xs: "column", sm: "row" }, maxWidth: 590 }}>
@@ -109,7 +113,7 @@ export default function SearchedBooksCard({ item, addBook, loader }: Props) {
 
             <Box mt={2} p={0}>
               <LoadingButton
-                disabled={ifBookInTheShelf}
+                disabled={hasBook}
                 color="primary"
                 onClick={addBook}
                 loading={loader}

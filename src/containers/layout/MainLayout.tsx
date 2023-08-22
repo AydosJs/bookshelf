@@ -8,14 +8,18 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
       <Box sx={{ display: 'flex', mt: { xs: 0, sm: 0 } }}>
         <CssBaseline />
         <Sidebar />
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{ width: "100%", position: "relative" }}>
           <Box
             component="main"
-            sx={{ flexGrow: 1, bgcolor: 'background.default', p: 2 }}
+            sx={{
+              flexGrow: 1, bgcolor: 'background.default',
+              padding: 2,
+              minHeight: "calc(100vh - 105px)"
+            }}
           >
             {children}
           </Box>
-          <Box component='footer' mt={4} sx={{ padding: 3, width: "100%", borderTop: `1px solid ${theme.palette.grey[200]}` }}>
+          <Box component='footer' mt={4} sx={{ padding: '26px', width: "100%", borderTop: `1px solid ${theme.palette.grey[200]}` }}>
             <Typography variant="body2">
               {"Copyright © "}2023
             </Typography>
