@@ -70,9 +70,8 @@ export default function SearchBooks() {
 
       {/* search */}
       <Search onSubmit={onSearch} />
-
       {/* NO BOOKS YET TYPOGRAPHY */}
-      {Boolean(searchedBooks.length) && (
+      {Boolean(!searchedBooks.length) && (
         <Box sx={{ width: "100%", minHeight: "calc(100vh - 195px)", display: "flex", justifyContent: "center", alignItems: 'center' }}>
           <Typography variant="body1" sx={{ color: theme.palette.text.primary, fontWeight: 500 }}>
             {loader ? 'Loading...' : 'NO BOOK FOUND!'}
