@@ -3,7 +3,7 @@ import { BookPayload } from "../containers/books/books-save/CreateBook";
 import { Book, BookWithStatus } from "../types/common";
 
 export function getBooks() {
-  return get<BookWithStatus[]>("/books");
+  return get<BookWithStatus[] | undefined>("/books");
 }
 
 export function searchBooks(title: string) {

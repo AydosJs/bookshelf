@@ -1,9 +1,10 @@
-import { Box, Button, Container, TextField, Typography } from "@mui/material"
+import { Box, Container, TextField, Typography } from "@mui/material"
 import { useFormik } from 'formik';
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { User } from "../../types/common";
 import * as Yup from 'yup'
+import LoadingButton from "@mui/lab/LoadingButton";
 
 
 export default function RegisterContainer() {
@@ -18,7 +19,7 @@ export default function RegisterContainer() {
     },
     validationSchema: Yup.object({
       name: Yup.string().required('Required'),
-      email: Yup.string().required('Required'),
+      email: Yup.string().matches(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Invalid email').required('Required'),
       key: Yup.string().required('Required'),
       secret: Yup.string().required('Required')
     }),
@@ -98,15 +99,19 @@ export default function RegisterContainer() {
               />
             </Box>
 
-            <Button
-              type="submit"
+
+            <LoadingButton
               fullWidth
               size="large"
+              color="primary"
+              loading={false}
+              loadingPosition="start"
               variant="contained"
-              sx={{ mt: 4 }}
+              type="submit"
+              sx={{ width: "100%", mt: 4 }}
             >
-              Sign In
-            </Button>
+              <span>Create account</span>
+            </LoadingButton>
 
           </Box>
         </Box>

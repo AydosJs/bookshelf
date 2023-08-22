@@ -64,7 +64,7 @@ export default function SearchedBooksCard({ item, addBook, loader }: Props) {
           <ImageBox sx={{
             minHeight: 300,
             height: "100%",
-            backgroundImage: `url(${item?.cover !== '' ? item?.cover : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBKEGmmEQ4WlpXIfdqhhaFbJER2pXMLOFU3A&usqp=CAU'})`
+            backgroundImage: `url(${item?.cover || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBKEGmmEQ4WlpXIfdqhhaFbJER2pXMLOFU3A&usqp=CAU'})`
           }} >
           </ImageBox>
         </Grid>

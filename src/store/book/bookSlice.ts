@@ -17,7 +17,10 @@ export const bookSlice = createSlice({
   name: "book",
   initialState,
   reducers: {
-    setMyBooks: (state, action: PayloadAction<BookWithStatus[]>) => {
+    setMyBooks: (
+      state,
+      action: PayloadAction<BookWithStatus[] | undefined>
+    ) => {
       state.myBooks = action.payload || [];
     },
     addToMyBooks: (state, action: PayloadAction<Book>) => {
@@ -32,17 +35,16 @@ export const bookSlice = createSlice({
         });
       }
     },
-    searchedBooksList: (
+    setSearchedBooks: (
       state,
       action: PayloadAction<Omit<Book, "id" | "pages">[]>
     ) => {
-      state.searchedBooks = action.payload;
+      state.searchedBooks = action.payload || [];
     },
   },
 });
 
-export const { setMyBooks, searchedBooksList, addToMyBooks } =
-  bookSlice.actions;
+export const { setMyBooks, setSearchedBooks, addToMyBooks } = bookSlice.actions;
 export const getMyBooks = (state: RootState) => state.books.myBooks;
 export const getSearchedBooks = (state: RootState) => state.books.searchedBooks;
 export default bookSlice.reducer;
