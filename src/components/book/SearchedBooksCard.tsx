@@ -51,7 +51,7 @@ const listItemIconStyle = {
 
 export default function SearchedBooksCard({ item, addBook }: Props) {
   const bookshelf = useAppSelector(getMyBooks)
-  const ifBookInTheShelf = bookshelf.findIndex(shelfedBooks => shelfedBooks?.book.isbn === item?.isbn)
+  const ifBookInTheShelf = bookshelf ? bookshelf.findIndex(shelfedBooks => shelfedBooks?.book.isbn === item?.isbn) : false
 
   return (
     <Grid item xs={12} sm={12} md={6} >
