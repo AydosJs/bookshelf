@@ -1,4 +1,4 @@
-import { Drawer, Box, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material";
+import { Box, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material";
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import AutoStoriesRoundedIcon from '@mui/icons-material/AutoStoriesRounded';
 import { Link, useLocation } from "react-router-dom";
@@ -6,27 +6,36 @@ import theme from "../../themes";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import ContentPasteSearchRoundedIcon from '@mui/icons-material/ContentPasteSearchRounded';
+import Drawer from '@mui/material/Drawer';
 
 const drawerWidth = 240;
+type Props = {
+  open: boolean,
+  handleClose: () => void
+}
 
-export default function Sidebar() {
+export default function Sidebar({ open, handleClose }: Props) {
 
   const { logout } = useContext(AuthContext);
   const { pathname } = useLocation()
 
   return (
     <Drawer
+      anchor={'left'}
+      onClose={handleClose}
       sx={{
-        display: { xs: 'none', sm: 'block' },
+        display: { xs: !open ? 'none' : 'block', sm: 'block' },
+        zIndex: 99999,
+        position: { xs: "absolute", sm: 'relative' },
         width: drawerWidth,
         flexShrink: 0,
         '& .MuiDrawer-paper': {
           width: drawerWidth,
           boxSizing: 'border-box',
+          left: { xs: !open ? '-240px' : '0px', sm: '0px' },
         },
       }}
       variant="permanent"
-      anchor="left"
     >
       <Box sx={{
         height: "100%",
@@ -37,7 +46,7 @@ export default function Sidebar() {
       }}>
         <Box>
           {/* bar header */}
-          <Toolbar >
+          <Toolbar sx={{ padding: 2 }}>
             <Typography variant="h6" >
               BOOKSHELF
             </Typography>
@@ -49,7 +58,7 @@ export default function Sidebar() {
             <Link
               to={'/'} style={{ textDecoration: "none", color: theme.palette.text.primary }}>
               <ListItem disablePadding>
-                <ListItemButton sx={{ borderRadius: '8px', margin: '4px 0', backgroundColor: pathname === "/" ? theme.palette.grey[100] : '', }}>
+                <ListItemButton onClick={handleClose} sx={{ borderRadius: '8px', margin: '4px 0', backgroundColor: pathname === "/" ? theme.palette.grey[100] : '', }}>
                   <ListItemIcon sx={{ minWidth: '38px' }} >
                     <AutoStoriesRoundedIcon color="primary" />
                   </ListItemIcon>
@@ -59,7 +68,7 @@ export default function Sidebar() {
             </Link>
             <Link
               to={'/search-books'} style={{ textDecoration: "none", color: theme.palette.text.primary }}>
-              <ListItem disablePadding>
+              <ListItem onClick={handleClose} disablePadding>
                 <ListItemButton sx={{ borderRadius: '8px', margin: '4px 0', backgroundColor: pathname === "/search-books" ? theme.palette.grey[100] : '', }}>
                   <ListItemIcon sx={{ minWidth: '38px' }} >
                     <ContentPasteSearchRoundedIcon color="primary" />
@@ -75,7 +84,10 @@ export default function Sidebar() {
         <Box>
           <Divider />
           <List sx={{ px: 2 }} >
-            <ListItem onClick={logout} disablePadding>
+            <ListItem onClick={() => {
+              logout();
+              handleClose()
+            }} disablePadding>
               <ListItemButton sx={{ borderRadius: '8px', margin: '4px 0' }}>
                 <ListItemIcon sx={{ minWidth: '38px' }} >
                   <LogoutRoundedIcon color="primary" />

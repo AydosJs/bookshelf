@@ -4,14 +4,14 @@ import Search from "../../components/search/Search";
 import { Book } from "../../types/common";
 import MainLayout from "../layout/MainLayout";
 import SearchedBooksCard from "../../components/book/SearchedBooksCard";
-import { Box, Button, Grid, LinearProgress, Typography } from "@mui/material";
+import { Box, Button, Grid, LinearProgress } from "@mui/material";
 import toast from "react-hot-toast";
 import { AxiosError } from "axios";
-import theme from "../../themes";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../store/hooks";
 import { setMyBooks, addToMyBooks, getSearchedBooks, setSearchedBooks } from "../../store/book/bookSlice";
 import { eq, slice } from "lodash";
+import Loader from "../layout/Loader";
 
 const LIMIT = 10
 
@@ -70,14 +70,9 @@ export default function SearchBooks() {
 
       {/* search */}
       <Search onSubmit={onSearch} />
+
       {/* NO BOOKS YET TYPOGRAPHY */}
-      {Boolean(!searchedBooks.length) && (
-        <Box sx={{ width: "100%", minHeight: "calc(100vh - 195px)", display: "flex", justifyContent: "center", alignItems: 'center' }}>
-          <Typography variant="body1" sx={{ color: theme.palette.text.primary, fontWeight: 500 }}>
-            {loader ? 'Loading...' : 'NO BOOK FOUND!'}
-          </Typography>
-        </Box>
-      )}
+      {Boolean(!searchedBooks.length) && <Loader loader={loader} text="NO BOOKS FOUND!" />}
 
       {/* MAPPING THE ARRAY */}
       <Grid container spacing={4}>

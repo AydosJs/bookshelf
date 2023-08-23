@@ -53,9 +53,7 @@ type Props = {
 }
 export default function SearchedBooksCard({ item, addBook, loader }: Props) {
   const bookshelf = useAppSelector(getMyBooks)
-  const hasBook = some(bookshelf as BookWithStatus[], (book: BookWithStatus) => book?.book?.isbn === item?.isbn);
-  console.log('hasBook', hasBook)
-  console.log('bokshelf', bookshelf)
+  const hasBook = some(bookshelf, (book: BookWithStatus) => book?.book?.isbn === item?.isbn);
 
   return (
     <Grid item xs={12} sm={12} md={6} >

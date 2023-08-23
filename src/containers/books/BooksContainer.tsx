@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../store/hooks";
 import { setMyBooks, getMyBooks } from "../../store/book/bookSlice";
 import { slice } from "lodash";
+import Loader from "../layout/Loader";
 const LIMIT = 10
 
 export default function BooksContainer() {
@@ -88,17 +89,7 @@ export default function BooksContainer() {
       </Box>
 
 
-      {(books?.length == 0 || !books) && (
-        <Box sx={{
-          width: "100%", display: "flex", position: "absolute",
-          top: "50%",
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          justifyContent: "center", alignItems: 'center'
-        }}>
-          <Typography variant="body1" sx={{ color: theme.palette.text.primary, fontWeight: 500 }}> NO BOOKS CREATED YET!</Typography>
-        </Box>
-      )}
+      {(books?.length == 0 || !books) && <Loader loader={loader} text="NO BOOKS CREATED YET!" />}
       {/* book cards */}
       <Grid container spacing={4}>
         {slice(books, 0, endOffset).map((item: BookWithStatus) => (
