@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Book, BookWithStatus } from "../../types/common";
 import { RootState } from "../store";
-import { some } from "lodash";
+import { findIndex, some } from "lodash";
 
 type BookState = {
   myBooks: BookWithStatus[];
@@ -41,10 +41,27 @@ export const bookSlice = createSlice({
     ) => {
       state.searchedBooks = action.payload || [];
     },
+    changeBookStatus: (state, action: PayloadAction<BookWithStatus>) => {
+      state.myBooks[
+        findIndex(
+          state.myBooks,
+          (item) => item.book.id === action?.payload?.book?.id
+        )
+      ] = action?.payload;
+
+      console.log(
+        "book",
+        findIndex(
+          state.myBooks,
+          (item) => item.book.id === action?.payload?.book?.id
+        )
+      );
+    },
   },
 });
 
-export const { setMyBooks, setSearchedBooks, addToMyBooks } = bookSlice.actions;
+export const { setMyBooks, setSearchedBooks, addToMyBooks, changeBookStatus } =
+  bookSlice.actions;
 export const getMyBooks = (state: RootState) => state.books.myBooks;
 export const getSearchedBooks = (state: RootState) => state.books.searchedBooks;
 export default bookSlice.reducer;

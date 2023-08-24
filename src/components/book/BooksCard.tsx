@@ -7,6 +7,8 @@ import PersonIcon from '@mui/icons-material/Person';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import QrCodeIcon from '@mui/icons-material/QrCode';
 import LayersIcon from '@mui/icons-material/Layers';
+import { green, yellow } from '@mui/material/colors';
+
 
 const ImageBox = styled(Box)(({ theme }) => ({
   border: `1px solid ${theme.palette.grey[300]}`,
@@ -17,18 +19,6 @@ const ImageBox = styled(Box)(({ theme }) => ({
   backgroundRepeat: "no-repeat",
   height: "100%"
 }))
-
-const insideGridStlye = {
-  flexDirection: { xs: "column", sm: "row" },
-  border: `1px solid ${theme.palette.grey[200]}`,
-  borderRadius: '4px',
-  overflow: "hidden",
-  cursor: 'pointer',
-  backgroundColor: "white",
-  '&:hover': {
-    boxShadow: `rgba(0, 0, 0, 0.45) 0px 25px 20px -20px`,
-  },
-}
 
 const listItemStyle = {
   paddingX: 0
@@ -44,9 +34,23 @@ type Props = {
 }
 
 export default function BooksCard({ item, deleteBook }: Props) {
+
   return (
     <Grid item xs={12} sm={12} md={6} sx={{ minHeight: 380 }} >
-      <Grid sx={insideGridStlye} container>
+      <Grid
+        container
+        sx={{
+          flexDirection: { xs: "column", sm: "row" },
+          border: `1px solid ${theme.palette.grey[200]}`,
+          borderRadius: '4px',
+          overflow: "hidden",
+          cursor: 'pointer',
+          backgroundColor: `${item.status !== 0 ? item?.status === 1 ? yellow[100] : green[100] : 'white'}`,
+          '&:hover': {
+            boxShadow: `rgba(0, 0, 0, 0.45) 0px 25px 20px -20px`,
+          },
+
+        }}>
         <Grid item xs={12} sm={6} sx={{ p: 0, m: 0 }}>
           <ImageBox sx={{
             minHeight: 300,
@@ -115,6 +119,6 @@ export default function BooksCard({ item, deleteBook }: Props) {
           </Box>
         </Grid>
       </Grid>
-    </Grid>
+    </Grid >
   )
 }
