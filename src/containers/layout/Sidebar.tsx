@@ -33,6 +33,7 @@ export default function Sidebar({ open, handleClose }: Props) {
           width: drawerWidth,
           boxSizing: 'border-box',
           left: { xs: !open ? '-240px' : '0px', sm: '0px' },
+
         },
       }}
       variant="permanent"

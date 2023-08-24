@@ -1,7 +1,9 @@
-import { Box, IconButton, Toolbar } from "@mui/material";
+import { Box, IconButton, Toolbar, Typography } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
 import theme from "../../themes";
+import BoltRoundedIcon from '@mui/icons-material/BoltRounded';
+import { Link } from "react-router-dom";
 
 type Props = {
   open: boolean
@@ -15,7 +17,16 @@ export default function AppBarComponent({ open, handleOpen, handleClose }: Props
       <AppBar position="fixed" sx={{ paddingX: 0, width: { xs: "100%", sm: "calc(100% - 240px)" }, paddingY: { xs: '4px', sm: "0px" }, marginLeft: { sm: '240px' }, left: 0, right: 0, backgroundColor: "white", boxShadow: "none", borderBottom: `1px solid ${theme.palette.grey[200]}` }}>
         <Toolbar >
           <Box sx={{ display: 'flex', width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Box></Box>
+            <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
+              <Link to={'/'} style={{ textDecoration: "none" }}>
+                <Typography variant="h6" color="primary" sx={{ display: 'flex', flexDirection: 'row', alignItems: "center" }}>
+                  <BoltRoundedIcon />
+                  <span>
+                    BOOKSHELF
+                  </span>
+                </Typography>
+              </Link>
+            </Box>
             <Box>
               <IconButton
                 size="large"

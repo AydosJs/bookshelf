@@ -55,7 +55,7 @@ export default function Search({ onSubmit }: Props) {
   });
 
   return (
-    <Box component='form' onSubmit={formik.handleSubmit} sx={{ mb: 4 }}>
+    <Box component='form' onSubmit={formik.handleSubmit} sx={{ mb: 4, backgroundColor: "white" }}>
       <SearchStyle>
         <SearchIconWrapper>
           <SearchIcon />

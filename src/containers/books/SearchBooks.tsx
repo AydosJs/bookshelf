@@ -69,7 +69,9 @@ export default function SearchBooks() {
       }
 
       {/* search */}
-      <Search onSubmit={onSearch} />
+      <Box pt={2}>
+        <Search onSubmit={onSearch} />
+      </Box>
 
       {/* NO BOOKS YET TYPOGRAPHY */}
       {Boolean(!searchedBooks.length) && <Loader loader={loader} text="NO BOOKS FOUND!" />}

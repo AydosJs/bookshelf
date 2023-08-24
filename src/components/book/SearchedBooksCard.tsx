@@ -9,9 +9,8 @@ import QrCodeIcon from '@mui/icons-material/QrCode';
 import { getMyBooks } from "../../store/book/bookSlice";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { some } from 'lodash';
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import { createStyles, makeStyles } from '@mui/styles';
 import Noimageplaceholder from '../../assets/Noimageplaceholder.png'
+import { useEffect, useState } from "react";
 
 const Item = styled(Grid)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -45,39 +44,93 @@ type Props = {
   loader: boolean
 }
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    imageSpan: {
-      width: '100%',
-      height: "100%"
-    },
-  }),
-);
-
 export default function SearchedBooksCard({ item, addBook, loader }: Props) {
-  const classes = useStyles();
   const bookshelf = useAppSelector(getMyBooks)
   const hasBook = some(bookshelf, (book: BookWithStatus) => book?.book?.isbn === item?.isbn);
 
+  const [loaderImage, setLoader] = useState({
+    loading: false,
+    error: false
+  })
+
+  useEffect(() => {
+    const img = new Image();
+    img.onload = () => {
+      console.log('Image loaded successfully');
+      setLoader({
+        loading: true,
+        error: false
+      })
+    }
+
+    img.onerror = () => {
+      console.log('Image loaded successfully');
+      setLoader({
+        loading: false,
+        error: true
+      })
+    }
+
+    img.src = item?.cover
+
+    const imgInterval = setInterval(() => {
+      if (img.complete) {
+        setLoader({
+          loading: false,
+          error: false
+        })
+        clearInterval(imgInterval)
+      }
+
+    }, 1000);
+  }, [])
+
   return (
     <Grid item xs={12} sm={12} md={6} >
-      <Item container sx={{ padding: 0, margin: 0, cursor: "pointer", flexDirection: { xs: "column", sm: "row" }, maxWidth: 590 }}>
+      <Item container sx={{ backgroundColor: "white", padding: 0, margin: 0, cursor: "pointer", flexDirection: { xs: "column", sm: "row" }, maxWidth: 590 }}>
         <Grid item xs={12} sm={6} sx={{ p: 0, m: 0 }}>
-          <LazyLoadImage
+          {/* <LazyLoadImage
             src={item?.cover}
             placeholderSrc={Noimageplaceholder}
             effect="blur"
-            style={{
-              width: "100%",
-              height: "100%",
-              display: 'block',
-              aspectRatio: '1 / 1',
-              objectFit: 'cover',
-              objectPosition: 'center'
-            }}
-
+          
             wrapperClassName={classes.imageSpan}
-          />
+          /> */}
+
+          {
+            loaderImage.error && <img
+              src={Noimageplaceholder}
+              alt={'No image'}
+              style={{
+                width: "100%",
+                height: "100%",
+                display: 'block',
+                aspectRatio: '1 / 1',
+                objectFit: 'cover',
+                objectPosition: 'center'
+              }} />
+          }
+
+          {
+            loaderImage.loading && <div>laoding</div>
+          }
+
+          {
+            (!loaderImage.loading && !loaderImage.error) &&
+            <img
+              src={item?.cover}
+              alt={'No image'}
+              style={{
+                width: "100%",
+                height: "100%",
+                display: 'block',
+                aspectRatio: '1 / 1',
+                objectFit: 'cover',
+                objectPosition: 'center'
+              }} />
+          }
+
+
         </Grid>
         <Grid item xs={12} sm={6} sx={{ padding: theme.spacing(4), paddingTop: theme.spacing(2) }}>
           <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%", width: "100%" }}>

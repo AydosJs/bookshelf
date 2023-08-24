@@ -24,6 +24,7 @@ const insideGridStlye = {
   borderRadius: '4px',
   overflow: "hidden",
   cursor: 'pointer',
+  backgroundColor: "white",
   '&:hover': {
     boxShadow: `rgba(0, 0, 0, 0.45) 0px 25px 20px -20px`,
   },
