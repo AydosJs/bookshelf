@@ -9,6 +9,8 @@ import QrCodeIcon from '@mui/icons-material/QrCode';
 import { getMyBooks } from "../../store/book/bookSlice";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { some } from 'lodash';
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import { createStyles, makeStyles } from '@mui/styles';
 
 const Item = styled(Grid)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -28,16 +30,6 @@ const Item = styled(Grid)(({ theme }) => ({
 
 }));
 
-const ImageBox = styled(Box)(({ theme }) => ({
-  border: `1px solid ${theme.palette.grey[300]}`,
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: theme.palette.grey[300],
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-  backgroundRepeat: "no-repeat",
-  height: "100%"
-}))
-
 const listItemStyle = {
   paddingX: 0
 }
@@ -51,7 +43,18 @@ type Props = {
   addBook: () => void;
   loader: boolean
 }
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    imageSpan: {
+      width: '100%',
+      height: "100%"
+    },
+  }),
+);
+
 export default function SearchedBooksCard({ item, addBook, loader }: Props) {
+  const classes = useStyles();
   const bookshelf = useAppSelector(getMyBooks)
   const hasBook = some(bookshelf, (book: BookWithStatus) => book?.book?.isbn === item?.isbn);
 
@@ -59,12 +62,21 @@ export default function SearchedBooksCard({ item, addBook, loader }: Props) {
     <Grid item xs={12} sm={12} md={6} >
       <Item container sx={{ padding: 0, margin: 0, cursor: "pointer", flexDirection: { xs: "column", sm: "row" }, maxWidth: 590 }}>
         <Grid item xs={12} sm={6} sx={{ p: 0, m: 0 }}>
-          <ImageBox sx={{
-            minHeight: 300,
-            height: "100%",
-            backgroundImage: `url(${item?.cover || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBKEGmmEQ4WlpXIfdqhhaFbJER2pXMLOFU3A&usqp=CAU'})`
-          }} >
-          </ImageBox>
+          <LazyLoadImage
+            src={item?.cover}
+            placeholderSrc={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBKEGmmEQ4WlpXIfdqhhaFbJER2pXMLOFU3A&usqp=CAU'}
+            effect="blur"
+            style={{
+              width: "100%",
+              height: "100%",
+              display: 'block',
+              aspectRatio: '1 / 1',
+              objectFit: 'cover',
+              objectPosition: 'center'
+            }}
+
+            wrapperClassName={classes.imageSpan}
+          />
         </Grid>
         <Grid item xs={12} sm={6} sx={{ padding: theme.spacing(4), paddingTop: theme.spacing(2) }}>
           <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%", width: "100%" }}>
