@@ -11,6 +11,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { some } from 'lodash';
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { createStyles, makeStyles } from '@mui/styles';
+import Noimageplaceholder from '../../assets/Noimageplaceholder.png'
 
 const Item = styled(Grid)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -64,7 +65,7 @@ export default function SearchedBooksCard({ item, addBook, loader }: Props) {
         <Grid item xs={12} sm={6} sx={{ p: 0, m: 0 }}>
           <LazyLoadImage
             src={item?.cover}
-            placeholderSrc={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBKEGmmEQ4WlpXIfdqhhaFbJER2pXMLOFU3A&usqp=CAU'}
+            placeholderSrc={Noimageplaceholder}
             effect="blur"
             style={{
               width: "100%",

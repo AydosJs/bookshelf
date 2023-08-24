@@ -7,12 +7,12 @@ import { useState } from "react";
 export default function MainLayout({ children }: React.PropsWithChildren) {
   const [state, setState] = useState<boolean>(false);
   const htmlOverflowHidden = () => {
-    const htmll = document.getElementsByTagName('body')
-    htmll[0].style.overflow = 'hidden'
+    const body = document.getElementsByTagName('body')
+    body[0].style.overflow = 'hidden'
   }
   const htmlOverlowRemove = () => {
-    const htmll = document.getElementsByTagName('body')
-    htmll[0].style.removeProperty('overflow')
+    const body = document.getElementsByTagName('body')
+    body[0].style.removeProperty('overflow')
   }
   return (
     <Box sx={{ display: 'flex', mt: { xs: 0, sm: 0 } }}>
