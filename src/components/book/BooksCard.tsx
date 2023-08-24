@@ -112,8 +112,8 @@ export default function BooksCard({ item, deleteBook }: Props) {
             </List>
             <Box mt={{ xs: theme.spacing(4) }} sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 2 }}>
               <BookStatus book={item} />
-              <Button sx={{ height: "100%", }} onClick={deleteBook} variant="outlined">
-                <DeleteIcon />
+              <Button color="inherit" sx={{ height: "100%", borderColor: 'rgba(0, 0, 0, 0.23)' }} onClick={deleteBook} variant="outlined">
+                <DeleteIcon sx={{ color: "rgba(0, 0, 0, 0.57)" }} />
               </Button>
             </Box>
           </Box>
