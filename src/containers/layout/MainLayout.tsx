@@ -5,21 +5,33 @@ import AppBarComponent from "./AppBarComponent";
 import { useState } from "react";
 
 export default function MainLayout({ children }: React.PropsWithChildren) {
-
   const [state, setState] = useState<boolean>(false);
+  const htmlOverflowHidden = () => {
+    const htmll = document.getElementsByTagName('body')
+    htmll[0].style.overflow = 'hidden'
+  }
+  const htmlOverlowRemove = () => {
+    const htmll = document.getElementsByTagName('body')
+    htmll[0].style.removeProperty('overflow')
+  }
   return (
     <Box sx={{ display: 'flex', mt: { xs: 0, sm: 0 } }}>
       <CssBaseline />
       <AppBarComponent
         open={state}
         handleOpen={() => {
-          setState(true)
+          setState(true);
+          htmlOverflowHidden()
         }}
         handleClose={() => {
-          setState(false)
+          setState(false);
+          htmlOverlowRemove()
         }}
       />
-      <Sidebar open={state} handleClose={() => setState(false)} />
+      <Sidebar open={state} handleClose={() => {
+        setState(false);
+        htmlOverlowRemove()
+      }} />
       <Box sx={{ width: "100%", position: "relative", mt: { xs: 8, sm: 8 } }}>
         <Container maxWidth="xl" >
           <Box

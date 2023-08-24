@@ -34,7 +34,7 @@ export default function AppBarComponent({ open, handleOpen, handleClose }: Props
         </Toolbar>
       </AppBar>
 
-      {open && <Box onClick={handleClose} sx={{ position: 'absolute', top: 0, left: 0, background: '#000', opacity: "50%", width: "100%", height: "100%", zIndex: 9999 }} />}
+      {open && <Box onClick={handleClose} sx={{ position: 'fixed', top: 0, left: 0, background: '#000', opacity: "50%", width: "100%", height: "100%", zIndex: 9999 }} />}
 
     </Box >
   )
