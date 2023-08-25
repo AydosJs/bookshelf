@@ -10,12 +10,14 @@ type Auth = {
   isLoggedIn: boolean;
   user: User | null;
   isLoading: boolean;
+  mode: "light" | "dark";
 };
 
 const initialState: Auth = {
   isLoggedIn: Boolean(Cookies.get("key")) || false,
   user: null,
   isLoading: false,
+  mode: "light",
 };
 
 export const createUser = createAsyncThunk(
@@ -42,6 +44,9 @@ export const authSlice = createSlice({
       Cookies.remove("key");
       Cookies.remove("Secret");
       state.isLoggedIn = false;
+    },
+    switchMode: (state, action: PayloadAction<"light" | "dark">) => {
+      state.mode = action.payload;
     },
   },
   extraReducers: {

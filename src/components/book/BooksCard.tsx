@@ -93,7 +93,7 @@ export default function BooksCard({ item, deleteBook }: Props) {
         <Grid item xs={12} sm={6} sx={{ p: 0, m: 0 }}>
 
           {
-            loaderImage.loading &&
+            (!loaderImage.error && loaderImage.loading) &&
             <ImageBox sx={{
               minHeight: 300,
               backgroundImage: `url(${Noimageplaceholder})`,
@@ -102,7 +102,7 @@ export default function BooksCard({ item, deleteBook }: Props) {
           }
 
           {
-            loaderImage.error &&
+            (loaderImage.error && !loaderImage.loading) &&
             <ImageBox sx={{
               minHeight: 300,
               backgroundImage: `url(${Noimageplaceholder})`,

@@ -101,7 +101,7 @@ export default function SearchedBooksCard({ item, addBook, loader }: Props) {
           /> */}
 
           {
-            loaderImage.error && <img
+            (!loaderImage.loading && loaderImage.error) && <img
               src={Noimageplaceholder}
               alt={'No image'}
               style={{
@@ -115,7 +115,7 @@ export default function SearchedBooksCard({ item, addBook, loader }: Props) {
           }
 
           {
-            loaderImage.loading && <img
+            (loaderImage.loading && !loaderImage.error) && <img
               src={Noimageplaceholder}
               alt={'No image'}
               style={{
@@ -132,7 +132,7 @@ export default function SearchedBooksCard({ item, addBook, loader }: Props) {
           {
             (!loaderImage.loading && !loaderImage.error) &&
             <img
-              src={item?.cover}
+              src={item?.cover !== "" ? item?.cover : Noimageplaceholder}
               alt={'No image'}
               style={{
                 width: "100%",
