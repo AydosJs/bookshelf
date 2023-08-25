@@ -8,12 +8,14 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import QrCodeIcon from '@mui/icons-material/QrCode';
 import LayersIcon from '@mui/icons-material/Layers';
 import { green, yellow } from '@mui/material/colors';
+import { useEffect, useState } from "react";
+import Noimageplaceholder from '../../assets/Noimageplaceholder.png'
 
 
 const ImageBox = styled(Box)(({ theme }) => ({
   border: `1px solid ${theme.palette.grey[300]}`,
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: theme.palette.grey[300],
+  backgroundColor: theme.palette.grey[100],
   backgroundSize: "cover",
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
@@ -35,6 +37,46 @@ type Props = {
 
 export default function BooksCard({ item, deleteBook }: Props) {
 
+
+  const [loaderImage, setLoader] = useState({
+    loading: false,
+    error: false
+  })
+  const img = new Image();
+
+  useEffect(() => {
+    setLoader({
+      loading: true,
+      error: false
+    })
+    img.onload = () => {
+      setLoader({
+        loading: true,
+        error: false
+      })
+    }
+
+    img.onerror = () => {
+      setLoader({
+        loading: true,
+        error: true
+      })
+    }
+
+    img.src = item?.book?.cover
+
+    const imgInterval = setInterval(() => {
+      if (img.complete) {
+        setLoader({
+          loading: false,
+          error: false
+        })
+        clearInterval(imgInterval)
+      }
+
+    }, 1000);
+  }, [])
+
   return (
     <Grid item xs={12} sm={12} md={6} sx={{ minHeight: 380 }} >
       <Grid
@@ -52,10 +94,32 @@ export default function BooksCard({ item, deleteBook }: Props) {
 
         }}>
         <Grid item xs={12} sm={6} sx={{ p: 0, m: 0 }}>
-          <ImageBox sx={{
-            minHeight: 300,
-            backgroundImage: `url(${item?.book.cover !== '' ? item?.book.cover : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBKEGmmEQ4WlpXIfdqhhaFbJER2pXMLOFU3A&usqp=CAU'})`
-          }} />
+
+          {
+            loaderImage.error &&
+            <ImageBox sx={{
+              minHeight: 300,
+              backgroundImage: `url(${Noimageplaceholder})`,
+            }} />
+          }
+
+          {
+            loaderImage.loading &&
+            <ImageBox sx={{
+              minHeight: 300,
+              backgroundImage: `url(${Noimageplaceholder})`,
+              filter: 'blur(4px)'
+            }} />
+          }
+
+          {
+            (!loaderImage.loading && !loaderImage.error) &&
+            <ImageBox sx={{
+              minHeight: 300,
+              backgroundImage: `url(${item?.book.cover})`
+            }} />
+          }
+
         </Grid>
         <Grid item xs={12} sm={6} p={3}>
           <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>

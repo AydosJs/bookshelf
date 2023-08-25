@@ -32,12 +32,12 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
         setState(false);
         htmlOverlowRemove()
       }} />
-      <Box sx={{ width: "100%", position: "relative", mt: { xs: 8, sm: 8 } }}>
+      <Box sx={{ backgroundColor: '#F8F9FD', width: "100%", position: "relative", mt: { xs: 8, sm: 8 } }}>
         <Container maxWidth="xl" sx={{ backgroundColor: '#F8F9FD' }}>
           <Box
             component="main"
             sx={{
-              flexGrow: 1, backgroundColor: '#F8F9FD',
+              flexGrow: 1,
               padding: 2,
               minHeight: "calc(100vh - 137px)",
             }}
@@ -46,7 +46,7 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
             {children}
           </Box>
         </Container>
-        <Box component='footer' sx={{ padding: '26px', width: "100%", borderTop: `1px solid ${theme.palette.grey[200]}` }}>
+        <Box component='footer' sx={{ background: 'white', padding: '26px', width: "100%", borderTop: `1px solid ${theme.palette.grey[200]}` }}>
           <Typography variant="body2">
             {"Copyright © "}2023
           </Typography>

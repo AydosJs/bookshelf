@@ -52,11 +52,15 @@ export default function SearchedBooksCard({ item, addBook, loader }: Props) {
     loading: false,
     error: false
   })
+  const img = new Image();
+
 
   useEffect(() => {
-    const img = new Image();
+    setLoader({
+      loading: true,
+      error: false
+    })
     img.onload = () => {
-      console.log('Image loaded successfully');
       setLoader({
         loading: true,
         error: false
@@ -64,9 +68,8 @@ export default function SearchedBooksCard({ item, addBook, loader }: Props) {
     }
 
     img.onerror = () => {
-      console.log('Image loaded successfully');
       setLoader({
-        loading: false,
+        loading: true,
         error: true
       })
     }
@@ -112,7 +115,18 @@ export default function SearchedBooksCard({ item, addBook, loader }: Props) {
           }
 
           {
-            loaderImage.loading && <div>laoding</div>
+            loaderImage.loading && <img
+              src={Noimageplaceholder}
+              alt={'No image'}
+              style={{
+                width: "100%",
+                height: "100%",
+                display: 'block',
+                aspectRatio: '1 / 1',
+                objectFit: 'cover',
+                objectPosition: 'center',
+                filter: 'blur(4px)'
+              }} />
           }
 
           {
