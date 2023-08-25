@@ -12,6 +12,7 @@ type Props = {
 }
 
 export default function AppBarComponent({ open, handleOpen, handleClose }: Props) {
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" sx={{ paddingX: 0, width: { xs: "100%", sm: "calc(100% - 240px)" }, paddingY: { xs: '4px', sm: "0px" }, marginLeft: { sm: '240px' }, left: 0, right: 0, backgroundColor: "white", boxShadow: "none", borderBottom: `1px solid ${theme.palette.grey[200]}` }}>
@@ -26,6 +27,9 @@ export default function AppBarComponent({ open, handleOpen, handleClose }: Props
                   </span>
                 </Typography>
               </Link>
+            </Box>
+            <Box>
+
             </Box>
             <Box>
               <IconButton
