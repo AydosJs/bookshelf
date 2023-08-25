@@ -1,15 +1,17 @@
 import { Box, Container, TextField, Typography } from "@mui/material"
 import { useFormik } from 'formik';
-import { useContext } from "react";
-import { AuthContext } from "../../providers/AuthProvider";
+import { useState } from "react";
 import { User } from "../../types/common";
 import * as Yup from 'yup'
 import LoadingButton from "@mui/lab/LoadingButton";
-
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { useNavigate } from "react-router-dom";
+import { createUser } from "../../store/auth/auth";
+import { store } from "../../store/store";
 
 export default function RegisterContainer() {
-  const { register } = useContext(AuthContext);
-
+  const [loading, setLoading] = useState<boolean>(false)
+  const navigate = useNavigate()
   const formik = useFormik<Omit<User, 'id'>>({
     initialValues: {
       name: '',
@@ -23,8 +25,16 @@ export default function RegisterContainer() {
       key: Yup.string().required('Required'),
       secret: Yup.string().required('Required')
     }),
-    onSubmit: async (values) => {
-      await register(values);
+    onSubmit: async (values: Omit<User, "id">) => {
+      try {
+        setLoading(true)
+        store.dispatch(createUser(values))
+        navigate('/')
+      } catch (error) {
+        console.log("Register error", error)
+      } finally {
+        setLoading(false)
+      }
     }
   });
 
@@ -104,8 +114,9 @@ export default function RegisterContainer() {
               fullWidth
               size="large"
               color="primary"
-              loading={false}
+              loading={loading}
               loadingPosition="start"
+              startIcon={<ExitToAppIcon />}
               variant="contained"
               type="submit"
               sx={{ width: "100%", mt: 4 }}

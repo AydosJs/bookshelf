@@ -3,9 +3,8 @@ import { Box, Button, Fab, Grid, LinearProgress, Tooltip, Typography } from "@mu
 import BooksCard from "../../components/book/BooksCard";
 import MainLayout from "../layout/MainLayout";
 import AddIcon from '@mui/icons-material/Add';
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CreateBook from "./books-save/CreateBook";
-import { AuthContext } from "../../providers/AuthProvider";
 import { deleteBook, getBooks } from "../../api/BooksAPI";
 import { BookWithStatus } from "../../types/common";
 import { AxiosError } from "axios";
@@ -15,16 +14,15 @@ import { useAppSelector } from "../../store/hooks";
 import { setMyBooks, getMyBooks } from "../../store/book/bookSlice";
 import { slice } from "lodash";
 import Loader from "../layout/Loader";
+import { logOut } from "../../store/auth/auth";
 const LIMIT = 10
 
 export default function BooksContainer() {
 
   const [endOffset, setEndOffset] = useState(LIMIT)
   const [loader, setLoader] = useState<boolean>(false);
-  const { logout } = useContext(AuthContext);
   const dispatch = useDispatch()
   const books = useAppSelector(getMyBooks)
-
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -38,7 +36,7 @@ export default function BooksContainer() {
       dispatch(setMyBooks(resp))
     } catch (e) {
       if ((e as AxiosError)?.response?.status === 401) {
-        logout();
+        dispatch(logOut());
       }
     } finally {
       setLoader(false);

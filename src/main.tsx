@@ -4,7 +4,6 @@ import App from './App.tsx'
 import { BrowserRouter } from 'react-router-dom'
 import ThemeProvider from '@mui/styles/ThemeProvider'
 import mainTheme from './themes'
-import AuthProvider from './providers/AuthProvider.tsx'
 import { store } from './store/store.ts'
 import { Provider } from 'react-redux'
 
@@ -14,9 +13,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
       <ThemeProvider theme={mainTheme}>
         <Provider store={store}>
-          <AuthProvider>
-            <App />
-          </AuthProvider>
+          <App />
         </Provider>
       </ThemeProvider>
     </BrowserRouter>

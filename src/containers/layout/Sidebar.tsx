@@ -3,10 +3,10 @@ import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import AutoStoriesRoundedIcon from '@mui/icons-material/AutoStoriesRounded';
 import { Link, useLocation } from "react-router-dom";
 import theme from "../../themes";
-import { useContext } from "react";
-import { AuthContext } from "../../providers/AuthProvider";
 import ContentPasteSearchRoundedIcon from '@mui/icons-material/ContentPasteSearchRounded';
 import Drawer from '@mui/material/Drawer';
+import { useDispatch } from "react-redux";
+import { logOut } from "../../store/auth/auth";
 
 const drawerWidth = 240;
 type Props = {
@@ -15,8 +15,10 @@ type Props = {
 }
 
 export default function Sidebar({ open, handleClose }: Props) {
-
-  const { logout } = useContext(AuthContext);
+  const dispatch = useDispatch()
+  const handleLogOut = () => {
+    dispatch(logOut())
+  }
   const { pathname } = useLocation()
 
   return (
@@ -86,7 +88,7 @@ export default function Sidebar({ open, handleClose }: Props) {
           <Divider />
           <List sx={{ px: 2 }} >
             <ListItem onClick={() => {
-              logout();
+              handleLogOut();
               handleClose()
             }} disablePadding>
               <ListItemButton sx={{ borderRadius: '8px', margin: '4px 0' }}>
