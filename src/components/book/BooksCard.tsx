@@ -15,7 +15,6 @@ import Noimageplaceholder from '../../assets/Noimageplaceholder.png'
 const ImageBox = styled(Box)(({ theme }) => ({
   border: `1px solid ${theme.palette.grey[300]}`,
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: theme.palette.grey[100],
   backgroundSize: "cover",
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
@@ -63,18 +62,16 @@ export default function BooksCard({ item, deleteBook }: Props) {
       })
     }
 
-    img.src = item?.book?.cover
+    img.src = item.book?.cover
 
     const imgInterval = setInterval(() => {
       if (img.complete) {
-        setLoader({
-          loading: false,
-          error: false
-        })
+        setLoader({ ...loaderImage, loading: false })
         clearInterval(imgInterval)
       }
 
     }, 1000);
+
   }, [])
 
   return (
@@ -96,14 +93,6 @@ export default function BooksCard({ item, deleteBook }: Props) {
         <Grid item xs={12} sm={6} sx={{ p: 0, m: 0 }}>
 
           {
-            loaderImage.error &&
-            <ImageBox sx={{
-              minHeight: 300,
-              backgroundImage: `url(${Noimageplaceholder})`,
-            }} />
-          }
-
-          {
             loaderImage.loading &&
             <ImageBox sx={{
               minHeight: 300,
@@ -113,10 +102,19 @@ export default function BooksCard({ item, deleteBook }: Props) {
           }
 
           {
+            loaderImage.error &&
+            <ImageBox sx={{
+              minHeight: 300,
+              backgroundImage: `url(${Noimageplaceholder})`,
+            }} />
+          }
+
+
+          {
             (!loaderImage.loading && !loaderImage.error) &&
             <ImageBox sx={{
               minHeight: 300,
-              backgroundImage: `url(${item?.book.cover})`
+              backgroundImage: `url(${item.book?.cover !== "" ? item.book?.cover : Noimageplaceholder})`
             }} />
           }
 
