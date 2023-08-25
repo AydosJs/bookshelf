@@ -2,7 +2,7 @@ import { Box, IconButton, Toolbar, Typography } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
 import theme from "../../themes";
-import BoltRoundedIcon from '@mui/icons-material/BoltRounded';
+import AllInboxIcon from '@mui/icons-material/AllInbox';
 import { Link } from "react-router-dom";
 
 type Props = {
@@ -20,7 +20,7 @@ export default function AppBarComponent({ open, handleOpen, handleClose }: Props
             <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
               <Link to={'/'} style={{ textDecoration: "none" }}>
                 <Typography variant="h6" color="primary" sx={{ display: 'flex', flexDirection: 'row', alignItems: "center" }}>
-                  <BoltRoundedIcon />
+                  <AllInboxIcon sx={{ mr: 1 }} />
                   <span>
                     BOOKSHELF
                   </span>
