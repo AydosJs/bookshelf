@@ -9,13 +9,13 @@ import { AxiosError } from "axios";
 type Auth = {
   isLoggedIn: boolean;
   user: User | null;
-  isLoadng: boolean;
+  isLoading: boolean;
 };
 
 const initialState: Auth = {
   isLoggedIn: Boolean(Cookies.get("key")) || false,
   user: null,
-  isLoadng: false,
+  isLoading: false,
 };
 
 export const createUser = createAsyncThunk(
@@ -46,13 +46,13 @@ export const authSlice = createSlice({
   },
   extraReducers: {
     [createUser.pending.toString()]: (state: Auth) => {
-      state.isLoadng = true;
+      state.isLoading = true;
     },
     [createUser.fulfilled.toString()]: (
       state,
       action: PayloadAction<Omit<User, "id">>
     ) => {
-      state.isLoadng = false;
+      state.isLoading = false;
       state.isLoggedIn = true;
 
       Cookies.set("key", action.payload.key);
@@ -60,7 +60,7 @@ export const authSlice = createSlice({
       state.user = action.payload;
     },
     [createUser.rejected.toString()]: (state) => {
-      state.isLoadng = false;
+      state.isLoading = false;
       state.isLoggedIn = false;
     },
   },

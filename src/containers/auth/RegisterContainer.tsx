@@ -1,6 +1,5 @@
 import { Box, Container, TextField, Typography } from "@mui/material"
 import { useFormik } from 'formik';
-import { useState } from "react";
 import { User } from "../../types/common";
 import * as Yup from 'yup'
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -8,10 +7,12 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useNavigate } from "react-router-dom";
 import { createUser } from "../../store/auth/auth";
 import { store } from "../../store/store";
+import { useAppSelector } from "../../store/hooks";
 
 export default function RegisterContainer() {
-  const [loading, setLoading] = useState<boolean>(false)
   const navigate = useNavigate()
+  const loading = useAppSelector(item => item.auth.isLoading)
+
   const formik = useFormik<Omit<User, 'id'>>({
     initialValues: {
       name: '',
@@ -25,16 +26,9 @@ export default function RegisterContainer() {
       key: Yup.string().required('Required'),
       secret: Yup.string().required('Required')
     }),
-    onSubmit: async (values: Omit<User, "id">) => {
-      try {
-        setLoading(true)
-        store.dispatch(createUser(values))
-        navigate('/')
-      } catch (error) {
-        console.log("Register error", error)
-      } finally {
-        setLoading(false)
-      }
+    onSubmit: (values: Omit<User, "id">) => {
+      store.dispatch(createUser(values))
+      navigate('/')
     }
   });
 
@@ -63,6 +57,7 @@ export default function RegisterContainer() {
           <Box component="form" onSubmit={formik.handleSubmit} sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
 
             <TextField
+              disabled={loading}
               fullWidth
               id="name"
               label="Name"
@@ -74,6 +69,7 @@ export default function RegisterContainer() {
 
             <Box mt={2}>
               <TextField
+                disabled={loading}
                 fullWidth
                 id="email"
                 label="Email Address"
@@ -87,6 +83,7 @@ export default function RegisterContainer() {
 
             <Box mt={2}>
               <TextField
+                disabled={loading}
                 fullWidth
                 name="key"
                 label="Key"
@@ -99,6 +96,7 @@ export default function RegisterContainer() {
 
             <Box mt={2}>
               <TextField
+                disabled={loading}
                 fullWidth
                 name="secret"
                 label="Secret"
