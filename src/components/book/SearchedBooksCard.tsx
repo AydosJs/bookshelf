@@ -18,11 +18,11 @@ const Item = styled(Grid)(({ theme }) => ({
   padding: theme.spacing(3),
   textAlign: 'center',
   color: theme.palette.text.secondary,
-  border: `1px solid ${theme.palette.grey[300]}`,
-  borderRadius: theme.shape.borderRadius,
+  borderRadius: "16px",
   display: "flex",
   flexDirection: "row",
   flexWrap: "nowrap",
+  overflow: "hidden",
 
   '&:hover': {
     boxShadow: `rgba(0, 0, 0, 0.45) 0px 25px 20px -20px`,

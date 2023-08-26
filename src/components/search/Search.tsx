@@ -4,19 +4,21 @@ import { Box } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import { useFormik } from "formik";
 import { Book } from '../../types/common';
+import theme from '../../themes';
 
-const SearchStyle = styled('div')(({ theme }) => ({
+const SearchStyle = styled('div')(() => ({
+  backgroundColor: theme.palette.mode === 'dark' ? 'white' : '#272B2F',
   position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  border: `1px solid ${theme.palette.grey[300]}`,
+  borderRadius: '100px',
   marginLeft: 0,
-  width: '100%',
+  border: `1px solid ${theme.palette.mode === 'light' ? 'rgba(194, 224, 255, 0.08)' : 'none'}`,
+  overflow: 'hidden',
   [theme.breakpoints.up('sm')]: {
     width: 'auto',
   },
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
+const SearchIconWrapper = styled('div')(() => ({
   padding: theme.spacing(0, 2),
   height: '100%',
   position: 'absolute',
@@ -26,8 +28,8 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   justifyContent: 'center',
 }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
+const StyledInputBase = styled(InputBase)(() => ({
+  color: theme.palette.mode === 'dark' ? 'black' : theme.palette.grey[300],
   width: "100%",
   '& .MuiInputBase-input': {
     padding: theme.spacing(2, 2, 2, 0),
@@ -55,10 +57,10 @@ export default function Search({ onSubmit }: Props) {
   });
 
   return (
-    <Box component='form' onSubmit={formik.handleSubmit} sx={{ mb: 4, backgroundColor: "white" }}>
+    <Box component='form' onSubmit={formik.handleSubmit} sx={{ mb: 4 }}>
       <SearchStyle>
         <SearchIconWrapper>
-          <SearchIcon />
+          <SearchIcon sx={{ color: theme.palette.mode === 'light' ? theme.palette.grey[300] : "black" }} />
         </SearchIconWrapper>
         <StyledInputBase
           placeholder="Search…"

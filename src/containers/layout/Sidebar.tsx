@@ -27,7 +27,7 @@ export default function Sidebar({ open, handleClose }: Props) {
       anchor={'left'}
       onClose={handleClose}
       sx={{
-        display: { xs: !open ? 'none' : 'block', sm: 'block' },
+        display: { xs: !open ? 'none' : 'block' },
         zIndex: 99999,
         position: { xs: "absolute", sm: 'relative' },
         width: drawerWidth,

@@ -1,4 +1,4 @@
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import Sidebar from "./Sidebar";
 import theme from "../../themes";
 import AppBarComponent from "./AppBarComponent";
@@ -32,24 +32,19 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
         htmlOverlowRemove()
       }} />
       <Box sx={{ width: "100%", position: "relative", mt: { xs: 8, sm: 8 } }}>
-        <Container maxWidth="xl" sx={{ backgroundColor: theme.palette.mode === 'dark' ? '#eee' : '#F8F9FD' }}>
+        <Container maxWidth="xl" sx={{ backgroundColor: theme.palette.mode === 'dark' ? '#eee' : '#212529' }}>
           <Box
             component="main"
             sx={{
               flexGrow: 1,
               padding: 2,
-              minHeight: "calc(100vh - 137px)",
+              minHeight: "calc(100vh - 64px)",
             }}
 
           >
             {children}
           </Box>
         </Container>
-        <Box component='footer' sx={{ padding: '26px', width: "100%", borderTop: `1px solid ${theme.palette.grey[200]}` }}>
-          <Typography variant="body2">
-            {"Copyright © "}2023
-          </Typography>
-        </Box>
       </Box>
     </Box >
   )

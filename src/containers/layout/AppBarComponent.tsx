@@ -9,6 +9,7 @@ import { toggleMode } from "../../store/settings";
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import theme from "../../themes";
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
 type Props = {
   open: boolean
@@ -27,7 +28,7 @@ export default function AppBarComponent({ open, handleOpen, handleClose }: Props
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" sx={{ paddingX: 0, width: { xs: "100%", sm: "calc(100% - 240px)" }, paddingY: { xs: '4px', sm: "0px" }, marginLeft: { sm: '240px' }, left: 0, right: 0, backgroundColor: 'white', boxShadow: "none", borderBottom: `1px solid ${theme.palette.grey[200]}` }}>
+      <AppBar position="fixed" sx={{ paddingX: 0, width: "100%", paddingY: { xs: '4px', sm: "0px" }, left: 0, right: 0, backgroundColor: theme.palette.mode === 'dark' ? 'white' : '#212529', boxShadow: theme.palette.mode === 'dark' ? 'rgba(149, 157, 165, 0.2) 0px 8px 24px' : 'none', borderBottom: theme.palette.mode === 'light' ? '1px solid rgba(194, 224, 255, 0.08)' : 'none', }}>
         <Toolbar >
           <Box sx={{ display: 'flex', width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
             <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
@@ -41,20 +42,23 @@ export default function AppBarComponent({ open, handleOpen, handleClose }: Props
               </Link>
             </Box>
             <Box>
-              <IconButton sx={{ ml: 1 }} onClick={handleSwitchMode} color="primary">
-                {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-              </IconButton>
             </Box>
             <Box>
+              <IconButton onClick={handleSwitchMode} color="primary">
+                {theme.palette.mode === 'light' ? <Brightness7Icon /> : <Brightness4Icon />}
+              </IconButton>
+              <IconButton color="primary">
+                <AccountCircleRoundedIcon />
+              </IconButton>
+            </Box>
+            <Box sx={{
+              display: { xs: 'block', sm: 'none' }
+            }}>
               <IconButton
                 size="large"
                 color="primary"
                 aria-label="menu"
                 onClick={handleOpen}
-
-                sx={{
-                  display: { xs: 'block', sm: 'none' }
-                }}
               >
                 <MenuIcon />
               </IconButton>
