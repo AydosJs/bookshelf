@@ -1,5 +1,4 @@
 import { Box, IconButton, Toolbar, Typography } from "@mui/material";
-import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
 import AllInboxIcon from '@mui/icons-material/AllInbox';
 import { Link } from "react-router-dom";
@@ -47,27 +46,17 @@ export default function AppBarComponent({ open, handleOpen, handleClose }: Props
               <IconButton onClick={handleSwitchMode} color="primary">
                 {theme.palette.mode === 'light' ? <Brightness7Icon /> : <Brightness4Icon />}
               </IconButton>
-              <IconButton color="primary">
+              <IconButton onClick={() => {
+                open ? handleClose() : handleOpen()
+              }} color="primary">
                 <AccountCircleRoundedIcon />
-              </IconButton>
-            </Box>
-            <Box sx={{
-              display: { xs: 'block', sm: 'none' }
-            }}>
-              <IconButton
-                size="large"
-                color="primary"
-                aria-label="menu"
-                onClick={handleOpen}
-              >
-                <MenuIcon />
               </IconButton>
             </Box>
           </Box>
         </Toolbar>
       </AppBar>
 
-      {open && <Box onClick={handleClose} sx={{ position: 'fixed', top: 0, left: 0, background: '#000', opacity: "50%", width: "100%", height: "100%", zIndex: 9999 }} />}
+      {open && <Box onClick={handleClose} sx={{ display: { xs: 'block', sm: "none" }, position: 'fixed', top: 0, left: 0, background: '#000', opacity: "50%", width: "100%", height: "100%", zIndex: 9999 }} />}
 
     </Box >
   )

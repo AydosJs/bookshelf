@@ -89,7 +89,7 @@ export default function BooksContainer() {
 
       {(books?.length == 0 || !books) && <Loader loader={loader} text="NO BOOKS CREATED YET!" />}
       {/* book cards */}
-      <Grid container spacing={4}>
+      <Grid container>
         {slice(books, 0, endOffset).map((item: BookWithStatus) => (
           <BooksCard
             deleteBook={() => handleDelete(item.book.id)}

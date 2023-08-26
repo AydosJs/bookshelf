@@ -15,7 +15,6 @@ import { useEffect, useState } from "react";
 const Item = styled(Grid)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
-  padding: theme.spacing(3),
   textAlign: 'center',
   color: theme.palette.text.secondary,
   borderRadius: "16px",
@@ -89,17 +88,9 @@ export default function SearchedBooksCard({ item, addBook, loader }: Props) {
   }, [])
 
   return (
-    <Grid item xs={12} sm={12} md={6} >
-      <Item container sx={{ backgroundColor: "white", padding: 0, margin: 0, cursor: "pointer", flexDirection: { xs: "column", sm: "row" }, maxWidth: 590 }}>
+    <Grid item xs={12} sm={6} >
+      <Item container sx={{ backgroundColor: "white", margin: 0, cursor: "pointer", flexDirection: { xs: "column", sm: "row" } }}>
         <Grid item xs={12} sm={6} sx={{ p: 0, m: 0 }}>
-          {/* <LazyLoadImage
-            src={item?.cover}
-            placeholderSrc={Noimageplaceholder}
-            effect="blur"
-          
-            wrapperClassName={classes.imageSpan}
-          /> */}
-
           {
             (!loaderImage.loading && loaderImage.error) && <img
               src={Noimageplaceholder}

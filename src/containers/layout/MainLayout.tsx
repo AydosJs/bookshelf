@@ -31,8 +31,8 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
         setState(false);
         htmlOverlowRemove()
       }} />
-      <Box sx={{ width: "100%", position: "relative", mt: { xs: 8, sm: 8 } }}>
-        <Container maxWidth="xl" sx={{ backgroundColor: theme.palette.mode === 'dark' ? '#eee' : '#212529' }}>
+      <Box sx={{ width: "100%", position: "relative", mt: { xs: 8, sm: 8 }, backgroundColor: theme.palette.mode === 'dark' ? '#eee' : '#212529' }}>
+        <Container maxWidth="lg">
           <Box
             component="main"
             sx={{
@@ -40,7 +40,6 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
               padding: 2,
               minHeight: "calc(100vh - 64px)",
             }}
-
           >
             {children}
           </Box>
