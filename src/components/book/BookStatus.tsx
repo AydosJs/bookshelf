@@ -7,7 +7,7 @@ import { editBook } from '../../api/BooksAPI';
 import { BookWithStatus } from '../../types/common';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
-import { changeBookStatus } from '../../store/book/bookSlice';
+import { changeBookStatus } from '../../store/bookSlice';
 
 type Props = {
   book: BookWithStatus

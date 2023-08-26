@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import books from "./book/bookSlice";
-import auth from "./auth/auth";
+import books from "./bookSlice";
+import auth from "./auth";
+import settings from "./settings";
 
 export const store = configureStore({
   reducer: {
     books,
     auth,
+    settings,
   },
 });
 export type AppDispatch = typeof store.dispatch;

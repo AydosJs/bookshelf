@@ -11,10 +11,10 @@ import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../store/hooks";
-import { setMyBooks, getMyBooks } from "../../store/book/bookSlice";
+import { setMyBooks, getMyBooks } from "../../store/bookSlice";
 import { slice } from "lodash";
 import Loader from "../layout/Loader";
-import { logOut } from "../../store/auth/auth";
+import { logOut } from "../../store/auth";
 const LIMIT = 10
 
 export default function BooksContainer() {
@@ -81,7 +81,7 @@ export default function BooksContainer() {
 
       {/* TITLE */}
       <Box mb={4} mt={2}>
-        <Typography color={theme.palette.text.primary} sx={{ fontWeight: 500 }} variant="h4">
+        <Typography sx={{ fontWeight: 500, color: theme.palette.mode === 'dark' ? 'yellow' : "red" }} variant="h4">
           Books
         </Typography>
       </Box>

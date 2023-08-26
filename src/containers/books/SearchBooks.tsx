@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 import { AxiosError } from "axios";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../store/hooks";
-import { setMyBooks, addToMyBooks, getSearchedBooks, setSearchedBooks } from "../../store/book/bookSlice";
+import { setMyBooks, addToMyBooks, getSearchedBooks, setSearchedBooks } from "../../store/bookSlice";
 import { eq, slice } from "lodash";
 import Loader from "../layout/Loader";
 

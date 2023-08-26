@@ -7,10 +7,13 @@ import { Toaster } from 'react-hot-toast';
 import NothingPage from "./containers/layout/NothingPage"
 import SearchBooks from "./containers/books/SearchBooks"
 import './App.css'
+import theme from "./themes"
+import { useAppSelector } from "./store/hooks"
 
 
 function App() {
-
+  const mode = useAppSelector(state => state.settings.mode)
+  theme.palette.mode = mode
   return (
     <>
       <Routes>

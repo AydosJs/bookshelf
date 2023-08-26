@@ -6,12 +6,14 @@ import ThemeProvider from '@mui/styles/ThemeProvider'
 import mainTheme from './themes'
 import { store } from './store/store.ts'
 import { Provider } from 'react-redux'
+import { CssBaseline } from '@mui/material'
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider theme={mainTheme}>
+        <CssBaseline />
         <Provider store={store}>
           <App />
         </Provider>

@@ -6,7 +6,7 @@ import { useAppSelector } from "../../store/hooks";
 import Person2RoundedIcon from '@mui/icons-material/Person2Rounded';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import QrCodeIcon from '@mui/icons-material/QrCode';
-import { getMyBooks } from "../../store/book/bookSlice";
+import { getMyBooks } from "../../store/bookSlice";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { some } from 'lodash';
 import Noimageplaceholder from '../../assets/Noimageplaceholder.png'

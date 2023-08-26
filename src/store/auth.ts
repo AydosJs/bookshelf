@@ -1,9 +1,9 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { User } from "../../types/common";
+import { User } from "../types/common";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
-import * as authApi from "../../api/authApi";
-import { RootState } from "../store";
+import * as authApi from "../api/authApi";
+import { RootState } from "./store";
 import { AxiosError } from "axios";
 
 type Auth = {

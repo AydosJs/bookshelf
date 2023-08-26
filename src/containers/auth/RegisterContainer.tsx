@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import LoadingButton from "@mui/lab/LoadingButton";
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useNavigate } from "react-router-dom";
-import { createUser } from "../../store/auth/auth";
+import { createUser } from "../../store/auth";
 import { store } from "../../store/store";
 import { useAppSelector } from "../../store/hooks";
 

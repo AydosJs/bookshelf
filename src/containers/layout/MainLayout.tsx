@@ -1,4 +1,4 @@
-import { Box, Container, CssBaseline, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import Sidebar from "./Sidebar";
 import theme from "../../themes";
 import AppBarComponent from "./AppBarComponent";
@@ -16,7 +16,6 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
   }
   return (
     <Box sx={{ display: 'flex', mt: { xs: 0, sm: 0 } }}>
-      <CssBaseline />
       <AppBarComponent
         open={state}
         handleOpen={() => {
@@ -32,8 +31,8 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
         setState(false);
         htmlOverlowRemove()
       }} />
-      <Box sx={{ backgroundColor: '#F8F9FD', width: "100%", position: "relative", mt: { xs: 8, sm: 8 } }}>
-        <Container maxWidth="xl" sx={{ backgroundColor: '#F8F9FD' }}>
+      <Box sx={{ width: "100%", position: "relative", mt: { xs: 8, sm: 8 } }}>
+        <Container maxWidth="xl" sx={{ backgroundColor: theme.palette.mode === 'dark' ? '#eee' : '#F8F9FD' }}>
           <Box
             component="main"
             sx={{
@@ -46,7 +45,7 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
             {children}
           </Box>
         </Container>
-        <Box component='footer' sx={{ background: 'white', padding: '26px', width: "100%", borderTop: `1px solid ${theme.palette.grey[200]}` }}>
+        <Box component='footer' sx={{ padding: '26px', width: "100%", borderTop: `1px solid ${theme.palette.grey[200]}` }}>
           <Typography variant="body2">
             {"Copyright © "}2023
           </Typography>

@@ -2,11 +2,12 @@ import { Box, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemTex
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import AutoStoriesRoundedIcon from '@mui/icons-material/AutoStoriesRounded';
 import { Link, useLocation } from "react-router-dom";
-import theme from "../../themes";
 import ContentPasteSearchRoundedIcon from '@mui/icons-material/ContentPasteSearchRounded';
 import Drawer from '@mui/material/Drawer';
 import { useDispatch } from "react-redux";
-import { logOut } from "../../store/auth/auth";
+import { logOut } from "../../store/auth";
+import theme from "../../themes";
+import AllInboxIcon from '@mui/icons-material/AllInbox';
 
 const drawerWidth = 240;
 type Props = {
@@ -35,7 +36,6 @@ export default function Sidebar({ open, handleClose }: Props) {
           width: drawerWidth,
           boxSizing: 'border-box',
           left: { xs: !open ? '-240px' : '0px', sm: '0px' },
-
         },
       }}
       variant="permanent"
@@ -50,9 +50,14 @@ export default function Sidebar({ open, handleClose }: Props) {
         <Box>
           {/* bar header */}
           <Toolbar sx={{ padding: 2 }}>
-            <Typography variant="h6" >
-              BOOKSHELF
-            </Typography>
+            <Link to={'/'} style={{ textDecoration: "none" }}>
+              <Typography variant="h6" color="primary" sx={{ display: 'flex', flexDirection: 'row', alignItems: "center" }}>
+                <AllInboxIcon sx={{ mr: 1 }} />
+                <span>
+                  BOOKSHELF
+                </span>
+              </Typography>
+            </Link>
           </Toolbar>
           <Divider />
 

@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Book, BookWithStatus } from "../../types/common";
-import { RootState } from "../store";
+import { Book, BookWithStatus } from "../types/common";
+import { RootState } from "./store";
 import { findIndex, some } from "lodash";
 
 type BookState = {
