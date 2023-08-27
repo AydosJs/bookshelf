@@ -4,14 +4,15 @@ import Search from "../../components/search/Search";
 import { Book } from "../../types/common";
 import MainLayout from "../layout/MainLayout";
 import SearchedBooksCard from "../../components/book/SearchedBooksCard";
-import { Box, Button, Grid, LinearProgress } from "@mui/material";
+import { Box, Grid, LinearProgress } from "@mui/material";
 import toast from "react-hot-toast";
 import { AxiosError } from "axios";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../store/hooks";
 import { setMyBooks, addToMyBooks, getSearchedBooks, setSearchedBooks } from "../../store/bookSlice";
 import { eq, slice } from "lodash";
-import Loader from "../layout/Loader";
+import MoreButton from "../../components/MoreButton";
+import LogoText from "../../components/LogoText";
 
 const LIMIT = 10
 
@@ -58,6 +59,8 @@ export default function SearchBooks() {
     setEndOffset(endOffset + LIMIT)
   }
 
+  const ifSeachBooksEmpty = Boolean(!searchedBooks.length)
+
   return (
     <MainLayout >
 
@@ -69,12 +72,17 @@ export default function SearchBooks() {
       }
 
       {/* search */}
-      <Box pt={2}>
-        <Search onSubmit={onSearch} />
+      <Box pt={ifSeachBooksEmpty ? 24 : 0} sx={{ position: 'relative' }}>
+        <Box sx={{ position: ifSeachBooksEmpty ? 'absolute' : 'relative', width: ifSeachBooksEmpty ? "70%" : '100%', left: ifSeachBooksEmpty ? "50%" : 'none', transform: ifSeachBooksEmpty ? 'translate(-50%, 0)' : 'none' }}>
+          <Box mb={4} sx={{ display: ifSeachBooksEmpty ? 'flex' : 'none', justifyContent: 'center' }}>
+            <LogoText />
+          </Box>
+          <Search onSubmit={onSearch} />
+        </Box>
       </Box>
 
       {/* NO BOOKS YET TYPOGRAPHY */}
-      {Boolean(!searchedBooks.length) && <Loader loader={loader} text="NO BOOKS FOUND!" />}
+      {/* {Boolean(!searchedBooks.length) && <Loader loader={loader} text="NO BOOKS FOUND!" />} */}
 
       {/* MAPPING THE ARRAY */}
       <Grid container spacing={4}>
@@ -91,17 +99,12 @@ export default function SearchBooks() {
         )}
 
         {/* MORE BUTTON */}
-        {(Boolean(searchedBooks.length) && !loader) && (
-          <Grid item xs={12}>
-            <Button disabled={endOffset >= searchedBooks?.length} sx={{ width: "100%", paddingY: 2 }} size="large" variant="contained"
-              onClick={fetchMore} >
-              {endOffset >= searchedBooks?.length ? 'YOU ARE ALL SET' : 'MORE'}
-            </Button>
-          </Grid>
+        {(searchedBooks?.length !== 0 && searchedBooks?.length >= endOffset) && (
+          <MoreButton disabled={endOffset >= searchedBooks?.length} fetchMore={fetchMore} />
         )}
 
       </Grid>
 
-    </MainLayout>
+    </MainLayout >
   )
 } 

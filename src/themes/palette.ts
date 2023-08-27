@@ -1,4 +1,5 @@
 import { colors } from "@mui/material";
+import { grey } from "@mui/material/colors";
 
 const white = "#FFFFFF";
 const black = "#000000";
@@ -59,6 +60,7 @@ export default {
     // primary: '#fff',
     secondary: "#969AA7",
     link: "#142fbc",
+    dark: grey[300],
   },
   background: {
     default: "#F4F6F8",

@@ -1,7 +1,5 @@
-import { Box, IconButton, Toolbar, Typography } from "@mui/material";
+import { Box, IconButton, Toolbar } from "@mui/material";
 import AppBar from '@mui/material/AppBar';
-import AllInboxIcon from '@mui/icons-material/AllInbox';
-import { Link } from "react-router-dom";
 import { useAppSelector } from "../../store/hooks";
 import { useDispatch } from "react-redux";
 import { toggleMode } from "../../store/settings";
@@ -9,6 +7,7 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import theme from "../../themes";
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
+import LogoText from "../../components/LogoText";
 
 type Props = {
   open: boolean
@@ -31,14 +30,7 @@ export default function AppBarComponent({ open, handleOpen, handleClose }: Props
         <Toolbar >
           <Box sx={{ display: 'flex', width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
             <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
-              <Link to={'/'} style={{ textDecoration: "none" }}>
-                <Typography variant="h6" color="primary" sx={{ display: 'flex', flexDirection: 'row', alignItems: "center" }}>
-                  <AllInboxIcon sx={{ mr: 1 }} />
-                  <span>
-                    BOOKSHELF
-                  </span>
-                </Typography>
-              </Link>
+              <LogoText />
             </Box>
             <Box>
             </Box>

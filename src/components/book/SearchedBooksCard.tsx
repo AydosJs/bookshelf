@@ -1,4 +1,4 @@
-import { Box, Typography, Grid, styled, Divider, List, ListItem, ListItemText, ListItemIcon } from "@mui/material";
+import { Box, Typography, Grid, styled, List, ListItem, ListItemText, ListItemIcon } from "@mui/material";
 import theme from "../../themes";
 import { Book, BookWithStatus } from "../../types/common";
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
@@ -11,12 +11,15 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { some } from 'lodash';
 import Noimageplaceholder from '../../assets/Noimageplaceholder.png'
 import { useEffect, useState } from "react";
+import DeviderStyled from "../DeviderStyled";
 
-const Item = styled(Grid)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+const Item = styled(Grid)(() => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#fff' : '#272B2F',
+  border: `1px solid ${theme.palette.mode === 'light' ? 'rgba(194, 224, 255, 0.08)' : 'none'}`,
+
   ...theme.typography.body2,
   textAlign: 'center',
-  color: theme.palette.text.secondary,
+  color: theme.palette.grey[100],
   borderRadius: "16px",
   display: "flex",
   flexDirection: "row",
@@ -89,7 +92,7 @@ export default function SearchedBooksCard({ item, addBook, loader }: Props) {
 
   return (
     <Grid item xs={12} sm={6} >
-      <Item container sx={{ backgroundColor: "white", margin: 0, cursor: "pointer", flexDirection: { xs: "column", sm: "row" } }}>
+      <Item container sx={{ margin: 0, cursor: "pointer", flexDirection: { xs: "column", sm: "row" } }}>
         <Grid item xs={12} sm={6} sx={{ p: 0, m: 0 }}>
           {
             (!loaderImage.loading && loaderImage.error) && <img
@@ -141,39 +144,38 @@ export default function SearchedBooksCard({ item, addBook, loader }: Props) {
           <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%", width: "100%" }}>
 
             <List component="nav" aria-label="mailbox folders">
-              <Typography color={theme.palette.text.primary} variant="h6" sx={{ marginBottom: 1, minHeight: 64, width: '100%', textAlign: 'left', padding: "0px", WebkitBoxOrient: 'vertical', display: "-webkit-box", overflow: "hidden", WebkitLineClamp: "2" }}>
+              <Typography color={theme.palette.mode === 'light' ? theme.palette.grey[300] : theme.palette.text.primary} variant="h6" sx={{ marginBottom: 1, minHeight: 64, width: '100%', textAlign: 'left', padding: "0px", WebkitBoxOrient: 'vertical', display: "-webkit-box", overflow: "hidden", WebkitLineClamp: "2" }}>
                 {item?.title}
               </Typography>
-              <Divider />
-
+              <DeviderStyled />
               <ListItem sx={listItemStyle} >
                 <ListItemIcon sx={listItemIconStyle}>
-                  <Person2RoundedIcon />
+                  <Person2RoundedIcon sx={{ color: theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.text.primary }} />
                 </ListItemIcon>
                 <ListItemText >
-                  <Typography color={theme.palette.text.primary} variant="body2" sx={{ width: '100%', textAlign: 'left', WebkitBoxOrient: 'vertical', display: "-webkit-box", overflow: "hidden", WebkitLineClamp: "1" }}>
+                  <Typography color={theme.palette.mode === 'light' ? theme.palette.grey[300] : theme.palette.text.primary} variant="body2" sx={{ width: '100%', textAlign: 'left', WebkitBoxOrient: 'vertical', display: "-webkit-box", overflow: "hidden", WebkitLineClamp: "1" }}>
                     <span style={{ fontWeight: 500, display: "inline-block" }}>Author:&nbsp;</span> {item?.title}
                   </Typography>
                 </ListItemText>
               </ListItem>
-              <Divider />
+              <DeviderStyled />
               <ListItem sx={listItemStyle} >
                 <ListItemIcon sx={listItemIconStyle}>
-                  <CalendarMonthIcon />
+                  <CalendarMonthIcon sx={{ color: theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.text.primary }} />
                 </ListItemIcon>
                 <ListItemText >
-                  <Typography color={theme.palette.text.primary} variant="body2" sx={{ width: '100%', textAlign: 'left' }}>
+                  <Typography color={theme.palette.mode === 'light' ? theme.palette.grey[300] : theme.palette.text.primary} variant="body2" sx={{ width: '100%', textAlign: 'left' }}>
                     <span style={{ fontWeight: 500, display: "inline-block" }}>Published:&nbsp;</span> {item?.published}
                   </Typography>
                 </ListItemText>
               </ListItem>
-              <Divider />
+              <DeviderStyled />
               <ListItem sx={listItemStyle} >
                 <ListItemIcon sx={listItemIconStyle}>
-                  <QrCodeIcon />
+                  <QrCodeIcon sx={{ color: theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.text.primary }} />
                 </ListItemIcon>
                 <ListItemText >
-                  <Typography color={theme.palette.text.primary} variant="body2" sx={{ width: '100%', textAlign: 'left' }}>
+                  <Typography color={theme.palette.mode === 'light' ? theme.palette.grey[300] : theme.palette.text.primary} variant="body2" sx={{ width: '100%', textAlign: 'left' }}>
                     <span style={{ fontWeight: 500, display: "inline-block" }}>Isbn:&nbsp;</span> {item?.isbn}
                   </Typography>
                 </ListItemText>
@@ -183,13 +185,19 @@ export default function SearchedBooksCard({ item, addBook, loader }: Props) {
             <Box mt={2} p={0}>
               <LoadingButton
                 disabled={hasBook}
-                color="primary"
                 onClick={addBook}
                 loading={loader}
                 loadingPosition="start"
                 startIcon={<AddRoundedIcon />}
                 variant="outlined"
-                sx={{ width: "100%" }}
+              // sx={{
+              //   width: "100%",
+              //   "&.Mui-disabled": {
+              //     color: "#fff",
+              //     borderColor: theme.palette.grey[300],
+              //     cursor: 'not-allowed'
+              //   }
+              // }}
               >
                 <span>ADD TO BOOKSHELF</span>
               </LoadingButton>

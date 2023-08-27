@@ -1,4 +1,4 @@
-import { Box, Button, Typography, Grid, styled, List, Divider, ListItem, ListItemText, ListItemIcon } from "@mui/material";
+import { Box, Button, Typography, Grid, styled, List, ListItem, ListItemText, ListItemIcon } from "@mui/material";
 import theme from "../../themes";
 import { BookWithStatus } from "../../types/common";
 import BookStatus from "./BookStatus";
@@ -7,13 +7,12 @@ import PersonIcon from '@mui/icons-material/Person';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import QrCodeIcon from '@mui/icons-material/QrCode';
 import LayersIcon from '@mui/icons-material/Layers';
-import { green, yellow } from '@mui/material/colors';
 import { useEffect, useState } from "react";
 import Noimageplaceholder from '../../assets/Noimageplaceholder.png'
+import DeviderStyled from "../DeviderStyled";
 
 
 const ImageBox = styled(Box)(({ theme }) => ({
-  border: `1px solid ${theme.palette.grey[300]}`,
   borderRadius: theme.shape.borderRadius,
   backgroundSize: "cover",
   backgroundPosition: "center",
@@ -36,6 +35,14 @@ type Props = {
 
 export default function BooksCard({ item, deleteBook }: Props) {
 
+  const styledGrid = {
+    backgroundColor: theme.palette.mode === 'dark' ? '#fff' : '#272B2F',
+    border: `1px solid ${theme.palette.mode === 'light' ? 'rgba(194, 224, 255, 0.08)' : 'none'}`,
+
+    borderRadius: '4px',
+    overflow: "hidden",
+    cursor: 'pointer',
+  }
 
   const [loaderImage, setLoader] = useState({
     loading: false,
@@ -74,22 +81,17 @@ export default function BooksCard({ item, deleteBook }: Props) {
 
   }, [])
 
-  return (
-    <Grid item xs={12} sm={12} md={6} sx={{ minHeight: 380 }} >
-      <Grid
-        container
-        sx={{
-          flexDirection: { xs: "column", sm: "row" },
-          border: `1px solid ${theme.palette.grey[200]}`,
-          borderRadius: '4px',
-          overflow: "hidden",
-          cursor: 'pointer',
-          backgroundColor: `${item.status !== 0 ? item?.status === 1 ? yellow[100] : green[100] : 'white'}`,
-          '&:hover': {
-            boxShadow: `rgba(0, 0, 0, 0.45) 0px 25px 20px -20px`,
-          },
+  const styledIcon = {
+    color: theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.text.primary
+  }
 
-        }}>
+  return (
+    <Grid item xs={12} sm={12} md={6} sx={{
+      minHeight: 380, '&:hover': {
+        boxShadow: `rgba(0, 0, 0, 0.45) 0px 25px 20px -20px`,
+      },
+    }} >
+      <Grid container style={styledGrid} sx={{ flexDirection: { xs: "column", sm: "row" } }}>
         <Grid item xs={12} sm={6} sx={{ p: 0, m: 0 }}>
 
           {
@@ -122,60 +124,60 @@ export default function BooksCard({ item, deleteBook }: Props) {
         <Grid item xs={12} sm={6} p={3}>
           <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
             <List component="nav" aria-label="mailbox folders" sx={{ p: 0 }}>
-              <Typography color={theme.palette.text.primary} variant="h6" sx={{ mb: 2, minHeight: 64, width: '100%', textAlign: 'left', padding: "0px", WebkitBoxOrient: 'vertical', display: "-webkit-box", overflow: "hidden", WebkitLineClamp: "2" }}>
+              <Typography variant="h6" sx={{ color: theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.text.primary, mb: 2, minHeight: 64, width: '100%', textAlign: 'left', padding: "0px", WebkitBoxOrient: 'vertical', display: "-webkit-box", overflow: "hidden", WebkitLineClamp: "2" }}>
                 {item?.book?.title}
               </Typography>
-              <Divider />
+              <DeviderStyled />
 
               <ListItem sx={listItemStyle} >
                 <ListItemIcon sx={listItemIconStyle}>
-                  <PersonIcon />
+                  <PersonIcon style={styledIcon} />
                 </ListItemIcon>
                 <ListItemText >
-                  <Typography color={theme.palette.text.primary} variant="body2" sx={{ width: '100%', textAlign: 'left', WebkitBoxOrient: 'vertical', display: "-webkit-box", overflow: "hidden", WebkitLineClamp: "1" }}>
+                  <Typography variant="body2" sx={{ color: theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.text.primary, width: '100%', textAlign: 'left', WebkitBoxOrient: 'vertical', display: "-webkit-box", overflow: "hidden", WebkitLineClamp: "1" }}>
                     <span style={{ fontWeight: 500, display: "inline-block" }}>Author:&nbsp;</span> {item?.book?.author}
                   </Typography>
                 </ListItemText>
               </ListItem>
-              <Divider />
+              <DeviderStyled />
               <ListItem sx={listItemStyle} >
                 <ListItemIcon sx={listItemIconStyle}>
-                  <CalendarMonthIcon />
+                  <CalendarMonthIcon style={styledIcon} />
                 </ListItemIcon>
                 <ListItemText >
-                  <Typography color={theme.palette.text.primary} variant="body2" sx={{ width: '100%', textAlign: 'left' }}>
+                  <Typography variant="body2" sx={{ color: theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.text.primary, width: '100%', textAlign: 'left' }}>
                     <span style={{ fontWeight: 500, display: "inline-block" }}>Published:&nbsp;</span> {item?.book?.published}
                   </Typography>
                 </ListItemText>
               </ListItem>
-              <Divider />
+              <DeviderStyled />
               <ListItem sx={listItemStyle} >
                 <ListItemIcon sx={listItemIconStyle}>
-                  <QrCodeIcon />
+                  <QrCodeIcon style={styledIcon} />
                 </ListItemIcon>
                 <ListItemText >
-                  <Typography color={theme.palette.text.primary} variant="body2" sx={{ width: '100%', textAlign: 'left' }}>
+                  <Typography variant="body2" sx={{ color: theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.text.primary, width: '100%', textAlign: 'left' }}>
                     <span style={{ fontWeight: 500, display: "inline-block" }}>Isbn:&nbsp;</span> {item?.book?.isbn}
                   </Typography>
                 </ListItemText>
               </ListItem>
-              <Divider />
+              <DeviderStyled />
               <ListItem sx={listItemStyle} >
                 <ListItemIcon sx={listItemIconStyle}>
-                  <LayersIcon />
+                  <LayersIcon style={styledIcon} />
                 </ListItemIcon>
                 <ListItemText >
-                  <Typography color={theme.palette.text.primary} variant="body2" sx={{ width: '100%', textAlign: 'left' }}>
+                  <Typography variant="body2" sx={{ color: theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.text.primary, width: '100%', textAlign: 'left' }}>
                     <span style={{ fontWeight: 500, display: "inline-block" }}>Pages:&nbsp;</span> {item?.book?.pages}
                   </Typography>
                 </ListItemText>
               </ListItem>
-              <Divider />
+              <DeviderStyled />
             </List>
             <Box mt={{ xs: theme.spacing(4) }} sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 2 }}>
               <BookStatus book={item} />
-              <Button color="inherit" sx={{ height: "100%", borderColor: 'rgba(0, 0, 0, 0.23)' }} onClick={deleteBook} variant="outlined">
-                <DeleteIcon sx={{ color: "rgba(0, 0, 0, 0.57)" }} />
+              <Button sx={{ height: "100%", borderColor: theme.palette.mode === 'dark' ? "rgba(0, 0, 0, 0.57)" : theme.palette.grey[300] }} onClick={deleteBook} variant="outlined">
+                <DeleteIcon sx={{ color: theme.palette.mode === 'dark' ? "rgba(0, 0, 0, 0.57)" : theme.palette.grey[300] }} />
               </Button>
             </Box>
           </Box>

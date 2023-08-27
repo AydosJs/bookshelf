@@ -8,6 +8,7 @@ import { BookWithStatus } from '../../types/common';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { changeBookStatus } from '../../store/bookSlice';
+import theme from '../../themes';
 
 type Props = {
   book: BookWithStatus
@@ -32,11 +33,9 @@ export default function BookStatus({ book }: Props) {
       }
     }
   };
-
-
   return (
     <FormControl sx={{ width: "100%" }}>
-      <InputLabel id="demo-simple-select-label">Status</InputLabel>
+      <InputLabel id="demo-simple-select-label" sx={{ color: theme.palette.mode === 'light' ? theme.palette.grey[300] : 'none' }}>Status</InputLabel>
       <Select
         id="demo-simple-select"
         value={String(bookStatus)}
@@ -44,7 +43,22 @@ export default function BookStatus({ book }: Props) {
         onChange={handleStatusChange}
         variant="outlined"
         label='Status'
-        sx={{ borderColor: 'red' }}
+
+        sx={{
+          height: '2.5rem',
+          color: theme.palette.mode === 'light' ? theme.palette.grey[300] : 'none',
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: theme.palette.mode === 'light' ? theme.palette.grey[300] : 'none',
+
+          },
+          '&:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: theme.palette.mode === 'light' ? theme.palette.grey[300] : 'none'
+          },
+          '& .MuiSvgIcon-root': {
+            color: theme.palette.mode === 'light' ? theme.palette.grey[300] : 'none'
+          }
+        }}
+
       >
         <MenuItem value={0}>New</MenuItem>
         <MenuItem value={1}>Reading</MenuItem>

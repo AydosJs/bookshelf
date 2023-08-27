@@ -6,13 +6,17 @@ import { useState } from "react";
 
 export default function MainLayout({ children }: React.PropsWithChildren) {
   const [state, setState] = useState<boolean>(false);
-  const htmlOverflowHidden = () => {
-    const body = document.getElementsByTagName('body')
-    body[0].style.overflow = 'hidden'
+  const htmlOverflowHiddenSm = () => {
+    if (window.innerWidth <= 600) {
+      const body = document.getElementsByTagName('body')
+      body[0].style.overflow = 'hidden'
+    }
   }
-  const htmlOverlowRemove = () => {
-    const body = document.getElementsByTagName('body')
-    body[0].style.removeProperty('overflow')
+  const htmlOverlowRemoveSm = () => {
+    if (window.innerWidth <= 600) {
+      const body = document.getElementsByTagName('body')
+      body[0].style.removeProperty('overflow')
+    }
   }
   return (
     <Box sx={{ display: 'flex', mt: { xs: 0, sm: 0 } }}>
@@ -20,16 +24,16 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
         open={state}
         handleOpen={() => {
           setState(true);
-          htmlOverflowHidden()
+          htmlOverflowHiddenSm()
         }}
         handleClose={() => {
           setState(false);
-          htmlOverlowRemove()
+          htmlOverlowRemoveSm()
         }}
       />
       <Sidebar open={state} handleClose={() => {
         setState(false);
-        htmlOverlowRemove()
+        htmlOverlowRemoveSm()
       }} />
       <Box sx={{ width: "100%", position: "relative", mt: { xs: 8, sm: 8 }, backgroundColor: theme.palette.mode === 'dark' ? '#eee' : '#212529' }}>
         <Container maxWidth="lg">

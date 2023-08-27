@@ -57,13 +57,13 @@ export default function Search({ onSubmit }: Props) {
   });
 
   return (
-    <Box component='form' onSubmit={formik.handleSubmit} sx={{ mb: 4 }}>
+    <Box component='form' onSubmit={formik.handleSubmit} sx={{ mb: 4, mt: 4 }}>
       <SearchStyle>
         <SearchIconWrapper>
           <SearchIcon sx={{ color: theme.palette.mode === 'light' ? theme.palette.grey[300] : "black" }} />
         </SearchIconWrapper>
         <StyledInputBase
-          placeholder="Search…"
+          placeholder="Search books…"
           value={formik.values.title}
           onChange={formik.handleChange}
           name='title'

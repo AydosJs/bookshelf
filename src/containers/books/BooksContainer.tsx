@@ -1,5 +1,5 @@
 import theme from "../../themes";
-import { Box, Button, Fab, Grid, LinearProgress, Tooltip, Typography } from "@mui/material";
+import { Box, Fab, Grid, LinearProgress, Tooltip, Typography } from "@mui/material";
 import BooksCard from "../../components/book/BooksCard";
 import MainLayout from "../layout/MainLayout";
 import AddIcon from '@mui/icons-material/Add';
@@ -15,6 +15,7 @@ import { setMyBooks, getMyBooks } from "../../store/bookSlice";
 import { slice } from "lodash";
 import Loader from "../layout/Loader";
 import { logOut } from "../../store/auth";
+import MoreButton from "../../components/MoreButton";
 const LIMIT = 10
 
 export default function BooksContainer() {
@@ -81,7 +82,7 @@ export default function BooksContainer() {
 
       {/* TITLE */}
       <Box mb={4} mt={2}>
-        <Typography sx={{ fontWeight: 500, color: theme.palette.mode === 'dark' ? 'yellow' : "red" }} variant="h4">
+        <Typography sx={{ color: theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.text.primary }} variant="h4">
           Books
         </Typography>
       </Box>
@@ -89,7 +90,7 @@ export default function BooksContainer() {
 
       {(books?.length == 0 || !books) && <Loader loader={loader} text="NO BOOKS CREATED YET!" />}
       {/* book cards */}
-      <Grid container>
+      <Grid container spacing={4}>
         {slice(books, 0, endOffset).map((item: BookWithStatus) => (
           <BooksCard
             deleteBook={() => handleDelete(item.book.id)}
@@ -99,11 +100,7 @@ export default function BooksContainer() {
 
         {/* MORE BUTTON */}
         {(books?.length !== 0 && books?.length >= endOffset) && (
-          <Grid item xs={12}>
-            <Button disabled={endOffset >= books?.length} sx={{ width: "100%", paddingY: 2 }} size="large" variant="contained" onClick={fetchMore} >
-              {endOffset >= books?.length ? 'YOU ARE ALL SET' : 'MORE'}
-            </Button>
-          </Grid>
+          <MoreButton disabled={endOffset >= books?.length} fetchMore={fetchMore} />
         )}
 
       </Grid>
