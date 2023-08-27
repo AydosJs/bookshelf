@@ -11,6 +11,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import toast from 'react-hot-toast';
 import * as Yup from 'yup'
 import { AxiosError } from 'axios';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const style = {
   position: 'absolute',
@@ -28,16 +29,18 @@ export interface BookPayload extends Partial<Book> {
   isbn: string;
 }
 
-type Props = {
-  handleOpen: () => void;
-  handleClose: () => void;
-  updateList: () => void;
-  open: boolean;
+interface Props {
+  handleOpen: () => void,
+  handleClose: () => void,
+  updateList?: () => void,
+  open: boolean,
 }
 
 export default function CreateBook({ handleClose, open, updateList }: Props) {
 
   const [loader, setLoader] = useState<boolean>(false);
+  const { pathname } = useLocation()
+  const navigate = useNavigate()
 
   const formik = useFormik<BookPayload>({
     initialValues: {
@@ -57,11 +60,14 @@ export default function CreateBook({ handleClose, open, updateList }: Props) {
         }
       } finally {
         setLoader(false);
-        updateList()
+        updateList ? updateList() : null
       }
 
       handleClose()
       formik.resetForm()
+      if (pathname !== '/') {
+        navigate('/')
+      }
     }
   });
 

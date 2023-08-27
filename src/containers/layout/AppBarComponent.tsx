@@ -1,4 +1,4 @@
-import { Box, IconButton, Toolbar } from "@mui/material";
+import { Box, IconButton, Toolbar, Tooltip } from "@mui/material";
 import AppBar from '@mui/material/AppBar';
 import { useAppSelector } from "../../store/hooks";
 import { useDispatch } from "react-redux";
@@ -35,14 +35,18 @@ export default function AppBarComponent({ open, handleOpen, handleClose }: Props
             <Box>
             </Box>
             <Box>
-              <IconButton onClick={handleSwitchMode} color="primary">
-                {theme.palette.mode === 'light' ? <Brightness7Icon /> : <Brightness4Icon />}
-              </IconButton>
-              <IconButton onClick={() => {
-                open ? handleClose() : handleOpen()
-              }} color="primary">
-                <AccountCircleRoundedIcon />
-              </IconButton>
+              <Tooltip title="Change theme">
+                <IconButton onClick={handleSwitchMode} color="primary">
+                  {theme.palette.mode === 'light' ? <Brightness7Icon /> : <Brightness4Icon />}
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Open menu">
+                <IconButton onClick={() => {
+                  open ? handleClose() : handleOpen()
+                }} color="primary">
+                  <AccountCircleRoundedIcon />
+                </IconButton>
+              </Tooltip>
             </Box>
           </Box>
         </Toolbar>

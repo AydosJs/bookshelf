@@ -73,8 +73,8 @@ export default function SearchBooks() {
 
       {/* search */}
       <Box pt={ifSeachBooksEmpty ? 24 : 0} sx={{ position: 'relative' }}>
-        <Box sx={{ position: ifSeachBooksEmpty ? 'absolute' : 'relative', width: ifSeachBooksEmpty ? "70%" : '100%', left: ifSeachBooksEmpty ? "50%" : 'none', transform: ifSeachBooksEmpty ? 'translate(-50%, 0)' : 'none' }}>
-          <Box mb={4} sx={{ display: ifSeachBooksEmpty ? 'flex' : 'none', justifyContent: 'center' }}>
+        <Box sx={{ position: { xs: 'relative', sm: ifSeachBooksEmpty ? 'absolute' : 'relative' }, width: { xs: '100%', sm: ifSeachBooksEmpty ? "70%" : '100%' }, left: { sm: ifSeachBooksEmpty ? "50%" : 'none' }, transform: { sm: ifSeachBooksEmpty ? 'translate(-50%, 0)' : 'none' } }}>
+          <Box mb={4} sx={{ display: { xs: 'none', sm: ifSeachBooksEmpty ? 'flex' : 'none' }, justifyContent: 'center' }}>
             <LogoText />
           </Box>
           <Search onSubmit={onSearch} />
