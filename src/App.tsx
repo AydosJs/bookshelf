@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom"
 import BooksContainer from "./containers/books/BooksContainer"
-import RegisterContainer from "./containers/auth/RegisterContainer"
+import RegisterContainer from "./containers/RegisterContainer"
 import ProtectedRoute from "./providers/ProtectedRoute"
 import AuthRoute from "./providers/AoutRoute"
 import { Toaster } from 'react-hot-toast';
