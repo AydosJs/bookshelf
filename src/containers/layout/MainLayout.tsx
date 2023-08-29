@@ -43,6 +43,7 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
               flexGrow: 1,
               padding: 2,
               minHeight: "calc(100vh - 64px)",
+              position: 'relative'
             }}
           >
             {children}

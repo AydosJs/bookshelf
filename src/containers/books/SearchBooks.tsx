@@ -59,7 +59,15 @@ export default function SearchBooks() {
     setEndOffset(endOffset + LIMIT)
   }
 
-  const ifSeachBooksEmpty = Boolean(!searchedBooks.length)
+  const ifSearchBooksEmpty = Boolean(!searchedBooks.length)
+
+  const styledBox = {
+    position: { xs: 'relative', sm: ifSearchBooksEmpty ? 'absolute' : 'relative' },
+    width: { xs: '100%', sm: ifSearchBooksEmpty ? "70%" : '100%' },
+    left: { sm: ifSearchBooksEmpty ? "50%" : 'none' },
+    top: { sm: ifSearchBooksEmpty ? "50%" : 'none' },
+    transform: { sm: ifSearchBooksEmpty ? 'translate(-50%, -50%)' : 'none' }
+  }
 
   return (
     <MainLayout >
@@ -72,13 +80,11 @@ export default function SearchBooks() {
       }
 
       {/* search */}
-      <Box pt={ifSeachBooksEmpty ? 24 : 0} sx={{ position: 'relative' }}>
-        <Box sx={{ position: { xs: 'relative', sm: ifSeachBooksEmpty ? 'absolute' : 'relative' }, width: { xs: '100%', sm: ifSeachBooksEmpty ? "70%" : '100%' }, left: { sm: ifSeachBooksEmpty ? "50%" : 'none' }, transform: { sm: ifSeachBooksEmpty ? 'translate(-50%, 0)' : 'none' } }}>
-          <Box mb={4} sx={{ display: { xs: 'none', sm: ifSeachBooksEmpty ? 'flex' : 'none' }, justifyContent: 'center' }}>
-            <LogoText />
-          </Box>
-          <Search onSubmit={onSearch} />
+      <Box sx={styledBox}>
+        <Box mb={4} sx={{ display: { xs: 'none', sm: ifSearchBooksEmpty ? 'flex' : 'none' }, justifyContent: 'center' }}>
+          <LogoText />
         </Box>
+        <Search onSubmit={onSearch} />
       </Box>
 
       {/* NO BOOKS YET TYPOGRAPHY */}
