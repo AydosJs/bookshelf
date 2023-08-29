@@ -12,12 +12,21 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
       body[0].style.overflow = 'hidden'
     }
   }
-  const htmlOverlowRemoveSm = () => {
+  const htmlOverflowRemoveSm = () => {
     if (window.innerWidth <= 600) {
       const body = document.getElementsByTagName('body')
       body[0].style.removeProperty('overflow')
     }
   }
+
+  const styledBox = {
+    width: "100%",
+    position: "relative",
+    mt: { xs: 8, sm: 8 },
+    backgroundColor: theme.palette.mode === 'dark' ? '#eee' : '#212529',
+    marginRight: state ? '240px' : '0px'
+  }
+
   return (
     <Box sx={{ display: 'flex', mt: { xs: 0, sm: 0 } }}>
       <AppBarComponent
@@ -28,14 +37,16 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
         }}
         handleClose={() => {
           setState(false);
-          htmlOverlowRemoveSm()
+          htmlOverflowRemoveSm()
         }}
       />
-      <Sidebar open={state} handleClose={() => {
-        setState(false);
-        htmlOverlowRemoveSm()
-      }} />
-      <Box sx={{ width: "100%", position: "relative", mt: { xs: 8, sm: 8 }, backgroundColor: theme.palette.mode === 'dark' ? '#eee' : '#212529' }}>
+      <Sidebar
+        open={state}
+        handleClose={() => {
+          setState(false);
+          htmlOverflowRemoveSm()
+        }} />
+      <Box sx={styledBox}>
         <Container maxWidth="lg">
           <Box
             component="main"

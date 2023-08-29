@@ -9,7 +9,7 @@ import QrCodeIcon from '@mui/icons-material/QrCode';
 import LayersIcon from '@mui/icons-material/Layers';
 import { useEffect, useState } from "react";
 import Noimageplaceholder from '../../assets/Noimageplaceholder.png'
-import DeviderStyled from "../DeviderStyled";
+import DeviderStyled from "../DividerStyled";
 
 
 const ImageBox = styled(Box)(({ theme }) => ({

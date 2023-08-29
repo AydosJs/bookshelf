@@ -26,10 +26,10 @@ export default function AppBarComponent({ open, handleOpen, handleClose }: Props
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" sx={{ paddingX: 0, width: "100%", paddingY: { xs: '4px', sm: "0px" }, left: 0, right: 0, backgroundColor: theme.palette.mode === 'dark' ? 'white' : '#212529', boxShadow: theme.palette.mode === 'dark' ? 'rgba(149, 157, 165, 0.2) 0px 8px 24px' : 'none', borderBottom: theme.palette.mode === 'light' ? '1px solid rgba(194, 224, 255, 0.08)' : 'none', }}>
+      <AppBar position="fixed" sx={{ zIndex: 999999999, paddingX: 0, width: "100%", paddingY: { xs: '4px', sm: "0px" }, left: 0, right: 0, backgroundColor: theme.palette.mode === 'dark' ? 'white' : '#212529', boxShadow: theme.palette.mode === 'dark' ? 'rgba(149, 157, 165, 0.2) 0px 8px 24px' : 'none', borderBottom: theme.palette.mode === 'light' ? '1px solid rgba(194, 224, 255, 0.08)' : 'none', }}>
         <Toolbar >
           <Box sx={{ display: 'flex', width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
+            <Box >
               <LogoText />
             </Box>
             <Box>

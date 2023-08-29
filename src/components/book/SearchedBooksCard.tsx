@@ -11,7 +11,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { some } from 'lodash';
 import Noimageplaceholder from '../../assets/Noimageplaceholder.png'
 import { useEffect, useState } from "react";
-import DeviderStyled from "../DeviderStyled";
+import DeviderStyled from "../DividerStyled";
 
 const Item = styled(Grid)(() => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#fff' : '#272B2F',

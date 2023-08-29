@@ -1,4 +1,4 @@
-import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material";
+import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from "@mui/material";
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import AutoStoriesRoundedIcon from '@mui/icons-material/AutoStoriesRounded';
 import { Link, useLocation } from "react-router-dom";
@@ -7,8 +7,7 @@ import Drawer from '@mui/material/Drawer';
 import { useDispatch } from "react-redux";
 import { logOut } from "../../store/auth";
 import theme from "../../themes";
-import AllInboxIcon from '@mui/icons-material/AllInbox';
-import DeviderStyled from "../../components/DeviderStyled";
+import DividerStyled from "../../components/DividerStyled";
 
 const drawerWidth = 240;
 type Props = {
@@ -27,16 +26,19 @@ export default function Sidebar({ open, handleClose }: Props) {
 
   const styledDrawer = {
     display: { xs: !open ? 'none' : 'block' },
-    zIndex: 99999,
+    zIndex: 999999999,
     position: { xs: "absolute", sm: 'relative' },
-    width: drawerWidth,
     flexShrink: 0,
+    left: `calc(100vw - ${drawerWidth}px)`,
     '& .MuiDrawer-paper': {
+      top: '64px',
+      zIndex: 999999999,
+      height: 'calc(100vh - 64px)',
       background: theme.palette.mode === 'light' ? '#212529' : '#fff',
       borderColor: theme.palette.mode === 'dark' ? 'none' : 'rgba(194, 224, 255, 0.08)',
       width: drawerWidth,
       boxSizing: 'border-box',
-      left: { xs: !open ? '-240px' : '0px', sm: '0px' },
+      right: { xs: !open ? '-240px' : '0px', sm: '0px' },
     },
   }
 
@@ -47,7 +49,7 @@ export default function Sidebar({ open, handleClose }: Props) {
 
   return (
     <Drawer
-      anchor={'left'}
+      anchor={'right'}
       onClose={handleClose}
       sx={styledDrawer}
       variant="permanent"
@@ -60,20 +62,7 @@ export default function Sidebar({ open, handleClose }: Props) {
         flexWrap: "nowrap",
       }}>
         <Box>
-          {/* bar header */}
-          <Toolbar sx={{ padding: 2 }}>
-            <Link to={'/'} style={{ textDecoration: "none" }}>
-              <Typography variant="h6" color="primary" sx={{ display: 'flex', flexDirection: 'row', alignItems: "center" }}>
-                <AllInboxIcon sx={{ mr: 1 }} />
-                <span>
-                  BOOKSHELF
-                </span>
-              </Typography>
-            </Link>
-          </Toolbar>
-          <DeviderStyled />
-
-          {/* menues */}
+          <DividerStyled />
           <List sx={{ px: 2 }}>
             <Link
               to={'/'} style={{ textDecoration: "none", color: theme.palette.text.primary }}>
@@ -104,7 +93,7 @@ export default function Sidebar({ open, handleClose }: Props) {
 
         {/* logout */}
         <Box>
-          <DeviderStyled />
+          <DividerStyled />
           <List sx={{ px: 2 }} >
             <ListItem onClick={() => {
               handleLogOut();
