@@ -14,7 +14,7 @@ export default function RegisterContainer() {
   const navigate = useNavigate()
   const loading = useAppSelector(item => item.auth.isLoading)
 
-  const formik = useFormik<Omit<User, 'id'>>({
+  const formic = useFormik<Omit<User, 'id'>>({
     initialValues: {
       name: '',
       email: '',
@@ -32,6 +32,24 @@ export default function RegisterContainer() {
       navigate('/')
     }
   });
+
+  const styledTextField = {
+    '& .MuiInputBase-input': {
+      color: theme.palette.mode === 'light' ? theme.palette.grey[300] : 'none',
+    },
+    '& .MuiFormLabel-root': {
+      color: theme.palette.mode === 'light' ? theme.palette.grey[300] : 'none'
+    },
+    // '& .MuiOutlinedInput-notchedOutline': {
+    //   borderColor: theme.palette.mode === 'light' ? theme.palette.grey[300] : 'none',
+    // },
+    // '&:hover .MuiOutlinedInput-notchedOutline': {
+    //   borderColor: theme.palette.mode === 'light' ? theme.palette.grey[300] : 'none'
+    // },
+    "& .MuiFilledInput-root": {
+      backgroundColor: '#272B2F',
+    }
+  }
 
   return (
     <Box sx={{ width: '100%', height: "100%", backgroundColor: theme.palette.mode === 'light' ? '#212529' : 'white' }}>
@@ -56,112 +74,64 @@ export default function RegisterContainer() {
               </Typography>
             </Box>
 
-            <Box component="form" onSubmit={formik.handleSubmit} sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
+            <Box component="form" onSubmit={formic.handleSubmit} sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
 
               <TextField
+                variant={theme.palette.mode === 'light' ? 'filled' : 'outlined'}
                 disabled={loading}
                 fullWidth
                 id="name"
                 label="Name"
                 name="name"
-                onChange={formik.handleChange}
-                value={formik.values.name}
-                error={Boolean(formik.touched.name && formik.errors.name)}
-                sx={{
-                  '& .MuiInputBase-input': {
-                    color: theme.palette.mode === 'light' ? theme.palette.grey[300] : 'none',
-                  },
-                  '& .MuiFormLabel-root': {
-                    color: theme.palette.mode === 'light' ? theme.palette.grey[300] : 'none'
-                  },
-                  '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: theme.palette.mode === 'light' ? theme.palette.grey[300] : 'none',
-                  },
-                  '&:hover .MuiOutlinedInput-notchedOutline': {
-                    borderColor: theme.palette.mode === 'light' ? theme.palette.grey[300] : 'none'
-                  },
-                }}
+                onChange={formic.handleChange}
+                value={formic.values.name}
+                error={Boolean(formic.touched.name && formic.errors.name)}
+                sx={styledTextField}
               />
 
               <Box mt={2}>
                 <TextField
+                  variant={theme.palette.mode === 'light' ? 'filled' : 'outlined'}
                   disabled={loading}
                   fullWidth
                   id="email"
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  onChange={formik.handleChange}
-                  value={formik.values.email}
-                  error={Boolean(formik.touched.email && formik.errors.email)}
-                  sx={{
-                    '& .MuiInputBase-input': {
-                      color: theme.palette.mode === 'light' ? theme.palette.grey[300] : 'none',
-                    },
-                    '& .MuiFormLabel-root': {
-                      color: theme.palette.mode === 'light' ? theme.palette.grey[300] : 'none'
-                    },
-                    '& .MuiOutlinedInput-notchedOutline': {
-                      borderColor: theme.palette.mode === 'light' ? theme.palette.grey[300] : 'none',
-                    },
-                    '&:hover .MuiOutlinedInput-notchedOutline': {
-                      borderColor: theme.palette.mode === 'light' ? theme.palette.grey[300] : 'none'
-                    },
-                  }}
+                  onChange={formic.handleChange}
+                  value={formic.values.email}
+                  error={Boolean(formic.touched.email && formic.errors.email)}
+                  sx={styledTextField}
                 />
               </Box>
 
               <Box mt={2}>
                 <TextField
+                  variant={theme.palette.mode === 'light' ? 'filled' : 'outlined'}
                   disabled={loading}
                   fullWidth
                   name="key"
                   label="Key"
                   id="key"
-                  onChange={formik.handleChange}
-                  value={formik.values.key}
-                  error={Boolean(formik.touched.key && formik.errors.key)}
-                  sx={{
-                    '& .MuiInputBase-input': {
-                      color: theme.palette.mode === 'light' ? theme.palette.grey[300] : 'none',
-                    },
-                    '& .MuiFormLabel-root': {
-                      color: theme.palette.mode === 'light' ? theme.palette.grey[300] : 'none'
-                    },
-                    '& .MuiOutlinedInput-notchedOutline': {
-                      borderColor: theme.palette.mode === 'light' ? theme.palette.grey[300] : 'none',
-                    },
-                    '&:hover .MuiOutlinedInput-notchedOutline': {
-                      borderColor: theme.palette.mode === 'light' ? theme.palette.grey[300] : 'none'
-                    },
-                  }}
+                  onChange={formic.handleChange}
+                  value={formic.values.key}
+                  error={Boolean(formic.touched.key && formic.errors.key)}
+                  sx={styledTextField}
                 />
               </Box>
 
               <Box mt={2}>
                 <TextField
+                  variant={theme.palette.mode === 'light' ? 'filled' : 'outlined'}
                   disabled={loading}
                   fullWidth
                   name="secret"
                   label="Secret"
                   id="secret"
-                  onChange={formik.handleChange}
-                  value={formik.values.secret}
-                  error={Boolean(formik.touched.secret && formik.errors.secret)}
-                  sx={{
-                    '& .MuiInputBase-input': {
-                      color: theme.palette.mode === 'light' ? theme.palette.grey[300] : 'none',
-                    },
-                    '& .MuiFormLabel-root': {
-                      color: theme.palette.mode === 'light' ? theme.palette.grey[300] : 'none'
-                    },
-                    '& .MuiOutlinedInput-notchedOutline': {
-                      borderColor: theme.palette.mode === 'light' ? theme.palette.grey[300] : 'none',
-                    },
-                    '&:hover .MuiOutlinedInput-notchedOutline': {
-                      borderColor: theme.palette.mode === 'light' ? theme.palette.grey[300] : 'none'
-                    },
-                  }}
+                  onChange={formic.handleChange}
+                  value={formic.values.secret}
+                  error={Boolean(formic.touched.secret && formic.errors.secret)}
+                  sx={styledTextField}
                 />
               </Box>
 

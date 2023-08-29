@@ -87,8 +87,6 @@ export default function SearchBooks() {
         <Search onSubmit={onSearch} />
       </Box>
 
-      {/* NO BOOKS YET TYPOGRAPHY */}
-      {/* {Boolean(!searchedBooks.length) && <Loader loader={loader} text="NO BOOKS FOUND!" />} */}
 
       {/* MAPPING THE ARRAY */}
       <Grid container spacing={4}>
