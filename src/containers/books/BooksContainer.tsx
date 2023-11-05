@@ -89,7 +89,7 @@ export default function BooksContainer() {
       </Box>
 
 
-      {(books?.length == 0 || !books) && <Loader loader={loader} text="NO BOOKS CREATED YET!" />}
+      {(books?.length == 0 || !books) && <Loader loader={loader} text="Shelf empty." />}
       {/* book cards */}
       <Grid container spacing={4}>
         {slice(books, 0, endOffset).map((item: BookWithStatus) => (

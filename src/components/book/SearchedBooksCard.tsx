@@ -9,14 +9,11 @@ import QrCodeIcon from '@mui/icons-material/QrCode';
 import { getMyBooks } from "../../store/bookSlice";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { some } from 'lodash';
-import Noimageplaceholder from '../../assets/Noimageplaceholder.png'
-import { useEffect, useState } from "react";
 import DeviderStyled from "../DividerStyled";
+import LazyImg from "./LazyImg";
 
 const Item = styled(Grid)(() => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#fff' : '#272B2F',
-  border: `1px solid ${theme.palette.mode === 'light' ? 'rgba(194, 224, 255, 0.08)' : 'none'}`,
-
   ...theme.typography.body2,
   textAlign: 'center',
   color: theme.palette.grey[100],
@@ -43,104 +40,23 @@ const listItemIconStyle = {
 type Props = {
   item: Omit<Book, "id" | "pages">;
   addBook: () => void;
-  loader: boolean
+  loader: boolean;
+  withIMage: boolean
 }
 
-export default function SearchedBooksCard({ item, addBook, loader }: Props) {
+export default function SearchedBooksCard({ item, addBook, loader, withIMage }: Props) {
   const bookshelf = useAppSelector(getMyBooks)
   const hasBook = some(bookshelf, (book: BookWithStatus) => book?.book?.isbn === item?.isbn);
 
-  const [loaderImage, setLoader] = useState({
-    loading: false,
-    error: false
-  })
-  const img = new Image();
-
-
-  useEffect(() => {
-    setLoader({
-      loading: true,
-      error: false
-    })
-    img.onload = () => {
-      setLoader({
-        loading: true,
-        error: false
-      })
-    }
-
-    img.onerror = () => {
-      setLoader({
-        loading: true,
-        error: true
-      })
-    }
-
-    img.src = item?.cover
-
-    const imgInterval = setInterval(() => {
-      if (img.complete) {
-        setLoader({
-          loading: false,
-          error: false
-        })
-        clearInterval(imgInterval)
-      }
-
-    }, 1000);
-  }, [])
-
   return (
-    <Grid item xs={12} sm={6} >
+    <Grid item xs={12} sm={withIMage ? 4 : 6} >
       <Item container sx={{ margin: 0, cursor: "pointer", flexDirection: { xs: "column", sm: "row" } }}>
-        <Grid item xs={12} sm={6} sx={{ p: 0, m: 0 }}>
-          {
-            (!loaderImage.loading && loaderImage.error) && <img
-              src={Noimageplaceholder}
-              alt={'No image'}
-              style={{
-                width: "100%",
-                height: "100%",
-                display: 'block',
-                aspectRatio: '1 / 1',
-                objectFit: 'cover',
-                objectPosition: 'center'
-              }} />
-          }
-
-          {
-            (loaderImage.loading && !loaderImage.error) && <img
-              src={Noimageplaceholder}
-              alt={'No image'}
-              style={{
-                width: "100%",
-                height: "100%",
-                display: 'block',
-                aspectRatio: '1 / 1',
-                objectFit: 'cover',
-                objectPosition: 'center',
-                filter: 'blur(4px)'
-              }} />
-          }
-
-          {
-            (!loaderImage.loading && !loaderImage.error) &&
-            <img
-              src={item?.cover !== "" ? item?.cover : Noimageplaceholder}
-              alt={'No image'}
-              style={{
-                width: "100%",
-                height: "100%",
-                display: 'block',
-                aspectRatio: '1 / 1',
-                objectFit: 'cover',
-                objectPosition: 'center'
-              }} />
-          }
-
-
-        </Grid>
-        <Grid item xs={12} sm={6} sx={{ padding: theme.spacing(4), paddingTop: theme.spacing(2) }}>
+        {!withIMage && (
+          <Grid item xs={12} sm={6} sx={{ p: 0, m: 0 }}>
+            <LazyImg index={0} url={item?.cover} />
+          </Grid>
+        )}
+        <Grid item xs={12} sm={withIMage ? 12 : 6} sx={{ padding: theme.spacing(4), paddingTop: theme.spacing(2) }}>
           <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%", width: "100%" }}>
 
             <List component="nav" aria-label="mailbox folders">
@@ -190,6 +106,10 @@ export default function SearchedBooksCard({ item, addBook, loader }: Props) {
                 loadingPosition="start"
                 startIcon={<AddRoundedIcon />}
                 variant="outlined"
+
+                sx={{
+                  width: "100%",
+                }}
               // sx={{
               //   width: "100%",
               //   "&.Mui-disabled": {
@@ -205,6 +125,7 @@ export default function SearchedBooksCard({ item, addBook, loader }: Props) {
 
           </Box >
         </Grid >
+
       </Item >
     </Grid >
   )

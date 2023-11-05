@@ -1,14 +1,13 @@
 import { Box, Container, TextField, Typography } from "@mui/material"
 import { useFormik } from 'formik';
-import { User } from "../types/common";
+import { User } from "../../types/common";
 import * as Yup from 'yup'
 import LoadingButton from "@mui/lab/LoadingButton";
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import { useNavigate } from "react-router-dom";
-import { createUser } from "../store/auth";
-import { store } from "../store/store";
-import { useAppSelector } from "../store/hooks";
-import theme from "../themes";
+import { Link, useNavigate } from "react-router-dom";
+import { createUser } from "../../store/auth";
+import { store } from "../../store/store";
+import { useAppSelector } from "../../store/hooks";
+import theme from "../../themes";
 
 export default function RegisterContainer() {
   const navigate = useNavigate()
@@ -69,8 +68,9 @@ export default function RegisterContainer() {
                 Create an account
               </Typography>
               <Typography color={theme.palette.mode === 'light' ? theme.palette.grey[300] : theme.palette.text.primary} component="p" variant="body1" >
-                Welcome to BookShelf
-                {/* If you already have an account: <Typography component={Link} color='blue' to={'/login'}>Login</Typography> */}
+                Welcome to BookShelf.
+                If you have an account,&nbsp;
+                <Typography component={Link} color='blue' to={'/login'}>Login</Typography>
               </Typography>
             </Box>
 
@@ -142,7 +142,6 @@ export default function RegisterContainer() {
                 color="primary"
                 loading={loading}
                 loadingPosition="start"
-                startIcon={<ExitToAppIcon />}
                 variant="contained"
                 type="submit"
                 sx={{ width: "100%", mt: 4 }}
