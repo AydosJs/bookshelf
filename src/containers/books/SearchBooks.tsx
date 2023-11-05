@@ -12,6 +12,7 @@ import { useAppSelector } from "../../store/hooks";
 import { setMyBooks, addToMyBooks, getSearchedBooks, setSearchedBooks } from "../../store/bookSlice";
 import { eq, slice } from "lodash";
 import MoreButton from "../../components/MoreButton";
+import AboutMe from "./AboutMe";
 
 const LIMIT = 10
 
@@ -66,7 +67,7 @@ export default function SearchBooks() {
     width: { xs: '100%', sm: ifSearchBooksEmpty ? "70%" : '100%' },
     left: { sm: ifSearchBooksEmpty ? "50%" : 'none' },
     top: { sm: ifSearchBooksEmpty ? "50%" : 'none' },
-    transform: { sm: ifSearchBooksEmpty ? 'translate(-50%, -50%)' : 'none' }
+    transform: { sm: ifSearchBooksEmpty ? 'translate(-50%, -50%)' : 'none' },
   }
 
   return (
@@ -87,6 +88,10 @@ export default function SearchBooks() {
           hideImage={() => setWithImage(!withIMage)}
           onSubmit={onSearch}
         />
+
+        {/* About Me */}
+        {ifSearchBooksEmpty && <AboutMe />}
+
       </Box>
 
 

@@ -30,7 +30,8 @@ const Item = styled(Grid)(() => ({
 }));
 
 const listItemStyle = {
-  paddingX: 0
+  paddingX: 0,
+  py: 1.5,
 }
 
 const listItemIconStyle = {

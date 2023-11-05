@@ -1,16 +1,17 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAppSelector } from '../store/hooks';
+import Cookies from "js-cookie";
 
 type Props = {
   children?: React.ReactNode;
 };
-export default function ProtectedRoute({ children }: Props) {
+export default function ProtectedRoute({ children }: Readonly<Props>) {
   const isLoggedIn = useAppSelector(item => item.auth.isLoggedIn)
+  const key = Boolean(Cookies.get("key")) || false;
 
-  // console.log('isLogged IN ', isLoggedIn);
-  if (!isLoggedIn) {
+  if (!isLoggedIn && !key) {
     return <Navigate to={'/register'} replace />;
   }
-  return <>{children ? children : <Outlet />}</>;
+  return <>{children ?? <Outlet />}</>;
 }

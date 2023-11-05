@@ -10,7 +10,7 @@ import { useState } from 'react';
 
 const SearchStyle = styled('div')(() => ({
   position: 'relative',
-  borderRadius: '100px',
+  borderRadius: '16px',
   marginLeft: 0,
   backgroundColor: theme.palette.mode === 'dark' ? 'white' : '#272B2F',
   border: `1px solid ${theme.palette.mode === 'light' ? 'rgba(194, 224, 255, 0.08)' : 'none'}`,
@@ -53,7 +53,6 @@ type Props = {
 export default function Search({ onSubmit, hideImage, withIMage, arrayIsEmpty }: Props) {
 
   const [loader, setLoader] = useState(false)
-  console.log("arrayIsEmpty", arrayIsEmpty);
 
   const formik = useFormik<SearchFormType>({
     initialValues: {
@@ -96,7 +95,7 @@ export default function Search({ onSubmit, hideImage, withIMage, arrayIsEmpty }:
             spacing={1}
             mt={1}
           >
-            <Box sx={{ borderRadius: "100px", backgroundColor: theme.palette.mode === 'dark' ? '#fff' : '#272B2F', border: `1px solid ${theme.palette.mode === 'light' ? 'rgba(194, 224, 255, 0.08)' : 'none'}`, }}>
+            <Box sx={{ borderRadius: "16px", backgroundColor: theme.palette.mode === 'dark' ? '#fff' : '#272B2F', border: `1px solid ${theme.palette.mode === 'light' ? 'rgba(194, 224, 255, 0.08)' : 'none'}`, }}>
               <FormControlLabel disabled={loader} control={
                 <Checkbox checked={withIMage} name='withImage' id='withImage' onChange={hideImage} sx={{ ml: 2 }} size="small" />
               }

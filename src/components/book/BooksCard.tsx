@@ -27,7 +27,7 @@ type Props = {
 export default function BooksCard({ item, deleteBook }: Props) {
 
   const Item = styled(Grid)(() => ({
-    background: item?.status === 0 ? '#D6FFF3' : item?.status === 1 ? '#72DDBD' : "#F9C74F",
+    background: item?.status === 0 ? '#fff' : item?.status === 1 ? '#D6FFF3' : "#72DDBD",
 
     ...theme.typography.body2,
     textAlign: 'center',
