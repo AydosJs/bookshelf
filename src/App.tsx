@@ -10,6 +10,7 @@ import './App.css'
 import theme from "./themes"
 import { useAppSelector } from "./store/hooks"
 import LoginContainer from "./containers/auth/LoginContainer"
+import AboutMeContainer from "./containers/books/AboutMeContainer"
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
 
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<BooksContainer />} />
+          <Route path="/about-me" element={<AboutMeContainer />} />
           <Route path="/search-books" element={<SearchBooks />} />
         </Route>
 
