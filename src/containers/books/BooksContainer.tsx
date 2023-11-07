@@ -106,7 +106,7 @@ export default function BooksContainer() {
                     <Box sx={{ display: 'inline-block' }} mr={.5}>
                       {books?.length}
                     </Box>
-                    books you have on you shelf
+                    books on you shelf
                   </Typography>
                 } />
             </Divider>
