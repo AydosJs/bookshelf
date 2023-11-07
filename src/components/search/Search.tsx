@@ -1,6 +1,6 @@
 import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
-import { Box, Checkbox, FormControlLabel, FormGroup, Stack, Typography } from "@mui/material";
+import { Box, Checkbox, Chip, FormControlLabel, FormGroup, Stack, Typography } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import { useFormik } from "formik";
 import { Book } from '../../types/common';
@@ -10,7 +10,7 @@ import { useState } from 'react';
 
 const SearchStyle = styled('div')(() => ({
   position: 'relative',
-  borderRadius: '16px',
+  borderRadius: '32px',
   marginLeft: 0,
   backgroundColor: theme.palette.mode === 'dark' ? 'white' : '#272B2F',
   border: `1px solid ${theme.palette.mode === 'light' ? 'rgba(194, 224, 255, 0.08)' : 'none'}`,
@@ -95,16 +95,20 @@ export default function Search({ onSubmit, hideImage, withIMage, arrayIsEmpty }:
             spacing={1}
             mt={1}
           >
-            <Box sx={{ borderRadius: "16px", backgroundColor: theme.palette.mode === 'dark' ? '#fff' : '#272B2F', border: `1px solid ${theme.palette.mode === 'light' ? 'rgba(194, 224, 255, 0.08)' : 'none'}`, }}>
-              <FormControlLabel disabled={loader} control={
-                <Checkbox checked={withIMage} name='withImage' id='withImage' onChange={hideImage} sx={{ ml: 2 }} size="small" />
-              }
-                label={<Typography style={{ userSelect: 'none', color: theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.text.primary }} variant='subtitle2'>Show without image</Typography>}
-              />
-            </Box>
+            <Chip
+              sx={{ borderRadius: "16px", backgroundColor: theme.palette.mode === 'dark' ? '#fff' : '#272B2F', border: `1px solid ${theme.palette.mode === 'light' ? 'rgba(194, 224, 255, 0.08)' : 'none'}`, }}
+              label={
+                <FormControlLabel disabled={loader} control={
+                  <Checkbox checked={withIMage} name='withImage' id='withImage' onChange={hideImage} size="small" />
+                }
+                  label={<Typography style={{ userSelect: 'none', color: theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.text.primary }} variant='subtitle2'>Show without image</Typography>}
+                />
+              } />
+
           </Stack>
         </FormGroup>
-      )}
+      )
+      }
     </Box >
   )
 }

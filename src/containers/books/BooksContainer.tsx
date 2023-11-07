@@ -1,5 +1,5 @@
 import theme from "../../themes";
-import { Box, Divider, Fab, Grid, LinearProgress, Tooltip, Typography } from "@mui/material";
+import { Box, Chip, Divider, Fab, Grid, LinearProgress, Tooltip, Typography } from "@mui/material";
 import BooksCard from "../../components/book/BooksCard";
 import MainLayout from "../layout/MainLayout";
 import AddIcon from '@mui/icons-material/Add';
@@ -87,10 +87,30 @@ export default function BooksContainer() {
           <Typography sx={{ color: theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.text.primary }} variant="h4">
             Books
           </Typography>
-          <Typography sx={{ color: theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.text.primary }} variant="subtitle2">
-            You have "{books?.length}" books in your shelf.
-          </Typography>
-          < Divider sx={{ mt: 4, background: theme.palette.mode === 'light' ? theme.palette.grey[800] : theme.palette.text.primary }} />
+
+          <Box mb={2} >
+            <Divider
+              sx={{
+                "&::after": {
+                  borderColor: theme.palette.mode === 'light' ? 'rgba(194, 224, 255, 0.08)' : 'none'
+                },
+                "&::before": {
+                  borderColor: theme.palette.mode === 'light' ? 'rgba(194, 224, 255, 0.08)' : 'none'
+                }
+              }}
+            >
+              <Chip
+                size="medium" sx={{ color: theme.palette.mode === 'light' ? '#fff' : 'black', backgroundColor: theme.palette.mode === 'light' ? "#272B2F" : "white", borderColor: theme.palette.mode === 'light' ? 'rgba(194, 224, 255, 0.08)' : 'white' }}
+                label={
+                  <Typography variant="body2" sx={{ color: theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.grey[900], fontSize: '0.8125rem' }}>
+                    <Box sx={{ display: 'inline-block' }} mr={.5}>
+                      {books?.length}
+                    </Box>
+                    books you have on you shelf
+                  </Typography>
+                } />
+            </Divider>
+          </Box>
         </Box>
       )}
 

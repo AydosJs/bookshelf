@@ -7,7 +7,7 @@ export default function LogoText() {
     <Link to={'/'} style={{ textDecoration: "none" }}>
       <Typography variant="h5" color="primary" sx={{ display: 'flex', fontWeight: 500, flexDirection: 'row', alignItems: "center" }}>
         {/* <AllInboxIcon sx={{ mr: 1 }} /> */}
-        <span>
+        <span style={{ textTransform: "uppercase" }}>
           BOOKSHELF
         </span>
       </Typography>
