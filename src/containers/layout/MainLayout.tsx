@@ -24,7 +24,7 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
     position: "relative",
     mt: { xs: 8, sm: 8 },
     backgroundColor: theme.palette.mode === 'dark' ? '#F1F3F8' : '#212529',
-    marginRight: state ? '240px' : '0px'
+    // marginRight: { xs: state ? '240px' : '0px', sm: 0 }
   }
 
   return (
@@ -40,12 +40,14 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
           htmlOverflowRemoveSm()
         }}
       />
-      <Sidebar
-        open={state}
-        handleClose={() => {
-          setState(false);
-          htmlOverflowRemoveSm()
-        }} />
+      <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
+        <Sidebar
+          open={state}
+          handleClose={() => {
+            setState(false);
+            htmlOverflowRemoveSm()
+          }} />
+      </Box>
       <Box sx={styledBox}>
         <Container maxWidth="lg">
           <Box

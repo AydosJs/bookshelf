@@ -15,7 +15,7 @@ export default function Loader({ text, loader }: Props) {
       transform: 'translate(-50%, -50%)',
       justifyContent: "center", alignItems: 'center'
     }}>
-      <Typography variant="body1" sx={{ color: theme.palette.text.primary, fontWeight: 500 }}>
+      <Typography variant="body1" sx={{ color: theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.text.primary, fontWeight: 500 }}>
         {loader ? 'Loading...' : text}
       </Typography>
     </Box>

@@ -78,7 +78,7 @@ export default function CreateBook({ handleClose, open, updateList }: Props) {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        sx={{ zIndex: 999999 }}
+        sx={{ zIndex: 99999999999 }}
       >
         <Box component="form" onSubmit={formik.handleSubmit} sx={style}>
           <Typography id="modal-modal-title" variant="h4" sx={{ mb: 4, fontWeight: 500, color: theme.palette.text.primary }} component="h2">

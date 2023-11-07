@@ -50,7 +50,7 @@ type Props = {
   arrayIsEmpty: boolean
 }
 
-export default function Search({ onSubmit, hideImage, withIMage, arrayIsEmpty }: Props) {
+export default function Search({ onSubmit, hideImage, withIMage, arrayIsEmpty }: Readonly<Props>) {
 
   const [loader, setLoader] = useState(false)
 

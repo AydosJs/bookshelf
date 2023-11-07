@@ -14,9 +14,11 @@ import { toggleMode } from "../../store/settings";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import theme from "../../themes";
-import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import LogoText from "../../components/LogoText";
 import { Link } from "react-router-dom";
+import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
+import { logOut } from "../../store/auth";
+import MenuIcon from '@mui/icons-material/Menu';
 
 type Props = {
   open: boolean;
@@ -47,6 +49,12 @@ export default function AppBarComponent({
     },
   };
 
+  const handleLogOut = () => {
+    if (confirm('Are you sure that you want to sign off?')) {
+      dispatch(logOut());
+    }
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -61,7 +69,7 @@ export default function AppBarComponent({
           backgroundColor: theme.palette.mode === "dark" ? "white" : "#212529",
           boxShadow:
             theme.palette.mode === "dark"
-              ? "rgba(149, 157, 165, 0.2) 0px 8px 24px"
+              ? `rgba(149, 157, 165, 0.2) 0px 8px 24px`
               : "none",
           borderBottom:
             theme.palette.mode === "light"
@@ -79,19 +87,10 @@ export default function AppBarComponent({
               alignItems: "center",
             }}
           >
-            <Box>
-              <Tooltip
-                title="Change theme"
-                sx={{ display: { md: "flex", sm: "flex", xs: "none" } }}
-              >
-                <IconButton onClick={handleSwitchMode} color="primary">
-                  {theme.palette.mode === "light" ? (
-                    <Brightness7Icon />
-                  ) : (
-                    <Brightness4Icon />
-                  )}
-                </IconButton>
-              </Tooltip>
+            <Box sx={{
+              width: { xs: 'fit-content', sm: '88px' }
+            }}>
+
               <Box
                 sx={{ display: { md: "none", sm: "none", xs: "inline-grid" } }}
               >
@@ -152,10 +151,10 @@ export default function AppBarComponent({
               </Typography>
             </Stack>
 
-            <Box>
+            <Stack direction={'row'} justifyContent={'center'} spacing={1}>
+
               <Tooltip
                 title="Change theme"
-                sx={{ display: { md: "none", sm: "none", xs: "inline-grid" } }}
               >
                 <IconButton onClick={handleSwitchMode} color="primary">
                   {theme.palette.mode === "light" ? (
@@ -166,17 +165,33 @@ export default function AppBarComponent({
                 </IconButton>
               </Tooltip>
 
-              <Tooltip title="Open menu">
+              <Tooltip
+                title="LogOut"
+                sx={{ display: { md: "flex", sm: "flex", xs: "none" } }}
+              >
+                <IconButton
+                  onClick={() => {
+                    handleLogOut();
+                  }}
+                  color="primary">
+                  <LogoutRoundedIcon color="primary" />
+                </IconButton>
+              </Tooltip>
+
+              <Tooltip
+                sx={{ display: { xs: 'flex', sm: 'none' } }}
+                title="Open menu">
                 <IconButton
                   onClick={() => {
                     open ? handleClose() : handleOpen();
                   }}
                   color="primary"
                 >
-                  <AccountCircleRoundedIcon />
+                  <MenuIcon />
                 </IconButton>
               </Tooltip>
-            </Box>
+
+            </Stack>
           </Box>
         </Toolbar>
       </AppBar>

@@ -1,5 +1,5 @@
 import theme from "../../themes";
-import { Box, Fab, Grid, LinearProgress, Tooltip, Typography } from "@mui/material";
+import { Box, Divider, Fab, Grid, LinearProgress, Tooltip, Typography } from "@mui/material";
 import BooksCard from "../../components/book/BooksCard";
 import MainLayout from "../layout/MainLayout";
 import AddIcon from '@mui/icons-material/Add';
@@ -82,11 +82,17 @@ export default function BooksContainer() {
 
 
       {/* TITLE */}
-      <Box mb={4} mt={2}>
-        <Typography sx={{ color: theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.text.primary }} variant="h4">
-          Books
-        </Typography>
-      </Box>
+      {books?.length !== 0 && (
+        <Box mb={4} mt={2}>
+          <Typography sx={{ color: theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.text.primary }} variant="h4">
+            Books
+          </Typography>
+          <Typography sx={{ color: theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.text.primary }} variant="subtitle2">
+            You have "{books?.length}" books in your shelf.
+          </Typography>
+          < Divider sx={{ mt: 4, background: theme.palette.mode === 'light' ? theme.palette.grey[800] : theme.palette.text.primary }} />
+        </Box>
+      )}
 
 
       {(books?.length == 0 || !books) && <Loader loader={loader} text="Shelf empty." />}
