@@ -12,7 +12,7 @@ import { useAppSelector } from "../../store/hooks";
 import { setMyBooks, addToMyBooks, getSearchedBooks, setSearchedBooks } from "../../store/bookSlice";
 import { eq, slice } from "lodash";
 import MoreButton from "../../components/MoreButton";
-import AboutMe from "./AboutMe";
+import AboutMe from "../aboutMe/AboutMeCard";
 
 const LIMIT = 10
 
