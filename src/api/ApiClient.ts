@@ -6,7 +6,8 @@ const clientConfig: AxiosRequestConfig = {
   timeout: 40000,
 };
 
-clientConfig.baseURL = "https://no23.lavina.tech";
+// clientConfig.baseURL = "https://no23.lavina.tech";
+clientConfig.baseURL = "https://0001.uz";
 
 const httpAxios: AxiosInstance = axios.create(clientConfig);
 

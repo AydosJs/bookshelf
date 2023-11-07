@@ -1,4 +1,4 @@
-import { Box, Container, Divider, Stack } from "@mui/material";
+import { Box, Container, Stack } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import theme from "../../themes";
@@ -7,13 +7,36 @@ import MainLayout from "../layout/MainLayout";
 export default function AboutMeContainer() {
   return (
     <MainLayout>
-      <Container maxWidth="md">
+      <Container maxWidth="md" sx={{ p: { xs: 0, sm: "0px 44px" } }}>
         <Stack
           direction="column"
           alignItems="center"
-          justifyContent={'center'}
+          justifyContent={"center"}
           spacing={2}
         >
+          <Box
+            sx={{
+              width: "100%",
+              border: `1px solid ${theme.palette.grey[800]}`,
+              p: 2,
+              borderRadius: "16px",
+            }}
+          >
+            <Typography
+              variant="subtitle2"
+              sx={{
+                color:
+                  theme.palette.mode !== "dark"
+                    ? theme.palette.grey[300]
+                    : theme.palette.grey[900],
+                fontSize: { xs: "3rem", sm: "6rem" },
+                textAlign: "left",
+                width: "100%",
+              }}
+            >
+              About-me
+            </Typography>
+          </Box>
           <Box
             sx={{
               border: `1px solid ${theme.palette.grey[800]}`,
@@ -31,27 +54,38 @@ export default function AboutMeContainer() {
                       : "black",
                 }}
               >
-                Hi! I'm Yong, a young web developer who loves React and
+                <Typography
+                  style={{ fontSize: "2rem", display: "inline-block" }}
+                >
+                  Hi!
+                </Typography>
+                &nbsp;I'm Yong, a young web developer who loves React and
                 Typescript. I'm working on a cool project that helps people find
-                and manage their books. It's still a demo, but it's already pretty
-                cool.
+                and manage their books. It's still a demo, but it's already
+                pretty cool.
                 <Box mt={3} />
                 You can add books to your shelf, mark them as new, reading, or
-                finished, and see their progress at a glance. I'm planning to add
-                more features in the future, so stay tuned!
+                finished, and see their progress at a glance. I'm planning to
+                add more features in the future, so stay tuned!
                 <Box mt={3} />
-                If you have any ideas, suggestions, or job openings, please hit me
-                up. I'm always looking for ways to improve my project and my
+                If you have any ideas, suggestions, or job openings, please hit
+                me up. I'm always looking for ways to improve my project and my
                 skills. Two minds are better than one, right?
               </Typography>
             </Box>
-            <Box my={2}>
-              <Divider sx={{ borderColor: theme.palette.grey[800] }} />
-            </Box>
+          </Box>
+          <Box
+            sx={{
+              width: "100%",
+              border: `1px solid ${theme.palette.grey[800]}`,
+              p: 2,
+              borderRadius: "16px",
+            }}
+          >
             <Stack
-              direction={{ xs: 'column', sm: 'row' }}
+              direction={{ xs: "column", sm: "row" }}
               justifyContent="flex-start"
-              alignItems={{ xs: 'start', sm: 'center' }}
+              alignItems={{ xs: "start", sm: "center" }}
               spacing={{ xs: 1, sm: 2 }}
               ml={1}
             >
@@ -76,18 +110,13 @@ export default function AboutMeContainer() {
                   Aydos Sankibaev
                 </Typography>
               </Box>
-              <Box
-                sx={{
-                  color:
-                    theme.palette.mode !== "dark"
-                      ? theme.palette.grey[300]
-                      : "black",
-                }}
-              >
-                <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                  |
-                </Box>
-              </Box>
+              <Box sx={{
+                color:
+                  theme.palette.mode !== "dark"
+                    ? theme.palette.grey[300]
+                    : "black",
+                display: { xs: "none", sm: "block" }
+              }}>|</Box>
               <Box display={"flex"} flexDirection={"row"} alignItems={"center"}>
                 <Typography
                   sx={{
@@ -109,18 +138,13 @@ export default function AboutMeContainer() {
                   @Aydos84744724
                 </Typography>
               </Box>
-              <Box
-                sx={{
-                  color:
-                    theme.palette.mode !== "dark"
-                      ? theme.palette.grey[300]
-                      : "black",
-                }}
-              >
-                <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                  |
-                </Box>
-              </Box>
+              <Box sx={{
+                color:
+                  theme.palette.mode !== "dark"
+                    ? theme.palette.grey[300]
+                    : "black",
+                display: { xs: "none", sm: "block" }
+              }}>|</Box>
               <Box display={"flex"} flexDirection={"row"} alignItems={"center"}>
                 <Typography
                   sx={{
@@ -142,10 +166,38 @@ export default function AboutMeContainer() {
                   AydosJs
                 </Typography>
               </Box>
+              <Box sx={{
+                color:
+                  theme.palette.mode !== "dark"
+                    ? theme.palette.grey[300]
+                    : "black",
+                display: { xs: "none", sm: "block" }
+              }}>|</Box>
+              <Box display={"flex"} flexDirection={"row"} alignItems={"center"}>
+                <Typography
+                  sx={{
+                    color:
+                      theme.palette.mode !== "dark"
+                        ? theme.palette.grey[300]
+                        : "black",
+                  }}
+                  variant="subtitle2"
+                >
+                  GitLab:&nbsp;
+                </Typography>
+                <Typography
+                  component={Link}
+                  to={"https://gitlab.com/Aydos"}
+                  color="primary"
+                  variant="subtitle2"
+                >
+                  Aydos
+                </Typography>
+              </Box>
             </Stack>
           </Box>
         </Stack>
-      </Container>
-    </MainLayout>
+      </Container >
+    </MainLayout >
   );
 }

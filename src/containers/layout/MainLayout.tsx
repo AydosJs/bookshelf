@@ -52,7 +52,8 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
             component="main"
             sx={{
               flexGrow: 1,
-              padding: 2,
+              px: { xs: 0, sm: 2 },
+              py: 2,
               minHeight: "calc(100vh - 64px)",
               position: 'relative'
             }}
