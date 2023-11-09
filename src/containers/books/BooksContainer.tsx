@@ -152,7 +152,7 @@ export default function BooksContainer() {
             }
           />
 
-          <Box mb={2}>
+          <Box mb={2} mt={2}>
             <Divider
               sx={{
                 "&::after": {

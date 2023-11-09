@@ -16,13 +16,15 @@ type Props = {
 }
 
 export default function BookStatus({ book }: Readonly<Props>) {
-  const [bookStatus, setBookStatus] = React.useState(book.status ? String(book.status) : "0");
+  const [bookStatus, setBookStatus] = React.useState(book.status ? String(book.status) : 0);
   const dispach = useDispatch()
+  const [loading, setLoading] = React.useState(false)
 
   const handleStatusChange = async (event: SelectChangeEvent) => {
-    if (event.target.value !== bookStatus) {
+    if (Number(event.target.value), Number(bookStatus)) {
       setBookStatus(event.target.value);
       try {
+        setLoading(true)
         const res = await editBook(book.book.id, {
           ...book,
           status: Number(event.target.value)
@@ -34,10 +36,13 @@ export default function BookStatus({ book }: Readonly<Props>) {
           toast.error(error.response?.data.message)
         }
       }
+      finally {
+        setLoading(false)
+      }
     }
   };
   return (
-    <FormControl sx={{ width: "100%" }}>
+    <FormControl disabled={loading} sx={{ width: "100%" }}>
       <InputLabel sx={{
         color: theme.palette.mode === 'light' ? theme.palette.grey[300] : theme.palette.grey[800]
       }} id="demo-simple-select-label">Status</InputLabel>
