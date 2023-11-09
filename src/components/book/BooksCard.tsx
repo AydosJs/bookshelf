@@ -39,6 +39,7 @@ export default function BooksCard({ item, deleteBook, withIMage }: Readonly<Prop
     flexWrap: "nowrap",
     overflow: "hidden",
 
+
     "&:hover": {
       boxShadow: `rgba(0, 0, 0, 0.45) 0px 25px 20px -20px`,
     },
@@ -68,6 +69,7 @@ export default function BooksCard({ item, deleteBook, withIMage }: Readonly<Prop
           margin: 0,
           cursor: "pointer",
           flexDirection: { xs: "column", sm: "row" },
+          minHeight: 385
         }}
       >
         {!withIMage && (

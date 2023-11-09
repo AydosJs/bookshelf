@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import theme from "../../themes";
 import { Book, BookWithStatus } from "../../types/common";
-import AllInboxIcon from "@mui/icons-material/AllInbox";
 import { useAppSelector } from "../../store/hooks";
 import { getMyBooks } from "../../store/bookSlice";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -26,6 +25,7 @@ const Item = styled(Grid)(() => ({
   flexDirection: "row",
   flexWrap: "nowrap",
   overflow: "hidden",
+  minHeight: 318,
 
   "&:hover": {
     boxShadow: `rgba(0, 0, 0, 0.45) 0px 25px 20px -20px`,
@@ -178,19 +178,10 @@ export default function SearchedBooksCard({
                 disabled={hasBook}
                 onClick={addBook}
                 loading={loader}
-                startIcon={<AllInboxIcon />}
                 variant="outlined"
                 sx={{
                   width: "100%",
                 }}
-              // sx={{
-              //   width: "100%",
-              //   "&.Mui-disabled": {
-              //     color: "#fff",
-              //     borderColor: theme.palette.grey[300],
-              //     cursor: 'not-allowed'
-              //   }
-              // }}
               >
                 Put on bookshelf
               </LoadingButton>
