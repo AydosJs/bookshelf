@@ -131,6 +131,9 @@ export default function BooksContainer() {
                 disabled={loader}
                 control={
                   <Checkbox
+                    sx={{
+                      color: theme.palette.mode === 'dark' ? theme.palette.grey[900] : theme.palette.grey[300],
+                    }}
                     checked={withIMage} onChange={() => setWithImage(!withIMage)}
                     name="withImage" id="withImage" size="small" />
                 }
