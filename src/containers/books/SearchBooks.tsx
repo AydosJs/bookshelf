@@ -34,6 +34,9 @@ export default function SearchBooks() {
       dispatch(setSearchedBooks(res));
       setEndOffset(LIMIT)
     } catch (error) {
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data.message)
+      }
       console.log('Error', error)
     } finally {
       setLoader(false);

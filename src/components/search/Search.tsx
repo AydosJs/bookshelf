@@ -6,6 +6,8 @@ import { useFormik } from "formik";
 import { Book } from '../../types/common';
 import theme from '../../themes';
 import { useState } from 'react';
+import { AxiosError } from 'axios';
+import toast from "react-hot-toast";
 
 
 const SearchStyle = styled('div')(() => ({
@@ -63,6 +65,9 @@ export default function Search({ onSubmit, hideImage, withIMage, arrayIsEmpty }:
         setLoader(true)
         await onSubmit(values);
       } catch (error) {
+        if (error instanceof AxiosError) {
+          toast.error(error.response?.data.message)
+        }
         console.log("Search error: ", error)
       } finally {
         setLoader(false)

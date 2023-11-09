@@ -55,6 +55,9 @@ export default function BooksContainer() {
         toast.success('Book successfully DELETED')
       }
     } catch (error) {
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data.message)
+      }
       console.log("Book delete error", error)
     } finally {
       setLoader(false);
