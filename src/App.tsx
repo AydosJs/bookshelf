@@ -40,7 +40,7 @@ function App() {
       <div id="taost-wrapper" >
         <Toaster
           containerStyle={{ zIndex: 999999999999999 }}
-          position="top-center"
+          position="bottom-center"
           reverseOrder={false}
         />
       </div>

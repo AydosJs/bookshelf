@@ -1,22 +1,15 @@
-import { Box, Button, styled, Typography, Grid, List, ListItem, ListItemText, ListItemIcon } from "@mui/material";
+import { Box, Button, styled, Typography, Grid, List, ListItem, ListItemText } from "@mui/material";
 import theme from "../../themes";
 import { BookWithStatus } from "../../types/common";
 import BookStatus from "./BookStatus";
 import DeleteIcon from '@mui/icons-material/Delete';
-import PersonIcon from '@mui/icons-material/Person';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import QrCodeIcon from '@mui/icons-material/QrCode';
-import LayersIcon from '@mui/icons-material/Layers';
 import DeviderStyled from "../DividerStyled";
 import LazyImg from "./LazyImg";
 
 
 const listItemStyle = {
-  paddingX: 0
-}
-
-const listItemIconStyle = {
-  minWidth: 32
+  paddingX: 0,
+  paddingY: 1
 }
 
 type Props = {
@@ -24,7 +17,7 @@ type Props = {
   deleteBook: () => void
 }
 
-export default function BooksCard({ item, deleteBook }: Props) {
+export default function BooksCard({ item, deleteBook }: Readonly<Props>) {
 
   const Item = styled(Grid)(() => ({
     background: item?.status === 0 ? theme.palette.mode === 'dark' ? '#fff' : theme.palette.grey[300] : item?.status === 1 ? '#D6FFF3' : "#72DDBD",
@@ -44,9 +37,6 @@ export default function BooksCard({ item, deleteBook }: Props) {
 
   }));
 
-  const styledIcon = {
-    // color: theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.text.primary
-  }
 
   return (
     <Grid item xs={12} sm={6} >
@@ -64,45 +54,37 @@ export default function BooksCard({ item, deleteBook }: Props) {
               <DeviderStyled />
 
               <ListItem sx={listItemStyle} >
-                <ListItemIcon sx={listItemIconStyle}>
-                  <PersonIcon style={styledIcon} />
-                </ListItemIcon>
                 <ListItemText >
-                  <Typography color={theme.palette.text.primary} variant="body2" sx={{ width: '100%', textAlign: 'left', WebkitBoxOrient: 'vertical', display: "-webkit-box", overflow: "hidden", WebkitLineClamp: "1" }}>
-                    <span style={{ fontWeight: 500, display: "inline-block" }}>Author:&nbsp;</span> {item?.book?.author}
+                  <Typography color={theme.palette.text.primary} variant="subtitle2" sx={{ width: '100%', textAlign: 'left', WebkitBoxOrient: 'vertical', display: "-webkit-box", overflow: "hidden", WebkitLineClamp: "1" }}>
+                    <span style={{ fontWeight: 500, display: "inline-block" }}>Author:&nbsp;</span>
+                    {item?.book?.author}
                   </Typography>
                 </ListItemText>
               </ListItem>
               <DeviderStyled />
               <ListItem sx={listItemStyle} >
-                <ListItemIcon sx={listItemIconStyle}>
-                  <CalendarMonthIcon style={styledIcon} />
-                </ListItemIcon>
                 <ListItemText >
-                  <Typography color={theme.palette.text.primary} variant="body2" sx={{ width: '100%', textAlign: 'left' }}>
-                    <span style={{ fontWeight: 500, display: "inline-block" }}>Published:&nbsp;</span> {item?.book?.published}
+                  <Typography color={theme.palette.text.primary} variant="subtitle2" sx={{ width: '100%', textAlign: 'left' }}>
+                    <span style={{ fontWeight: 500, display: "inline-block" }}>Published:&nbsp;</span>
+                    {item?.book?.published}
                   </Typography>
                 </ListItemText>
               </ListItem>
               <DeviderStyled />
               <ListItem sx={listItemStyle} >
-                <ListItemIcon sx={listItemIconStyle}>
-                  <QrCodeIcon style={styledIcon} />
-                </ListItemIcon>
                 <ListItemText >
-                  <Typography color={theme.palette.text.primary} variant="body2" sx={{ width: '100%', textAlign: 'left' }}>
-                    <span style={{ fontWeight: 500, display: "inline-block" }}>Isbn:&nbsp;</span> {item?.book?.isbn}
+                  <Typography color={theme.palette.text.primary} variant="subtitle2" sx={{ width: '100%', textAlign: 'left' }}>
+                    <span style={{ fontWeight: 500, display: "inline-block" }}>Isbn:&nbsp;</span>
+                    {item?.book?.isbn}
                   </Typography>
                 </ListItemText>
               </ListItem>
               <DeviderStyled />
               <ListItem sx={listItemStyle} >
-                <ListItemIcon sx={listItemIconStyle}>
-                  <LayersIcon style={styledIcon} />
-                </ListItemIcon>
                 <ListItemText >
-                  <Typography color={theme.palette.text.primary} variant="body2" sx={{ width: '100%', textAlign: 'left' }}>
-                    <span style={{ fontWeight: 500, display: "inline-block" }}>Pages:&nbsp;</span> {item?.book?.pages}
+                  <Typography color={theme.palette.text.primary} variant="subtitle2" sx={{ width: '100%', textAlign: 'left' }}>
+                    <span style={{ fontWeight: 500, display: "inline-block" }}>Pages:&nbsp;</span>
+                    {item?.book?.pages}
                   </Typography>
                 </ListItemText>
               </ListItem>
