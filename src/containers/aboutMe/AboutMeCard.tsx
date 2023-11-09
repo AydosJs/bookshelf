@@ -8,7 +8,7 @@ export default function AboutMeCard() {
     <Box sx={{
       border: `1px solid ${theme.palette.mode === 'dark' ? theme.palette.grey[800] : 'rgba(194, 224, 255, 0.08)'}`,
       p: 2,
-      borderRadius: "16px"
+      borderRadius: "4px"
     }}>
       <Box >
         <Typography variant="subtitle1" sx={{ color: theme.palette.mode !== "dark" ? theme.palette.grey[300] : 'black' }}>

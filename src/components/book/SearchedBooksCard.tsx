@@ -25,7 +25,6 @@ const Item = styled(Grid)(() => ({
   flexDirection: "row",
   flexWrap: "nowrap",
   overflow: "hidden",
-  minHeight: 318,
 
   "&:hover": {
     boxShadow: `rgba(0, 0, 0, 0.45) 0px 25px 20px -20px`,
@@ -92,8 +91,8 @@ export default function SearchedBooksCard({
                 }
                 variant="h6"
                 sx={{
+                  minHeight: 77,
                   marginBottom: 1,
-                  minHeight: 64,
                   fontSize: "1.5rem",
                   fontWeight: 700,
                   width: "100%",

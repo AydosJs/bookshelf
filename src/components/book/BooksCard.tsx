@@ -69,7 +69,6 @@ export default function BooksCard({ item, deleteBook, withIMage }: Readonly<Prop
           margin: 0,
           cursor: "pointer",
           flexDirection: { xs: "column", sm: "row" },
-          minHeight: 385
         }}
       >
         {!withIMage && (
@@ -99,7 +98,7 @@ export default function BooksCard({ item, deleteBook, withIMage }: Readonly<Prop
                 variant="h6"
                 sx={{
                   marginBottom: 1,
-                  minHeight: 64,
+                  minHeight: 77,
                   fontSize: "1.5rem",
                   fontWeight: 700,
                   width: "100%",
@@ -122,7 +121,7 @@ export default function BooksCard({ item, deleteBook, withIMage }: Readonly<Prop
                     color={
                       theme.palette.mode === "light"
                         ? theme.palette.grey[300]
-                        : theme.palette.text.primary
+                        : theme.palette.text.secondary
                     }
                     sx={{
                       width: "100%",
@@ -133,9 +132,9 @@ export default function BooksCard({ item, deleteBook, withIMage }: Readonly<Prop
                       WebkitLineClamp: "1",
                     }}
                   >
-                    <span style={{ fontWeight: 500, display: "inline-block" }}>
+                    <Typography style={{ display: "inline-block" }}>
                       Author:&nbsp;
-                    </span>
+                    </Typography>
                     {item?.book?.author}
                   </Typography>
                 </ListItemText>
@@ -148,7 +147,7 @@ export default function BooksCard({ item, deleteBook, withIMage }: Readonly<Prop
                     color={
                       theme.palette.mode === "light"
                         ? theme.palette.grey[300]
-                        : theme.palette.text.primary
+                        : theme.palette.text.secondary
                     }
                     sx={{ width: "100%", textAlign: "left" }}
                   >
@@ -167,7 +166,7 @@ export default function BooksCard({ item, deleteBook, withIMage }: Readonly<Prop
                     color={
                       theme.palette.mode === "light"
                         ? theme.palette.grey[300]
-                        : theme.palette.text.primary
+                        : theme.palette.text.secondary
                     }
                     sx={{ width: "100%", textAlign: "left" }}
                   >
@@ -185,7 +184,7 @@ export default function BooksCard({ item, deleteBook, withIMage }: Readonly<Prop
                     color={
                       theme.palette.mode === "light"
                         ? theme.palette.grey[300]
-                        : theme.palette.text.primary
+                        : theme.palette.text.secondary
                     }
                     variant="subtitle2"
                     sx={{ width: "100%", textAlign: "left" }}

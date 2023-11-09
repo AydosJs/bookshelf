@@ -19,7 +19,7 @@ export default function AboutMeContainer() {
               width: "100%",
               border: `1px solid ${theme.palette.grey[800]}`,
               p: 2,
-              borderRadius: "16px",
+              borderRadius: "4px",
             }}
           >
             <Typography
@@ -41,7 +41,7 @@ export default function AboutMeContainer() {
             sx={{
               border: `1px solid ${theme.palette.grey[800]}`,
               p: 2,
-              borderRadius: "16px",
+              borderRadius: "4px",
             }}
           >
             <Box>
@@ -79,7 +79,7 @@ export default function AboutMeContainer() {
               width: "100%",
               border: `1px solid ${theme.palette.grey[800]}`,
               p: 2,
-              borderRadius: "16px",
+              borderRadius: "4px",
             }}
           >
             <Stack
