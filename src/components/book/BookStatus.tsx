@@ -10,7 +10,6 @@ import { useDispatch } from 'react-redux';
 import { changeBookStatus } from '../../store/bookSlice';
 import theme from '../../themes';
 import { AxiosError } from 'axios';
-import palette from '../../themes/palette';
 
 type Props = {
   book: BookWithStatus

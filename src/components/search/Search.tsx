@@ -104,7 +104,7 @@ export default function Search({ onSubmit, hideImage, withIMage, arrayIsEmpty }:
               sx={{ borderRadius: "16px", backgroundColor: theme.palette.mode === 'dark' ? '#fff' : '#272B2F', border: `1px solid ${theme.palette.mode === 'light' ? 'rgba(194, 224, 255, 0.08)' : 'none'}`, }}
               label={
                 <FormControlLabel disabled={loader} control={
-                  <Checkbox checked={withIMage} name='withImage' id='withImage' onChange={hideImage} size="small" />
+                  <Checkbox checked={withIMage} onChange={hideImage} name='withImage' id='withImage' size="small" />
                 }
                   label={<Typography style={{ userSelect: 'none', color: theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.text.primary }} variant='subtitle2'>Show without image</Typography>}
                 />

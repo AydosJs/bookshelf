@@ -23,9 +23,10 @@ const listItemStyle = {
 type Props = {
   item: BookWithStatus;
   deleteBook: () => void;
+  withIMage: boolean;
 };
 
-export default function BooksCard({ item, deleteBook }: Readonly<Props>) {
+export default function BooksCard({ item, deleteBook, withIMage }: Readonly<Props>) {
   const Item = styled(Grid)(() => ({
     backgroundColor: theme.palette.mode === "dark" ? "#fff" : "#272B2F",
 
@@ -60,7 +61,7 @@ export default function BooksCard({ item, deleteBook }: Readonly<Props>) {
   };
 
   return (
-    <Grid item xs={12} sm={6}>
+    <Grid item xs={12} sm={withIMage ? 4 : 6}>
       <Item
         container
         sx={{
@@ -69,10 +70,13 @@ export default function BooksCard({ item, deleteBook }: Readonly<Props>) {
           flexDirection: { xs: "column", sm: "row" },
         }}
       >
-        <Grid item xs={12} sm={6} sx={{ p: 0, m: 0, zIndex: 2 }}>
-          <LazyImg index={0} url={item?.book?.cover} />
-        </Grid>
-        <Grid item xs={12} sm={6} sx={{ p: 3, pt: 2, position: "relative" }}>
+        {!withIMage && (
+          <Grid item xs={12} sm={6} sx={{ p: 0, m: 0, zIndex: 2 }}>
+            <LazyImg index={0} url={item?.book?.cover} />
+          </Grid>
+        )}
+
+        <Grid item xs={12} sm={withIMage ? 12 : 6} sx={{ p: 3, pt: 2, position: "relative" }}>
           <Box sx={styledBox} />
 
           <Box
