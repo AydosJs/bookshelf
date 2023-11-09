@@ -79,7 +79,7 @@ export default function SearchBooks() {
 
       {/* Loader */}
       {loader &&
-        <Box sx={{ width: '100%', position: 'fixed', top: '64px', left: 0 }}>
+        <Box sx={{ width: '100%', position: 'fixed', top: '64px', left: 0, zIndex: 99999 }}>
           <LinearProgress />
         </Box>
       }

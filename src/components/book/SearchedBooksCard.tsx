@@ -21,7 +21,7 @@ const Item = styled(Grid)(() => ({
   backgroundColor: theme.palette.mode === "dark" ? "#fff" : "#272B2F",
   textAlign: "center",
   color: theme.palette.grey[100],
-  borderRadius: "16px",
+  borderRadius: "4px",
   display: "flex",
   flexDirection: "row",
   flexWrap: "nowrap",
@@ -94,6 +94,8 @@ export default function SearchedBooksCard({
                 sx={{
                   marginBottom: 1,
                   minHeight: 64,
+                  fontSize: "1.5rem",
+                  fontWeight: 700,
                   width: "100%",
                   textAlign: "left",
                   padding: "0px",

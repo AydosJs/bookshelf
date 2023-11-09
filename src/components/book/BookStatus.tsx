@@ -46,7 +46,7 @@ export default function BookStatus({ book }: Readonly<Props>) {
 
       {/* Loader */}
       {loading &&
-        <Box sx={{ width: '100%', position: 'fixed', top: '64px', left: 0 }}>
+        <Box sx={{ width: '100%', position: 'fixed', top: '64px', left: 0, zIndex: 99999 }}>
           <LinearProgress />
         </Box>
       }

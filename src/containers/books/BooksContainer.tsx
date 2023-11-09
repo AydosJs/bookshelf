@@ -117,7 +117,7 @@ export default function BooksContainer() {
 
           <Chip
             sx={{
-              borderRadius: "16px",
+              borderRadius: "4px",
               mt: 2,
               backgroundColor:
                 theme.palette.mode === "dark" ? "#fff" : "#272B2F",

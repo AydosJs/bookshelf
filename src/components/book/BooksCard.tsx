@@ -33,7 +33,7 @@ export default function BooksCard({ item, deleteBook, withIMage }: Readonly<Prop
     ...theme.typography.body2,
     textAlign: "center",
     color: theme.palette.grey[100],
-    borderRadius: "16px",
+    borderRadius: "4px",
     display: "flex",
     flexDirection: "row",
     flexWrap: "nowrap",
@@ -98,6 +98,8 @@ export default function BooksCard({ item, deleteBook, withIMage }: Readonly<Prop
                 sx={{
                   marginBottom: 1,
                   minHeight: 64,
+                  fontSize: "1.5rem",
+                  fontWeight: 700,
                   width: "100%",
                   textAlign: "left",
                   padding: "0px",
