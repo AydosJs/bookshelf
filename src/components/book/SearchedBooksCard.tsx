@@ -176,7 +176,6 @@ export default function SearchedBooksCard({
                 disabled={hasBook}
                 onClick={addBook}
                 loading={loader}
-                loadingPosition="start"
                 startIcon={<AllInboxIcon />}
                 variant="outlined"
                 sx={{

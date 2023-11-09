@@ -2,7 +2,7 @@ import * as React from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { InputLabel } from '@mui/material';
+import { Box, InputLabel, LinearProgress } from '@mui/material';
 import { editBook } from '../../api/BooksAPI';
 import { BookWithStatus } from '../../types/common';
 import toast from 'react-hot-toast';
@@ -21,7 +21,7 @@ export default function BookStatus({ book }: Readonly<Props>) {
   const [loading, setLoading] = React.useState(false)
 
   const handleStatusChange = async (event: SelectChangeEvent) => {
-    if (Number(event.target.value), Number(bookStatus)) {
+    if (Number(event.target.value) !== Number(bookStatus)) {
       setBookStatus(event.target.value);
       try {
         setLoading(true)
@@ -43,6 +43,14 @@ export default function BookStatus({ book }: Readonly<Props>) {
   };
   return (
     <FormControl disabled={loading} sx={{ width: "100%" }}>
+
+      {/* Loader */}
+      {loading &&
+        <Box sx={{ width: '100%', position: 'fixed', top: '64px', left: 0 }}>
+          <LinearProgress />
+        </Box>
+      }
+
       <InputLabel sx={{
         color: theme.palette.mode === 'light' ? theme.palette.grey[300] : theme.palette.grey[800]
       }} id="demo-simple-select-label">Status</InputLabel>

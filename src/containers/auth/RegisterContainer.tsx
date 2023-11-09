@@ -141,7 +141,6 @@ export default function RegisterContainer() {
                 size="large"
                 color="primary"
                 loading={loading}
-                loadingPosition="start"
                 variant="contained"
                 type="submit"
                 sx={{ width: "100%", mt: 4 }}
