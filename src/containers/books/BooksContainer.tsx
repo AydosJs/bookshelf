@@ -14,27 +14,20 @@ import {
 import BooksCard from "../../components/book/BooksCard";
 import MainLayout from "../layout/MainLayout";
 import AddIcon from "@mui/icons-material/Add";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CreateBook from "./books-save/CreateBook";
-import { deleteBook, getBooks } from "../../api/BooksAPI";
 import { BookWithStatus } from "../../types/common";
-import { AxiosError } from "axios";
-import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
-import { useAppSelector } from "../../store/hooks";
-import { setMyBooks, getMyBooks } from "../../store/bookSlice";
 import { slice } from "lodash";
 import Loader from "../layout/Loader";
-import { logOut } from "../../store/auth";
 import MoreButton from "../../components/MoreButton";
+import { useShelfBooksData } from "./shelfHooks/useShelfBooksData";
+
 const LIMIT = 10;
 
 export default function BooksContainer() {
   const [endOffset, setEndOffset] = useState(LIMIT);
-  const [loader, setLoader] = useState<boolean>(false);
-  const dispatch = useDispatch();
-  const books = useAppSelector(getMyBooks);
   const [withIMage, setWithImage] = useState<boolean>(false)
+  const { data: shelfBooks, isDeleteBookLoading, isLoading: isBooksLoading, handleDelete } = useShelfBooksData();
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -42,54 +35,21 @@ export default function BooksContainer() {
     setOpen(false);
   };
 
-  const getList = async () => {
-    try {
-      setLoader(true);
-      const resp = await getBooks();
-      dispatch(setMyBooks(resp));
-    } catch (e) {
-      if ((e as AxiosError)?.response?.status === 401) {
-        dispatch(logOut());
-      }
-    } finally {
-      setLoader(false);
-    }
-  };
-
-  const handleDelete = async (id: number) => {
-    try {
-      setLoader(true);
-      if (confirm("Are you sure that you want to DELETE this book!")) {
-        const res = await deleteBook(id);
-        dispatch(setMyBooks(res));
-        toast.success("Book successfully DELETED");
-      }
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        toast.error(error.response?.data.message);
-      }
-      console.log("Book delete error", error);
-    } finally {
-      setLoader(false);
-    }
-  };
+  const shelfBooksLength = shelfBooks?.length ?? 0
+  const loading = isBooksLoading || isDeleteBookLoading;
 
   const fetchMore = () => {
     setEndOffset(endOffset + LIMIT);
   };
 
-  useEffect(() => {
-    getList();
-  }, []);
-
   return (
     <MainLayout>
-      {loader && (
+      {loading && (
         <Box
           sx={{
             width: "100%",
             position: "fixed",
-            top: 0,
+            top: 64,
             left: 0,
             zIndex: 9999999,
           }}
@@ -100,7 +60,7 @@ export default function BooksContainer() {
       )}
 
       {/* TITLE */}
-      {books?.length !== 0 && (
+      {shelfBooksLength !== 0 && (
         <Box mb={4} mt={2}>
 
           <Typography
@@ -128,7 +88,7 @@ export default function BooksContainer() {
             }}
             label={
               <FormControlLabel
-                disabled={loader}
+                disabled={loading}
                 control={
                   <Checkbox
                     sx={{
@@ -195,7 +155,7 @@ export default function BooksContainer() {
                     }}
                   >
                     <Box sx={{ display: "inline-block" }} mr={0.5}>
-                      {books?.length}
+                      {shelfBooksLength}
                     </Box>
                     books on you shelf
                   </Typography>
@@ -206,12 +166,12 @@ export default function BooksContainer() {
         </Box>
       )}
 
-      {(books?.length == 0 || !books) && (
-        <Loader loader={loader} text="Shelf empty." />
+      {(shelfBooksLength == 0 || !shelfBooks) && (
+        <Loader loader={loading} text="Shelf empty." />
       )}
       {/* book cards */}
       <Grid container spacing={4}>
-        {slice(books, 0, endOffset).map((item: BookWithStatus) => (
+        {slice(shelfBooks, 0, endOffset).map((item: BookWithStatus) => (
           <BooksCard
             withIMage={withIMage}
             deleteBook={() => handleDelete(item.book.id)}
@@ -221,9 +181,9 @@ export default function BooksContainer() {
         ))}
 
         {/* MORE BUTTON */}
-        {books?.length !== 0 && books?.length >= endOffset && (
+        {shelfBooksLength !== 0 && shelfBooksLength >= endOffset && (
           <MoreButton
-            disabled={endOffset >= books?.length}
+            disabled={endOffset >= shelfBooksLength}
             fetchMore={fetchMore}
           />
         )}
@@ -247,7 +207,6 @@ export default function BooksContainer() {
 
       {/* BOOK CREATE MODAL  */}
       <CreateBook
-        updateList={() => getList()}
         open={open}
         handleClose={() => handleClose()}
         handleOpen={() => handleOpen()}

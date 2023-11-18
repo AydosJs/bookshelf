@@ -32,11 +32,10 @@ export interface BookPayload extends Partial<Book> {
 interface Props {
   handleOpen: () => void,
   handleClose: () => void,
-  updateList?: () => void,
   open: boolean,
 }
 
-export default function CreateBook({ handleClose, open, updateList }: Props) {
+export default function CreateBook({ handleClose, open }: Props) {
 
   const [loader, setLoader] = useState<boolean>(false);
   const { pathname } = useLocation()
@@ -60,7 +59,6 @@ export default function CreateBook({ handleClose, open, updateList }: Props) {
         }
       } finally {
         setLoader(false);
-        updateList ? updateList() : null
       }
 
       handleClose()
