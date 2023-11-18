@@ -1,5 +1,5 @@
 import { DELETE, get, patch, post } from "./ApiClient";
-import { BookPayload } from "../containers/books/books-save/CreateBook";
+import { BookPayload } from "../containers/books/shelfBooks/CreateBook";
 import { Book, BookWithStatus } from "../types/common";
 
 export function getBooks() {

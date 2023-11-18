@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom"
-import BooksContainer from "./containers/books/BooksContainer"
+import BooksContainer from "./containers/books/shelfBooks/BooksContainer"
 import RegisterContainer from "./containers/auth/RegisterContainer"
 import ProtectedRoute from "./providers/ProtectedRoute"
 import AuthRoute from "./providers/AuthRoute"

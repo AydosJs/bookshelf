@@ -4,14 +4,11 @@ import Modal from '@mui/material/Modal';
 import theme from '../../../themes';
 import { FormControl, TextField } from '@mui/material';
 import { useFormik } from 'formik';
-import { createBook } from '../../../api/BooksAPI';
 import { Book } from '../../../types/common';
-import { useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
-import toast from 'react-hot-toast';
 import * as Yup from 'yup'
-import { AxiosError } from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useShelfBooksData } from './useShelfBooksData';
 
 const style = {
   position: 'absolute',
@@ -30,16 +27,15 @@ export interface BookPayload extends Partial<Book> {
 }
 
 interface Props {
-  handleOpen: () => void,
   handleClose: () => void,
   open: boolean,
 }
 
-export default function CreateBook({ handleClose, open }: Props) {
+export default function CreateBook({ handleClose, open }: Readonly<Props>) {
 
-  const [loader, setLoader] = useState<boolean>(false);
   const { pathname } = useLocation()
   const navigate = useNavigate()
+  const { handleCreate, createBookLoading } = useShelfBooksData()
 
   const formik = useFormik<BookPayload>({
     initialValues: {
@@ -49,18 +45,7 @@ export default function CreateBook({ handleClose, open }: Props) {
       isbn: Yup.string().required('Required'),
     }),
     onSubmit: async (values) => {
-      try {
-        setLoader(true);
-        await createBook(values);
-        toast.success('Book successfully CREATED')
-      } catch (err) {
-        if (err instanceof AxiosError) {
-          toast.error(err.response?.data.message)
-        }
-      } finally {
-        setLoader(false);
-      }
-
+      handleCreate(values)
       handleClose()
       formik.resetForm()
       if (pathname !== '/') {
@@ -97,7 +82,7 @@ export default function CreateBook({ handleClose, open }: Props) {
             </Box>
 
             <LoadingButton
-              loading={loader}
+              loading={createBookLoading}
               type="submit"
               fullWidth
               size="large"

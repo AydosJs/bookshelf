@@ -1,4 +1,4 @@
-import theme from "../../themes";
+import theme from "../../../themes";
 import {
   Box,
   Checkbox,
@@ -11,16 +11,16 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import BooksCard from "../../components/book/BooksCard";
-import MainLayout from "../layout/MainLayout";
+import BooksCard from "../../../components/book/BooksCard";
+import MainLayout from "../../layout/MainLayout";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
-import CreateBook from "./books-save/CreateBook";
-import { BookWithStatus } from "../../types/common";
+import CreateBook from "./CreateBook";
+import { BookWithStatus } from "../../../types/common";
 import { slice } from "lodash";
-import Loader from "../layout/Loader";
-import MoreButton from "../../components/MoreButton";
-import { useShelfBooksData } from "./shelfHooks/useShelfBooksData";
+import Loader from "../../layout/Loader";
+import MoreButton from "../../../components/MoreButton";
+import { useShelfBooksData } from "./useShelfBooksData";
 
 const LIMIT = 10;
 
@@ -209,7 +209,6 @@ export default function BooksContainer() {
       <CreateBook
         open={open}
         handleClose={() => handleClose()}
-        handleOpen={() => handleOpen()}
       />
     </MainLayout>
   );
