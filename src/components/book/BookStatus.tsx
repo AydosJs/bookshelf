@@ -30,7 +30,7 @@ export default function BookStatus({ book }: Readonly<Props>) {
           status: Number(event.target.value)
         })
         dispach(changeBookStatus(res))
-        toast.success('Status successfully EDITED')
+        toast.success('The modification has been successfully made')
       } catch (error) {
         if (error instanceof AxiosError) {
           toast.error(error.response?.data.message)
@@ -41,6 +41,7 @@ export default function BookStatus({ book }: Readonly<Props>) {
       }
     }
   };
+
   return (
     <FormControl disabled={loading} sx={{ width: "100%" }}>
 

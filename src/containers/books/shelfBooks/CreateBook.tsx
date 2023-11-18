@@ -44,7 +44,7 @@ export default function CreateBook({ handleClose, open }: Readonly<Props>) {
     validationSchema: Yup.object({
       isbn: Yup.string().required('Required'),
     }),
-    onSubmit: async (values) => {
+    onSubmit: (values) => {
       handleCreate(values)
       handleClose()
       formik.resetForm()
