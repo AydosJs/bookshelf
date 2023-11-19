@@ -14,7 +14,7 @@ import { getMyBooks } from "../../store/bookSlice";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { some } from "lodash";
 import DeviderStyled from "../DividerStyled";
-import LazyImg from "./LazyImg";
+import LazyImg from "../LazyImg";
 
 const Item = styled(Grid)(() => ({
   backgroundColor: theme.palette.mode === "dark" ? "#fff" : "#272B2F",

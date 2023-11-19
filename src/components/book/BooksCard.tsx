@@ -13,7 +13,7 @@ import { BookWithStatus } from "../../types/common";
 import BookStatus from "./BookStatus";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DeviderStyled from "../DividerStyled";
-import LazyImg from "./LazyImg";
+import LazyImg from "../LazyImg";
 
 const listItemStyle = {
   paddingX: 0,

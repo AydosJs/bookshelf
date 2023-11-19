@@ -154,10 +154,8 @@ export default function BooksContainer() {
                       fontSize: "0.8125rem",
                     }}
                   >
-                    <Box sx={{ display: "inline-block" }} mr={0.5}>
-                      {shelfBooksLength}
-                    </Box>
-                    books on you shelf
+                    {shelfBooksLength}&nbsp;
+                    books on your shelf
                   </Typography>
                 }
               />
@@ -170,7 +168,7 @@ export default function BooksContainer() {
         <Loader loader={loading} text="Shelf empty." />
       )}
       {/* book cards */}
-      <Grid container spacing={4}>
+      <Grid container spacing={4} mb={4}>
         {slice(shelfBooks, 0, endOffset).map((item: BookWithStatus) => (
           <BooksCard
             withIMage={withIMage}

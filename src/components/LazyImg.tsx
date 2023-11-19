@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 // import LOADINGIMG from '../../assets/loadingimg.jpg'
-import ERRORIMG from '../../assets/Noimageplaceholder.png'
-import LOADINGIMG from "../../assets/loadingGif.gif";
+import ERRORIMG from '../assets/Noimageplaceholder.png'
+import LOADINGIMG from "../assets/loadingGif.gif";
 
 
 type Props = {

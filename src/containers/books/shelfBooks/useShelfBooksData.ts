@@ -5,12 +5,11 @@ import { AxiosError } from "axios";
 import { useDispatch } from "react-redux";
 import { logOut } from "../../../store/auth";
 import toast from "react-hot-toast";
-import { BookPayload } from "./CreateBook";
 
 export function useShelfBooksData() {
   const queryClient = useQueryClient();
 
-  const handleError = () => {
+  const handleError = (error: unknown) => {
     if (error instanceof AxiosError) {
       toast.error(error.response?.data.message);
     }
@@ -28,40 +27,34 @@ export function useShelfBooksData() {
     dispatch(logOut());
   }
 
-  const mutation = useMutation(deleteBook, {
-    onSuccess: () => {
+  const deleteBookMutation = useMutation(deleteBook, {
+    onSuccess: (newData) => {
+      queryClient.setQueryData("bookshelf", newData);
       toast.success("Book has been successfully deleted!");
-      queryClient.invalidateQueries("bookshelf");
     },
     onError: handleError,
   });
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = (id: number) => {
     if (confirm("Are you absolutely certain about deleting this book?")) {
-      mutation.mutate(id);
+      deleteBookMutation.mutate(id);
     }
   };
 
   const createMutation = useMutation(createBook, {
     onSuccess: () => {
-      toast.success("Book successfully CREATED");
       queryClient.invalidateQueries("bookshelf");
+      toast.success("Book successfully CREATED");
     },
     onError: handleError,
   });
-
-  const handleCreate = async (values: BookPayload) => {
-    createMutation.mutate(values);
-  };
 
   return {
     data,
     error,
     isLoading: isBooksLoading,
-    createBookLoading: createMutation.isLoading,
-    isError,
     handleDelete,
-    handleCreate,
-    isDeleteBookLoading: mutation.isLoading,
+    isDeleteBookLoading: deleteBookMutation.isLoading,
+    createBookMutation: createMutation,
   };
 }

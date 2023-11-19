@@ -35,7 +35,7 @@ export default function CreateBook({ handleClose, open }: Readonly<Props>) {
 
   const { pathname } = useLocation()
   const navigate = useNavigate()
-  const { handleCreate, createBookLoading } = useShelfBooksData()
+  const { createBookMutation } = useShelfBooksData()
 
   const formik = useFormik<BookPayload>({
     initialValues: {
@@ -45,7 +45,7 @@ export default function CreateBook({ handleClose, open }: Readonly<Props>) {
       isbn: Yup.string().required('Required'),
     }),
     onSubmit: (values) => {
-      handleCreate(values)
+      createBookMutation.mutate(values)
       handleClose()
       formik.resetForm()
       if (pathname !== '/') {
@@ -82,7 +82,7 @@ export default function CreateBook({ handleClose, open }: Readonly<Props>) {
             </Box>
 
             <LoadingButton
-              loading={createBookLoading}
+              loading={createBookMutation.isLoading}
               type="submit"
               fullWidth
               size="large"

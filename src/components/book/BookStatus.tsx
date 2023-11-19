@@ -3,12 +3,11 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { Box, InputLabel, LinearProgress } from '@mui/material';
-import { editBook } from '../../api/BooksAPI';
 import { BookWithStatus } from '../../types/common';
-import toast from 'react-hot-toast';
-import { useDispatch } from 'react-redux';
-import { changeBookStatus } from '../../store/bookSlice';
 import theme from '../../themes';
+import { useMutation, useQueryClient } from 'react-query';
+import { editBook } from '../../api/BooksAPI';
+import toast from 'react-hot-toast';
 import { AxiosError } from 'axios';
 
 type Props = {
@@ -17,36 +16,50 @@ type Props = {
 
 export default function BookStatus({ book }: Readonly<Props>) {
   const [bookStatus, setBookStatus] = React.useState(book.status ? String(book.status) : 0);
-  const dispach = useDispatch()
-  const [loading, setLoading] = React.useState(false)
+  const queryClient = useQueryClient();
 
-  const handleStatusChange = async (event: SelectChangeEvent) => {
-    if (Number(event.target.value) !== Number(bookStatus)) {
-      setBookStatus(event.target.value);
-      try {
-        setLoading(true)
-        const res = await editBook(book.book.id, {
-          ...book,
-          status: Number(event.target.value)
-        })
-        dispach(changeBookStatus(res))
-        toast.success('The modification has been successfully made')
-      } catch (error) {
+  const editStatusMutate = useMutation(
+    (data: { id: number; body: BookWithStatus }) => {
+      const { id, body } = data;
+      return editBook(id, body);
+    },
+    {
+      onSuccess: (data: BookWithStatus) => {
+        const currentData = queryClient.getQueryData<BookWithStatus[]>('bookshelf');
+        if (currentData) {
+          const itemIndex = currentData?.findIndex((book) => book.book.id === data.book.id);
+          currentData[itemIndex] = data;
+          queryClient.setQueryData('bookshelf', currentData);
+        }
+        toast.success("The modification has been successfully made");
+      },
+      onError: (error) => {
         if (error instanceof AxiosError) {
-          toast.error(error.response?.data.message)
+          toast.error(error.response?.data.message);
         }
       }
-      finally {
-        setLoading(false)
+    }
+  );
+
+  const handleStatusChange = (event: SelectChangeEvent) => {
+    event.stopPropagation()
+    event.preventDefault()
+    if (Number(event.target.value) !== Number(bookStatus)) {
+      setBookStatus(event.target.value);
+      const bookId = book.book.id
+      const bookData = {
+        ...book,
+        status: Number(event.target.value)
       }
+      editStatusMutate.mutate({ id: bookId, body: bookData })
     }
   };
 
   return (
-    <FormControl disabled={loading} sx={{ width: "100%" }}>
+    <FormControl disabled={editStatusMutate.isLoading} sx={{ width: "100%" }}>
 
       {/* Loader */}
-      {loading &&
+      {editStatusMutate.isLoading &&
         <Box sx={{ width: '100%', position: 'fixed', top: '64px', left: 0, zIndex: 99999 }}>
           <LinearProgress />
         </Box>
