@@ -46,12 +46,12 @@ export default function RegisterContainer() {
     //   borderColor: theme.palette.mode === 'light' ? theme.palette.grey[300] : 'none'
     // },
     "& .MuiFilledInput-root": {
-      backgroundColor: '#272B2F',
+      backgroundColor: theme.palette.mode === 'light' ? theme.palette.background.paper : 'none',
     }
   }
 
   return (
-    <Box sx={{ width: '100%', height: "100%", backgroundColor: theme.palette.mode === 'light' ? '#212529' : 'white' }}>
+    <Box sx={{ width: '100%', height: "100%", backgroundColor: theme.palette.mode === 'light' ? theme.palette.background.default : 'white' }}>
       <Container maxWidth="xs" sx={{ px: 4 }}>
         <Box sx={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
           <Box
@@ -143,7 +143,10 @@ export default function RegisterContainer() {
                 loading={loading}
                 variant="contained"
                 type="submit"
-                sx={{ width: "100%", mt: 4 }}
+                sx={{
+                  width: "100%", mt: 4,
+                  boxShadow: "rgba(52, 152, 219, 0.1) 0px 0px 29px 0px",
+                }}
               >
                 <span>Create account</span>
               </LoadingButton>

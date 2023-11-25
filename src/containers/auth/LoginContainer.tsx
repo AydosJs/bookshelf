@@ -8,7 +8,7 @@ export default function LoginContainer() {
 
 
   return (
-    <Box sx={{ width: '100%', height: "100%", backgroundColor: theme.palette.mode === 'light' ? '#212529' : 'white' }}>
+    <Box sx={{ width: '100%', height: "100%", backgroundColor: theme.palette.mode === 'light' ? theme.palette.background.default : 'white' }}>
       <Container maxWidth="xs" sx={{ px: 4 }}>
         <Box sx={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
           <Box

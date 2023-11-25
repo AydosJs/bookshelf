@@ -41,7 +41,7 @@ export default function Sidebar({ open, handleClose }: Readonly<Props>) {
       top: "64px",
       zIndex: 999999999,
       height: "calc(100vh - 64px)",
-      background: theme.palette.mode === "light" ? "#212529" : "#fff",
+      background: theme.palette.mode === "light" ? theme.palette.background.default : "#fff",
       borderColor:
         theme.palette.mode === "dark" ? "none" : "rgba(194, 224, 255, 0.08)",
       width: drawerWidth,
@@ -90,12 +90,12 @@ export default function Sidebar({ open, handleClose }: Readonly<Props>) {
                     backgroundColor:
                       pathname === "/"
                         ? theme.palette.mode === "light"
-                          ? "#272B2F"
+                          ? theme.palette.background.paper
                           : theme.palette.grey[100]
                         : "",
 
                     '&:hover': {
-                      background: theme.palette.mode === "light" ? 'rgb(25 118 210 / 6%)' : theme.palette.grey[100],
+                      background: theme.palette.mode === "light" ? theme.palette.background.paper : theme.palette.grey[100],
                     }
                   }}
                 >
@@ -134,11 +134,11 @@ export default function Sidebar({ open, handleClose }: Readonly<Props>) {
                     backgroundColor:
                       pathname === "/search-books"
                         ? theme.palette.mode === "light"
-                          ? "#272B2F"
+                          ? theme.palette.background.paper
                           : theme.palette.grey[100]
                         : "",
                     '&:hover': {
-                      background: theme.palette.mode === "light" ? 'rgb(25 118 210 / 6%)' : theme.palette.grey[100],
+                      background: theme.palette.mode === "light" ? theme.palette.background.paper : theme.palette.grey[100],
                     }
                   }}
                 >
@@ -177,11 +177,11 @@ export default function Sidebar({ open, handleClose }: Readonly<Props>) {
                     backgroundColor:
                       pathname === "/about-me"
                         ? theme.palette.mode === "light"
-                          ? "#272B2F"
+                          ? theme.palette.background.paper
                           : theme.palette.grey[100]
                         : "",
                     '&:hover': {
-                      background: theme.palette.mode === "light" ? 'rgb(25 118 210 / 6%)' : theme.palette.grey[100],
+                      background: theme.palette.mode === "light" ? theme.palette.background.paper : theme.palette.grey[100],
                     }
                   }}
                 >
@@ -223,7 +223,7 @@ export default function Sidebar({ open, handleClose }: Readonly<Props>) {
               <ListItemButton style={styledListItemButton}
                 sx={{
                   '&:hover': {
-                    background: theme.palette.mode === "light" ? 'rgb(25 118 210 / 6%)' : theme.palette.grey[100],
+                    background: theme.palette.mode === "light" ? theme.palette.background.paper : theme.palette.grey[100],
                   }
                 }}
               >

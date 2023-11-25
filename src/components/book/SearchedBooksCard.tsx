@@ -17,7 +17,7 @@ import DeviderStyled from "../DividerStyled";
 import LazyImg from "../LazyImg";
 
 const Item = styled(Grid)(() => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#fff" : "#272B2F",
+  backgroundColor: theme.palette.mode === "dark" ? "#fff" : theme.palette.background.paper,
   textAlign: "center",
   color: theme.palette.grey[100],
   borderRadius: "4px",

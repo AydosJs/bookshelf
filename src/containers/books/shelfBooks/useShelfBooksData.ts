@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 
 export function useShelfBooksData() {
   const queryClient = useQueryClient();
+  const dispatch = useDispatch();
 
   const handleError = (error: unknown) => {
     if (error instanceof AxiosError) {
@@ -16,12 +17,10 @@ export function useShelfBooksData() {
   };
 
   const {
-    data,
-    error,
+    data: shelfBooks,
     isError,
     isLoading: isBooksLoading,
   } = useQuery<BookWithStatus[] | undefined>("bookshelf", () => getBooks());
-  const dispatch = useDispatch();
 
   if ((isError as unknown as AxiosError)?.response?.status === 401) {
     dispatch(logOut());
@@ -50,8 +49,7 @@ export function useShelfBooksData() {
   });
 
   return {
-    data,
-    error,
+    shelfBooks,
     isLoading: isBooksLoading,
     handleDelete,
     isDeleteBookLoading: deleteBookMutation.isLoading,

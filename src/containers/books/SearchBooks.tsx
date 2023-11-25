@@ -4,7 +4,7 @@ import Search from "../../components/search/Search";
 import { Book } from "../../types/common";
 import MainLayout from "../layout/MainLayout";
 import SearchedBooksCard from "../../components/book/SearchedBooksCard";
-import { Box, Chip, Divider, Grid, LinearProgress, Typography } from "@mui/material";
+import { Box, Divider, Grid, LinearProgress } from "@mui/material";
 import toast from "react-hot-toast";
 import { AxiosError } from "axios";
 import { useDispatch } from "react-redux";
@@ -14,6 +14,7 @@ import { eq, slice } from "lodash";
 import MoreButton from "../../components/MoreButton";
 import AboutMe from "../aboutMe/AboutMeCard";
 import theme from "../../themes";
+import ChipStyled from "../../components/ChipStyled";
 
 const LIMIT = 10
 
@@ -110,16 +111,7 @@ export default function SearchBooks() {
               }
             }}
           >
-            <Chip
-              size="medium" sx={{ color: theme.palette.mode === 'light' ? '#fff' : 'black', backgroundColor: theme.palette.mode === 'light' ? "#272B2F" : "white", borderColor: theme.palette.mode === 'light' ? 'rgba(194, 224, 255, 0.08)' : 'white' }}
-              label={
-                <Typography variant="body2" sx={{ color: theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.grey[900], fontSize: '0.8125rem' }}>
-                  <Box sx={{ display: 'inline-block' }} mr={.5}>
-                    {searchedBooks?.length}
-                  </Box>
-                  book results
-                </Typography>
-              } />
+            <ChipStyled amount={searchedBooks?.length} />
           </Divider>
         </Box>
       )}

@@ -21,13 +21,14 @@ import { slice } from "lodash";
 import Loader from "../../layout/Loader";
 import MoreButton from "../../../components/MoreButton";
 import { useShelfBooksData } from "./useShelfBooksData";
+import ChipStyled from "../../../components/ChipStyled";
 
 const LIMIT = 10;
 
 export default function BooksContainer() {
   const [endOffset, setEndOffset] = useState(LIMIT);
   const [withIMage, setWithImage] = useState<boolean>(false)
-  const { data: shelfBooks, isDeleteBookLoading, isLoading: isBooksLoading, handleDelete } = useShelfBooksData();
+  const { shelfBooks, isDeleteBookLoading, isLoading: isBooksLoading, handleDelete } = useShelfBooksData();
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -77,14 +78,10 @@ export default function BooksContainer() {
 
           <Chip
             sx={{
-              borderRadius: "4px",
               mt: 2,
-              backgroundColor:
-                theme.palette.mode === "dark" ? "#fff" : "#272B2F",
-              border: `1px solid ${theme.palette.mode === "light"
-                ? "rgba(194, 224, 255, 0.08)"
-                : "none"
-                }`,
+              borderRadius: "4px",
+              backgroundColor: theme.palette.mode === 'dark' ? '#fff' : theme.palette.background.paper,
+              border: `1px solid ${theme.palette.mode === 'light' ? 'rgba(194, 224, 255, 0.08)' : 'none'}`,
             }}
             label={
               <FormControlLabel
@@ -116,49 +113,15 @@ export default function BooksContainer() {
           />
 
           <Box mb={2} mt={2}>
-            <Divider
-              sx={{
-                "&::after": {
-                  borderColor:
-                    theme.palette.mode === "light"
-                      ? "rgba(194, 224, 255, 0.08)"
-                      : "none",
-                },
-                "&::before": {
-                  borderColor:
-                    theme.palette.mode === "light"
-                      ? "rgba(194, 224, 255, 0.08)"
-                      : "none",
-                },
-              }}
-            >
-              <Chip
-                size="medium"
-                sx={{
-                  color: theme.palette.mode === "light" ? "#fff" : "black",
-                  backgroundColor:
-                    theme.palette.mode === "light" ? "#272B2F" : "white",
-                  borderColor:
-                    theme.palette.mode === "light"
-                      ? "rgba(194, 224, 255, 0.08)"
-                      : "white",
-                }}
-                label={
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color:
-                        theme.palette.mode === "light"
-                          ? theme.palette.grey[100]
-                          : theme.palette.grey[900],
-                      fontSize: "0.8125rem",
-                    }}
-                  >
-                    {shelfBooksLength}&nbsp;
-                    books on your shelf
-                  </Typography>
-                }
-              />
+            <Divider sx={{
+              "&::after": {
+                borderColor: theme.palette.mode === 'light' ? 'rgba(194, 224, 255, 0.08)' : 'none'
+              },
+              "&::before": {
+                borderColor: theme.palette.mode === 'light' ? 'rgba(194, 224, 255, 0.08)' : 'none'
+              }
+            }}>
+              <ChipStyled amount={shelfBooksLength} />
             </Divider>
           </Box>
         </Box>
@@ -191,6 +154,7 @@ export default function BooksContainer() {
         <Fab
           onClick={() => handleOpen()}
           sx={{
+            boxShadow: "rgba(52, 152, 219, 0.3) 0px 0px 29px 0px",
             position: "fixed",
             right: theme.spacing(2.5),
             bottom: theme.spacing(2.5),

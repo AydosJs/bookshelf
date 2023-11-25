@@ -14,8 +14,8 @@ const SearchStyle = styled('div')(() => ({
   position: 'relative',
   borderRadius: '4px',
   marginLeft: 0,
-  backgroundColor: theme.palette.mode === 'dark' ? 'white' : '#272B2F',
-  border: `1px solid ${theme.palette.mode === 'light' ? 'rgba(194, 224, 255, 0.08)' : 'none'}`,
+  backgroundColor: theme.palette.mode === 'dark' ? 'white' : theme.palette.background.paper,
+  border: `1px solid ${theme.palette.mode === 'light' ? theme.palette.divider : 'none'}`,
   overflow: 'hidden',
   width: '100%',
 }));
@@ -101,7 +101,11 @@ export default function Search({ onSubmit, hideImage, withIMage, arrayIsEmpty }:
             mt={1}
           >
             <Chip
-              sx={{ borderRadius: "4px", backgroundColor: theme.palette.mode === 'dark' ? '#fff' : '#272B2F', border: `1px solid ${theme.palette.mode === 'light' ? 'rgba(194, 224, 255, 0.08)' : 'none'}`, }}
+              sx={{
+                borderRadius: "4px",
+                backgroundColor: theme.palette.mode === 'dark' ? '#fff' : theme.palette.background.paper,
+                border: `1px solid ${theme.palette.mode === 'light' ? 'rgba(194, 224, 255, 0.08)' : 'none'}`,
+              }}
               label={
                 <FormControlLabel disabled={loader} control={
                   <Checkbox

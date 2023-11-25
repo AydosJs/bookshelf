@@ -66,7 +66,7 @@ export default function AppBarComponent({
           paddingY: { xs: "4px", sm: "0px" },
           left: 0,
           right: 0,
-          backgroundColor: theme.palette.mode === "dark" ? "white" : "#212529",
+          backgroundColor: theme.palette.mode === "dark" ? "white" : theme.palette.background.default,
           boxShadow:
             theme.palette.mode === "dark"
               ? `rgba(149, 157, 165, 0.2) 0px 8px 24px`

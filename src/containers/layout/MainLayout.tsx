@@ -23,7 +23,7 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
     width: "100%",
     position: "relative",
     mt: { xs: 8, sm: 8 },
-    backgroundColor: theme.palette.mode === 'dark' ? '#F1F3F8' : '#212529',
+    backgroundColor: theme.palette.mode === 'dark' ? '#F1F3F8' : theme.palette.background.default,
     // marginRight: { xs: state ? '240px' : '0px', sm: 0 }
   }
 

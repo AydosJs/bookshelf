@@ -6,7 +6,7 @@ type SettingsType = {
 };
 
 const initialState: SettingsType = {
-  mode: "dark",
+  mode: "light",
 };
 
 const settingsSlice = createSlice({

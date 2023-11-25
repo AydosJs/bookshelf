@@ -28,7 +28,7 @@ type Props = {
 
 export default function BooksCard({ item, deleteBook, withIMage }: Readonly<Props>) {
   const Item = styled(Grid)(() => ({
-    backgroundColor: theme.palette.mode === "dark" ? "#fff" : "#272B2F",
+    backgroundColor: theme.palette.mode === "dark" ? "#fff" : theme.palette.background.paper,
 
     ...theme.typography.body2,
     textAlign: "center",
@@ -59,6 +59,14 @@ export default function BooksCard({ item, deleteBook, withIMage }: Readonly<Prop
         : item?.status === 1
           ? "#3498db"
           : "#27ae60",
+
+    boxShadow:
+      item?.status === 0
+        ? 'rgba(241, 196, 15, 0.2) 0px 0px 29px 0px'
+        : item?.status === 1
+          ? "rgba(52, 152, 219, 0.2) 0px 0px 29px 0px"
+          : "rgba(39, 174, 96, 0.2) 0px 0px 29px 0px",
+
   };
 
   return (
@@ -113,7 +121,6 @@ export default function BooksCard({ item, deleteBook, withIMage }: Readonly<Prop
                 {item?.book?.title}
               </Typography>
               <DeviderStyled />
-
               <ListItem sx={listItemStyle}>
                 <ListItemText>
                   <Typography

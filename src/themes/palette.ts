@@ -62,11 +62,11 @@ export default {
     dark: grey[300],
   },
   background: {
-    default: "#F4F6F8",
-    paper: white,
+    default: "#101418",
+    paper: "#14191F",
   },
   contrastThreshold: 3,
   tonalOffset: 0.1,
   icon: colors.blueGrey[600],
-  divider: colors.grey[200],
+  divider: "rgba(194, 224, 255, 0.08)",
 };
